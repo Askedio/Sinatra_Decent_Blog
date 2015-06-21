@@ -1,2 +1,2 @@
 require './app'
-run Post
+run HelloWorldApp

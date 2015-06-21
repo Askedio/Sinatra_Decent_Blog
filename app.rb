@@ -19,13 +19,15 @@ end
  
 Post.auto_upgrade!
 
-get '/create' do
-  Post.create title: "new post 2", slug: "test2", body: "test"
-  Post.create title: "new post 3", slug: "test3", body: "test"
-end
+class HelloWorldApp < Sinatra::Base
+	get '/create' do
+	  Post.create title: "new post 2", slug: "test2", body: "test"
+	  Post.create title: "new post 3", slug: "test3", body: "test"
+	end
 
 
-get '/' do
-  @posts = Post.all
-  erb :index 
+	get '/' do
+	  @posts = Post.all
+	  erb :index 
+	end
 end
