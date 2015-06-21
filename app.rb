@@ -22,11 +22,21 @@ end
 Post.auto_upgrade!
 
 class HelloWorldApp < Sinatra::Base
-	get '/create' do
-	  Post.create title: "new post 2", slug: "test2", body: "test"
-	  Post.create title: "new post 3", slug: "test3", body: "test"
+
+	get '/create' do 
+	  erb :create 
 	end
 
+	post '/create' do
+    new_post = Post.new(:title => params[:title], :slug => params[:slug], :body => params[:body])
+    if new_post.save
+      puts "Awesome, it works!"
+    else
+      new_post.errors.each do |e|
+       puts e
+      end
+    end
+	end
 
 	get '/' do
 	  @posts = Post.all
