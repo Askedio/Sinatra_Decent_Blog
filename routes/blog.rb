@@ -19,7 +19,7 @@
 					if !accepted_formats.include? File.extname(params['myfile'][:filename]) 
 					 halt 500
 					end
-					File.open('assests/images/' + params['myfile'][:filename], "wb") do |f|
+					File.open('public/assests/images/' + params['myfile'][:filename], "wb") do |f|
 						f.write(params['myfile'][:tempfile].read)
 						image = '/images/' + params['myfile'][:filename]
 					end
