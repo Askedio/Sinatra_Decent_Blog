@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Default Title</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="resources/css/site.css">
-  </head>
-  <body>
-	<div class="col-sm-6 col-sm-offset-3">
+<%= erb :header %>
 		<h2>Create New Post</h2>
 		<form method="post" role="form">
 		  <div class="form-group">
@@ -21,10 +11,4 @@
 		  </div>
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>
-	</div>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="resources/js/site.js"></script>
-  </body>
-</html>
+<%= erb :footer %>

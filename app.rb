@@ -22,14 +22,32 @@ end
  
 Post.auto_upgrade!
 
+
+
+
 class HelloWorldApp < Sinatra::Base
 
-  get '/create' do 
+  helpers do
+    def protected!
+      return if authorized?
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
 
+    def authorized?
+      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
+    end
+  end
+
+
+  get '/create' do 
+    protected!
     erb :create 
   end
 
   post '/create' do
+    protected!
     new_post = Post.new(:title => params[:title], :slug => params[:title].slugify, :body => params[:body])
     if new_post.save
       redirect '/'
@@ -42,6 +60,7 @@ class HelloWorldApp < Sinatra::Base
   end
 
   post '/edit/:id' do
+    protected!
     post ||= Post.get(params[:id]) || halt(404)
     if post.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body])
       redirect '/'
@@ -53,14 +72,15 @@ class HelloWorldApp < Sinatra::Base
     end
   end
 
-
   get '/edit/:id' do
+    protected!
     post ||= Post.get(params[:id]) || halt(404)
     @post = Post.first
     erb :create 
   end
 
   get '/delete/:id' do
+    protected!
     post ||= Post.get(params[:id]) || halt(404)
     halt 500 unless post.destroy
     redirect '/'
