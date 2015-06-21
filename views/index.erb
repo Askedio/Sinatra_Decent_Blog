@@ -1,5 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Default Title</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="resources/css/site.css">
+  </head>
+  <body>
+	<div class="col-sm-6 col-sm-offset-3">
+		<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a>
+
 <% @posts.each do |post| %>
-  <h3><%= post.created_at %></h3>
-  <h3><%= post.title %></h3>
+  <h3><a href="posts/<%= post.slug %>"><%= post.title %></a></h3>
+  <h4><%= post.created_at %></h4>
   <p><%= post.body %></p>
+  <a href="delete/<%= post.slug %>"><em class="fa fa-trash"></em></a>
+  <a href="edit/<%= post.slug %>"><em class="fa fa-cog"></em></a>
 <% end %>
+
+	</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="resources/js/site.js"></script>
+  </body>
+</html>

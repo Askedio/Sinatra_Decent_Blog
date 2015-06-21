@@ -7,3 +7,4 @@ gem install dm-timestamps
 gem install dm-validations
 gem install dm-migrations
 gem install sinatra-reloader
+gem install slugify

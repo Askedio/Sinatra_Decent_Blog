@@ -9,18 +9,12 @@
   </head>
   <body>
 	<div class="col-sm-6 col-sm-offset-3">
-		<h2>Create New Post</h2>
-		<form method="post" role="form">
-		  <div class="form-group">
-			<label for="title">Title:</label>
-			<input name="title" type="text" class="form-control" id="title" required>
-		  </div>
-		  <div class="form-group">
-			<label for="body">Body:</label>
-			<textarea name="body" class="form-control" id="body" required></textarea>
-		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
-		</form>
+		<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a>
+
+  <h3><a href="posts/<%= @post.slug %>"><%= @post.title %></a> <a href="delete/<%= @post.slug %>"><em class="fa fa-trash"></em></a></h3>
+  <h4><%= @post.created_at %></h4>
+  <p><%= @post.body %></p>
+
 	</div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
