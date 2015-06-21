@@ -1,8 +1,30 @@
 <%= erb :header %>
-		<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a>
 
-  <h3><a href="posts/<%= @post.slug %>"><%= @post.title %></a> <a href="delete/<%= @post.slug %>"><em class="fa fa-trash"></em></a></h3>
-  <h4><%= @post.created_at %></h4>
-  <p><%= @post.body %></p>
+
+<article itemscope="" itemtype="http://schema.org/BlogPosting">
+	<header>
+		<h2 itemprop="name headline"><%= @post.title %></h2>
+		<p>Posted on <time datetime="<%= @post.created_at %>" itemprop="datePublished"><%= @post.created_at %></time> by
+			<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+				<span itemprop="name">
+					<a href="#">William</a>
+				</span>
+			</span>
+		</p>
+	</header>
+	<div itemprop="articleBody">
+	<%= @post.body %>	
+	</div>
+	<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
+		<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io"><i class="fa fa-facebook"></i></a></li> 
+		<li><a href="https://twitter.com/home?status=asked.io"><i class="fa fa-twitter"></i></a></li>   
+	</ul>
+	<div class="clearfix"></div>
+</article>
+
+
+
+
+
 
 <%= erb :footer %>

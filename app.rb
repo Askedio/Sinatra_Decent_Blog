@@ -23,4 +23,6 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
   register Sinatra::SimpleRubyBlog::Routing::Public
 
+use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'assests'
+
 end

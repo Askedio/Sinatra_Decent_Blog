@@ -8,3 +8,4 @@ gem install dm-validations
 gem install dm-migrations
 gem install sinatra-reloader
 gem install slugify
+gem install sinatra-assetpack

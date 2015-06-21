@@ -1,14 +1,18 @@
 <%= erb :header %>
-		<h2>Create New Post</h2>
+<article>
+	<header>
+		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
+	</header>
 		<form method="post" role="form">
 		  <div class="form-group">
 			<label for="title">Title:</label>
-			<input name="title" type="text" class="form-control" id="title" required>
+			<input name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
 		  </div>
 		  <div class="form-group">
 			<label for="body">Body:</label>
-			<textarea name="body" class="form-control" id="body" required></textarea>
+			<textarea name="body" class="form-control" rows="10" id="body" required><%= defined?(@post.body)? @post.body : '' %></textarea>
 		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
+		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
+</article>
 <%= erb :footer %>
