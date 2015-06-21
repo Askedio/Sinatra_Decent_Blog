@@ -5,6 +5,8 @@ require 'dm-sqlite-adapter'
 require 'dm-timestamps'
 require 'dm-validations'
 require 'dm-migrations'
+require "sinatra/reloader"
+
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/my_app.db" )
 
 class Post

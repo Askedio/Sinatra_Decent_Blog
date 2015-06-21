@@ -6,3 +6,4 @@ gem install dm-sqlite-adapter
 gem install dm-timestamps
 gem install dm-validations
 gem install dm-migrations
+gem install sinatra-reloader
