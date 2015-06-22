@@ -13,7 +13,7 @@ require 'will_paginate/data_mapper'
 
 enable :sessions
 
-data_dir = ENV['OPENSHIFTDATADIR'] ? ENV['OPENSHIFTDATADIR']  : '.'
+data_dir = ENV['OPENSHIFTDATADIR'] ? '/var/lib/openshift/558738945973cabc48000008/app-root/data'  : '.'
 
 DataMapper.setup( :default, "sqlite3://#{data_dir}/my_app.db" )
 
