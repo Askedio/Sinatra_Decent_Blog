@@ -46,7 +46,6 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::Public
 
 
-  use Rack::Static, :urls => ['/css', '/js'], :root => 'public/assests'
-  use Rack::Static, :urls => ['/images'], :root => "#{$data_dir}/public/assests"
+  use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
 end
