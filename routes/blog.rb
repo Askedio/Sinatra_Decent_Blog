@@ -56,7 +56,7 @@
 			  app.get '/edit/:id' do
 				protected!
 				post ||= Post.get(params[:id]) || halt(404)
-				@post = Post.first
+				@post = post
 				@persons = Person.all
 				erb :create 
 			  end
