@@ -1,5 +1,5 @@
 require 'rubygems'
-require_relative 'app'
+require './app'
 require 'sitemap_generator'
 
 SitemapGenerator::Sitemap.default_host = 'http://asked.io'

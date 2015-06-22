@@ -11,7 +11,6 @@ require 'will_paginate'
 require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
 require 'sinatra/flash'
-require 'sinatra/redirect_with_flash'
 
 $data_dir = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
 

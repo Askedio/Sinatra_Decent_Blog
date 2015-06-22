@@ -17,4 +17,3 @@ gem 'dm-aggregates'
 gem 'sitemap_generator'
 
 gem 'sinatra-flash'
-gem 'sinatra-redirect-with-flash'
