@@ -43,7 +43,7 @@
 				protected!
 				##person ||= Person.first(:name => params[:poster])|| halt(404)
 				post ||= Post.get(params[:id]) || halt(404)
-				if post.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => params[:myfile])
+				if post.update(:title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile])
 				  redirect '/'
 				else
 				  post.errors.each do |e|
