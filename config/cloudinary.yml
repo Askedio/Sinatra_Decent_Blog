@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: asked-io
+  api_key: '225663616768815'
+  api_secret: Xz0rlrMJcZfKn9Rb-9FjgwG7k4U
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: asked-io
+  api_key: '225663616768815'
+  api_secret: Xz0rlrMJcZfKn9Rb-9FjgwG7k4U
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: asked-io
+  api_key: '225663616768815'
+  api_secret: Xz0rlrMJcZfKn9Rb-9FjgwG7k4U
+  enhance_image_tag: true
+  static_image_support: false

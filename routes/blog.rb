@@ -18,10 +18,19 @@ module Sinatra
 					if !accepted_formats.include? File.extname(params['myfile'][:filename]) 
 					 halt 500
 					end
-					File.open('public/assests/images/' + params['myfile'][:filename], "wb") do |f|
+
+					new_image = File.open('public/assests/images/' + params['myfile'][:filename], "wb") do |f|
 						f.write(params['myfile'][:tempfile].read)
-						image = '/images/' + params['myfile'][:filename]
 					end
+
+					uploads = {}
+					uploads[params['myfile'][:filename]] = Cloudinary::Uploader.upload 'public/assests/images/' + params['myfile'][:filename]
+					uploads.each_value.with_index do |upload, index|
+					 image = upload['secure_url']
+					end
+
+					File.delete('public/assests/images/' + params['myfile'][:filename])
+
 				end
 				
 				person ||= Person.first(:name => session[:username]) || halt(404)

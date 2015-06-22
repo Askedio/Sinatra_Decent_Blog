@@ -12,6 +12,20 @@ require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
 require 'sinatra/flash'
 
+require 'cloudinary'
+require 'cloudinary/uploader'
+require 'cloudinary/utils'
+
+if Cloudinary.config.api_key.blank?
+  require './config/cloudinary'
+end
+
+if Cloudinary.config.api_key.blank?
+  puts "Please configure your Cloudinary account in ./config/cloudinary"
+  exit
+end
+
+
 $data_dir = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
 
 DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
