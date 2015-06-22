@@ -10,7 +10,7 @@
 		  </div>
 		  <div class="form-group">
 			<label for="file">Banner Image:</label>
-			<input id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+			<input class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
 		  </div>
 		  <div class="form-group">
 			<label for="body">Body:</label>

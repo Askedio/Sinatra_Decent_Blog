@@ -7,7 +7,7 @@
 			  app.get '/create' do 
 				protected!
 				@persons = Person.all
-				erb :create 
+				erb :"admin/post/create" 
 			  end
 
 			  app.post '/create' do
@@ -41,12 +41,12 @@
 
 			  app.post '/edit/:id' do
 				protected!
-				person ||= Person.first(:name => params[:poster])|| halt(404)
+				##person ||= Person.first(:name => params[:poster])|| halt(404)
 				post ||= Post.get(params[:id]) || halt(404)
-				if person.posts.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => params[:myfile])
+				if post.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => params[:myfile])
 				  redirect '/'
 				else
-				  person.posts.errors.each do |e|
+				  post.errors.each do |e|
 				   puts e
 				  end
 				  halt 500
@@ -58,7 +58,7 @@
 				post ||= Post.get(params[:id]) || halt(404)
 				@post = post
 				@persons = Person.all
-				erb :create 
+				erb :"admin/post/create" 
 			  end
 
 			  app.get '/delete/:id' do

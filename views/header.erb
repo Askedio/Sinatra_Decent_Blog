@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="Asked.io">
+	<meta property="og:title" content="Asked.io:  <%= @page_title %>">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://asked.io">
 	<meta property="og:site_name" content="Asked.io">
-	<meta property="og:description" content="Day to Day Question &amp; Answers a Full-Stack web-developer has.">
-	<meta property="og:image" content="resources/img/cover_sm.jpg">
-	<title>Asked.io</title>
+	<meta property="og:description" content="<%= @page_description %>">
+	<meta property="og:image" content="<%= @page_image ?  @page_image : 'resources/img/cover_sm.jpg' %>">
+	<title>Asked.io: <%= @page_title %></title>
+
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
@@ -20,10 +21,11 @@
 	<header><br></header>
 	<div class="bg"></div>
 	<div class="jumbotron">
-        <h1 onclick="window.location='/'">Asked.io:</h1>
+        <h1 onclick="window.location='/'">Asked.io: </h1>
         <p>A day-to-day log of the questions we've asked &amp; the answers we've found.</p>
 		<% if authorized? %>
-			<p><a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a></p>
+			<p><a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a> 
+			<a href="/profile" class="btn btn-success"><em class="fa fa-user"></em> Profile</a></p>
 		<% end %>
       </div>
 	  <div class="row">
