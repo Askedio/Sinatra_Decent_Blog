@@ -27,6 +27,7 @@ body{ font-size: 12pt;font-family: 'Roboto', sans-serif;background:#F0F0F0 }
 
 .jumbotron h1{ cursor: pointer}
 
+.avatar{ margin: 10px 10px 0 0 }
 
 .digg_pagination {
   /* self-clearing method: */ }

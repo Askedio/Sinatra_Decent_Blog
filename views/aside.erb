@@ -1,6 +1,6 @@
 <h2>About</h2>
 <% @persons.each do |person| %>
-	<p><img align="left" src="<%= person.avatar %>" width="70" height="70" border="0" alt="">
+	<p><img class="avatar img-rounded" align="left" src="<%= person.avatar %>" width="70" height="70" border="0" alt="<%= person.name %>">
 	<%= person.about %>
 	<% if authorized? %>
 		<div class="clearfix"></div>
