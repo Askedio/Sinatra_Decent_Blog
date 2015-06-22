@@ -7,7 +7,6 @@ module Sinatra
 
 			  app.get '/create' do 
 				protected!
-				@persons = Person.all
 				erb :"admin/post/create" 
 			  end
 
@@ -52,7 +51,6 @@ module Sinatra
 				protected!
 				post ||= Post.get(params[:id]) || halt(404)
 				@post = post
-				@persons = Person.all
 				erb :"admin/post/create" 
 			  end
 

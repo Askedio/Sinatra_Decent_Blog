@@ -6,7 +6,6 @@
 
 			  app.get '/posts/:id' do
 				post ||= Post.get(params[:id]) || halt(404)
-			    @persons = Person.all
 				@post = post
 				@page_title = post.title
 				@page_image = post.image
@@ -16,14 +15,12 @@
 			  end
 
 			  app.get '/' do	
-			    @persons = Person.all
 				@posts = Post.paginate( :page => params[:page], :order => [:created_at.desc ])
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 
 			  end
 
 			  app.get '/search/:query' do 
-			    @persons = Person.all
 				@posts = Post.paginate(:page => params[:page], :order => [:created_at.desc ],:body.like => "%#{params[:query]}%") 
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 

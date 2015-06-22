@@ -31,7 +31,6 @@ if person.count == 0
 	new_person.save
 end
 
-
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
