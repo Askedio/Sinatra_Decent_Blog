@@ -7,7 +7,7 @@
 			  app.get '/posts/:id' do
 				post ||= Post.get(params[:id]) || halt(404)
 			    @persons = Person.all
-				@post = Post.first
+				@post = post
 				erb :details 
 			  end
 
