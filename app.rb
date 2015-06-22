@@ -13,8 +13,9 @@ require 'will_paginate/data_mapper'
 
 enable :sessions
 
-db_file = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
-DataMapper.setup( :default, "sqlite3://#{db_file}/my_app.db" )
+$data_dir = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
+
+DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
 
 require_relative  'helpers'
 require_relative  'routes/blog'
@@ -44,6 +45,8 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::Profile
   register Sinatra::SimpleRubyBlog::Routing::Public
 
-  use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
+
+  use Rack::Static, :urls => ['/css', '/js'], :root => 'public/assests'
+  use Rack::Static, :urls => ['/images'], :root => "#{$data_dir}/public/assests"
 
 end
