@@ -1,24 +1,24 @@
 <%= erb :header %>
 <article>
 	<header>
-		<h2>Edit Profile</h2>
+		<h2><%= defined?(@person.name) ? 'Edit' : 'Create' %> Profile</h2>
 	</header>
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
 			<label for="title">Name:</label>
-			<input name="name" type="text" class="form-control" id="title" required value="<%= @person.name %>">
-		  </div>
-		  <div class="form-group">
-			<label for="file">Avatar:</label>
-			<input name="avatar" id="file"  class="form-control" type="text" value="<%= @person.avatar %>">
-		  </div>
-		  <div class="form-group">
-			<label for="body">About:</label>
-			<textarea name="about" class="form-control" rows="10" id="body"><%= @person.about %></textarea>
+			<input name="name" type="text" class="form-control" id="title" required value="<%= defined?(@person.name)? @person.name : '' %>">
 		  </div>
 		  <div class="form-group">
 			<label for="password">Password:</label>
-			<input name="password" id="password"  class="form-control" type="password" value="<%= @person.password %>">
+			<input name="password" id="password"  class="form-control" type="password" value="<%= defined?(@person.password)? @person.password : ''  %>">
+		  </div>
+		  <div class="form-group">
+			<label for="file">Avatar:</label>
+			<input name="avatar" id="file"  class="form-control" type="text" value="<%= defined?(@person.avatar)? @person.avatar : ''  %>">
+		  </div>
+		  <div class="form-group">
+			<label for="body">About:</label>
+			<textarea name="about" class="form-control" rows="10" id="body"><%= defined?(@person.about)? @person.about : ''  %></textarea>
 		  </div>
 
 		  <button type="submit" class="btn btn-primary">Submit</button>

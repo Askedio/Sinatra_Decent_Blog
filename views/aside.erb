@@ -2,4 +2,9 @@
 <% @persons.each do |person| %>
 	<p><img align="left" src="<%= person.avatar %>" width="70" height="70" border="0" alt="">
 	<%= person.about %>
+	<% if authorized? %>
+		<div class="clearfix"></div>
+		<a href="/profile/<%= person.name %>"><em class="fa fa-cog"></em></a> &nbsp; 
+		<a href="/profile/delete/<%= person.name %>"><em class="fa fa-trash"></em></a> 
+	<% end %>
 <% end %>
