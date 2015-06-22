@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 
-gem 'sqlite3'
+gem 'sqlite3-ruby'
 gem 'dm-core'
 gem 'do_sqlite3'
 gem 'dm-sqlite-adapter'
