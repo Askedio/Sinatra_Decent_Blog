@@ -24,7 +24,7 @@ GEM
     do_sqlite3 (0.10.16-x86-mingw32)
       data_objects (= 0.10.16)
     multi_json (1.11.1)
-    rack (1.5.2)
+    rack (1.6.4)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)

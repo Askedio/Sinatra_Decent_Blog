@@ -7,10 +7,11 @@
 		<p>Posted on <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at %></time> by
 			<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 				<span itemprop="name">
-					<a href="#">William</a>
+					<a href="#"><%= post.person.name %></a>
 				</span>
 			</span>
 		</p>
+		
 		<% if post.image != '' %>
 			<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 		<% end %>

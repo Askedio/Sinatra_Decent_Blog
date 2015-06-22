@@ -6,6 +6,7 @@
 
 			  app.get '/create' do 
 				protected!
+				@persons = Person.all
 				erb :create 
 			  end
 
@@ -19,14 +20,15 @@
 					if !accepted_formats.include? File.extname(params['myfile'][:filename]) 
 					 halt 500
 					end
-					File.open('assests/images/' + params['myfile'][:filename], "wb") do |f|
+					File.open('public/assests/images/' + params['myfile'][:filename], "wb") do |f|
 						f.write(params['myfile'][:tempfile].read)
 						image = '/images/' + params['myfile'][:filename]
 					end
 				end
 				
-				
-				new_post = Post.new(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image)
+				person ||= Person.first(:name => session[:username]) || halt(404)
+				new_post = person.posts.new(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image)
+
 				if new_post.save
 				  redirect '/'
 				else
@@ -39,11 +41,12 @@
 
 			  app.post '/edit/:id' do
 				protected!
+				person ||= Person.first(:name => params[:poster])|| halt(404)
 				post ||= Post.get(params[:id]) || halt(404)
-				if post.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => params[:myfile])
+				if person.posts.update(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => params[:myfile])
 				  redirect '/'
 				else
-				  new_post.errors.each do |e|
+				  person.posts.errors.each do |e|
 				   puts e
 				  end
 				  halt 500
@@ -54,6 +57,7 @@
 				protected!
 				post ||= Post.get(params[:id]) || halt(404)
 				@post = Post.first
+				@persons = Person.all
 				erb :create 
 			  end
 

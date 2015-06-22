@@ -10,7 +10,16 @@ module Sinatra
 
 		def authorized?
 		  @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-		  @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
+			if @auth.provided? && @auth.basic? && @auth.credentials
+			   user = Person.first(:name => @auth.credentials[0])
+			end
+			if user && user.password == @auth.credentials[1]
+        session[:username] = user.name
+			  return true
+			else
+			  response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
+			  throw(:halt, [401, "Not authorized\n"])
+			end
 		end
 
 

@@ -1,10 +1,5 @@
 <h2>About</h2>
-<p><img align="left" src="/images/avatar.png" width="70" height="70" border="0" alt=""><a href="mailto:gcphost@gmail.com">William</a> has been a full-stack web developer for over a decade. He's worked with several start-ups, universities, small businesses, and one fortune 500 company.</p>
-<p>After 11 years of running a successful software company he's decided to branch out with <a href="https://github.com/gcphost">open source projects</a>.</p>
-<p><a href="mailto:gcphost@gmail.com">William</a> is currently available for contract work related to HTML/CSS/jQuery/PHP/Laravel.</p>
-
-<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
-	<li><a href="https://twitter.com/asked_io"><i class="fa fa-twitter"></i></a></li> 
-	<li><a href="https://github.com/gcphost"><i class="fa fa-github"></i></a></li> 
-</ul>
-<div class="clearfix"></div>
+<% @persons.each do |person| %>
+	<p><img align="left" src="<%= person.avatar %>" width="70" height="70" border="0" alt="">
+	<%= person.about %>
+<% end %>
