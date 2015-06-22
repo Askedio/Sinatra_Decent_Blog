@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="Asked.io: <%= @page_title %>">
 	<meta property="og:type" content="blog">
-	<meta property="og:url" content="https://asked.io<%= @post ?  "/#{@post.slug}" : '' %>">
+	<meta property="og:url" content="https://asked.io<%= @post ?  "/posts/#{@post.slug}" : '' %>">
 	<meta property="og:site_name" content="Asked.io">
 	<meta property="og:description" content="<%= @page_description %>">
 	<meta property="og:image" content="https://asked.io<%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
