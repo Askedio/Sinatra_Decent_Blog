@@ -18,14 +18,14 @@
 			  app.get '/' do	
 			    @persons = Person.all
 				@posts = Post.paginate( :page => params[:page], :order => [:created_at.desc ])
-				@page_description = 'Day to Day Question &amp; Answers a Full-Stack web-developer has.'
+				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 
 			  end
 
 			  app.get '/search/:query' do 
 			    @persons = Person.all
 				@posts = Post.paginate(:page => params[:page], :order => [:created_at.desc ],:body.like => "%#{params[:query]}%") 
-				@page_description = 'Day to Day Question &amp; Answers a Full-Stack web-developer has.'
+				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 
 			  end
 
