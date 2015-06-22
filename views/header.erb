@@ -21,13 +21,24 @@
 	<header><br></header>
 	<div class="bg"></div>
 	<div class="jumbotron">
-        <h1 onclick="window.location='/'">Asked.io: </h1>
+        <h1 onclick="window.location='/'">Asked.io:</h1>
         <p>A day-to-day log of the questions we've asked &amp; the answers we've found.</p>
-		<% if authorized? %>
-			<p><a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a> 
-			<a href="/profile/create" class="btn btn-info"><em class="fa fa-user-plus"></em></a>
-			<a href="/profile" class="btn btn-success"><em class="fa fa-user"></em> Profile</a></p>
-		<% end %>
+			<p>
+			<form class="form-inline pull-left" method="post" action="/search" role="search" id="search">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+			</form>
+			<% if authorized? %>
+				&nbsp;	
+				<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a> 
+				<a href="/profile/create" class="btn btn-info"><em class="fa fa-user-plus"></em></a>
+				<a href="/profile" class="btn btn-success"><em class="fa fa-user"></em> Profile</a>
+			<% end %>
+		</p>
       </div>
 	  <div class="row">
 	<section class="col-md-8">

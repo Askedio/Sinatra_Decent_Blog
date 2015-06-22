@@ -16,11 +16,12 @@ body{ font-size: 12pt;font-family: 'Roboto', sans-serif;background:#F0F0F0 }
 
 .jumbotron {
   margin-bottom: 0px;
-  height: 42vh;
+  height: 40vh;
   color: white;
   text-shadow: black 0.1em 0.1em 0.1em;
   background:transparent;
   z-index: 3;
+  margin-bottom: 40px;
 }
 .img-thumbnail{ margin-right: 10px}
 

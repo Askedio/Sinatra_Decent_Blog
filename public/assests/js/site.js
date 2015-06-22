@@ -14,4 +14,10 @@ $(document).ready(function() {
   $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
+
+	$('#search').on('submit', function(e){
+		e.preventDefault();
+		if($('#srch-term').val())
+			window.location='/search/'+ $('#srch-term').val();
+	});
 });
