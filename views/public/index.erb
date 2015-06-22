@@ -3,7 +3,7 @@
 
 <article itemscope="" itemtype="http://schema.org/BlogPosting">
 	<header>
-		<h2 itemprop="name headline"><a href="posts/<%= post.slug %>"><%= post.title %></a></h2>
+		<h2 itemprop="name headline"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
 		<p>Posted on <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at %></time> by
 			<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 				<span itemprop="name">

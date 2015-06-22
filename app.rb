@@ -13,7 +13,7 @@ require 'will_paginate/data_mapper'
 
 enable :sessions
 
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/my_app.db" )
+DataMapper.setup( :default, "sqlite3://../my_app.db" )
 
 require_relative  'helpers'
 require_relative  'routes/blog'
