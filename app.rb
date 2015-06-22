@@ -13,7 +13,8 @@ require 'will_paginate/data_mapper'
 
 enable :sessions
 
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/my_app.db" )
+db_file = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
+DataMapper.setup( :default, "sqlite3://#{db_file}/my_app.db" )
 
 require_relative  'helpers'
 require_relative  'routes/blog'
