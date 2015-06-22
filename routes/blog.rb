@@ -1,7 +1,8 @@
- module Sinatra
+module Sinatra
   module SimpleRubyBlog
     module Routing
       module BlogAdmin
+
 		def self.registered(app)
 
 			  app.get '/create' do 
@@ -12,8 +13,6 @@
 
 			  app.post '/create' do
 				protected!
-
-
 				image = ''
 				if !params['myfile'].nil?
 					accepted_formats = [".jpg", ".png", ".gif"]
@@ -32,10 +31,8 @@
 				if new_post.save
 				  redirect '/'
 				else
-				  new_post.errors.each do |e|
-				   puts e
-				  end
-				  halt 500
+				  do_error new_post.errors
+				  redirect "/create"
 				end
 			  end
 
@@ -46,10 +43,8 @@
 				if post.update(:title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile])
 				  redirect '/'
 				else
-				  post.errors.each do |e|
-				   puts e
-				  end
-				  halt 500
+					do_error post.errors
+					redirect "/edit/#{params[:id]}"
 				end
 			  end
 

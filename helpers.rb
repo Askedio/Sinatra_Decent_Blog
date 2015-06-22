@@ -1,6 +1,14 @@
 module Sinatra
   module SimpleRubyBlog
     module Helpers
+
+		def do_error data
+			error = nil
+			data.each do |e|
+			 error = "#{error}  #{e}"
+			end
+			flash[:error] = error
+		end
 		 
 		 def protected!
 

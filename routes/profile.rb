@@ -19,10 +19,8 @@
 				if person.save
 				  redirect '/'
 				else
-				  person.errors.each do |e|
-				   puts e
-				  end
-				  halt 500
+					do_error person.errors
+					redirect "/profile/create"
 				end
 			  end
 

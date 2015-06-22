@@ -3,6 +3,9 @@
 	<header>
 		<h2><%= defined?(@person.name) ? 'Edit' : 'Create' %> Profile</h2>
 	</header>
+
+		<%= erb :error %>
+
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
 			<label for="title">Name:</label>

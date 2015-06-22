@@ -3,10 +3,13 @@
 	<header>
 		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
 	</header>
+
+		<%= erb :error %>
+
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
 			<label for="title">Title:</label>
-			<input name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
+			<input maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
 		  </div>
 		  <div class="form-group">
 			<label for="file">Banner Image:</label>

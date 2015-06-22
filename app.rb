@@ -10,8 +10,8 @@ require 'slugify'
 require 'will_paginate'
 require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
-
-enable :sessions
+require 'sinatra/flash'
+require 'sinatra/redirect_with_flash'
 
 $data_dir = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
 
@@ -34,9 +34,14 @@ end
 
 
 class SimpleRubyBlog < Sinatra::Base
+  
+  enable :sessions
+
   set :root, File.dirname(__FILE__)
 
   helpers Sinatra::SimpleRubyBlog::Helpers
+  
+  register Sinatra::Flash
 
   register WillPaginate::Sinatra
   WillPaginate.per_page = 5

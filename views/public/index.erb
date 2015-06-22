@@ -1,36 +1,40 @@
 <%= erb :header %>
-<% @posts.each do |post| %>
-
-<article itemscope="" itemtype="http://schema.org/BlogPosting">
-	<header>
-		<h2 itemprop="name headline"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
-		<p>Posted on <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at %></time> by
-			<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-				<span itemprop="name">
-					<a href="#"><%= post.person.name %></a>
+<% if @posts.length == 0 %>
+	<article>
+		<header><h2>No results found :(</h2></header>
+	</article>
+<% else %>
+	<% @posts.each do |post| %>
+	<article itemscope="" itemtype="http://schema.org/BlogPosting">
+		<header>
+			<h2 itemprop="name headline"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
+			<p>Posted on <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at %></time> by
+				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+					<span itemprop="name">
+						<a href="#"><%= post.person.name %></a>
+					</span>
 				</span>
-			</span>
-		</p>
-		
-		<% if post.image != '' %>
-			<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+			</p>
+			
+			<% if post.image != '' %>
+				<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+			<% end %>
+		</header>
+		<div itemprop="articleBody">
+		<%= post.body %>	
+		</div>
+		<br>
+		<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
+			<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
+			<li><a href="https://twitter.com/home?status=asked.io/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
+		</ul>
+		<% if authorized? %>
+			<a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> &nbsp; 
+			<a href="/delete/<%= post.slug %>"><em class="fa fa-trash"></em></a>
 		<% end %>
-	</header>
-	<div itemprop="articleBody">
-	<%= post.body %>	
-	</div>
-	<br>
-	<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
-		<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
-		<li><a href="https://twitter.com/home?status=asked.io/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
-	</ul>
-	<% if authorized? %>
-		<a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> &nbsp; 
-		<a href="/delete/<%= post.slug %>"><em class="fa fa-trash"></em></a>
+		<div class="clearfix"></div>
+	</article>
 	<% end %>
-	<div class="clearfix"></div>
-</article>
-
 <% end %>
 <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra %>
 <%= erb :footer %>

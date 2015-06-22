@@ -15,3 +15,6 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'dm-aggregates'
 gem 'sitemap_generator'
+
+gem 'sinatra-flash'
+gem 'sinatra-redirect-with-flash'
