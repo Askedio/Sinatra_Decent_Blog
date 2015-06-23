@@ -33,7 +33,7 @@ module Sinatra
           end
           
           person ||= Person.first(:name => session[:username]) || halt(404)
-          new_post = person.posts.create(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image, :position => params[:position])
+          new_post = person.posts.create(:draft => params[:draft], :title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image, :position => params[:position])
           new_post = process_category(new_post, params[:category])
           new_post = process_tag(new_post, params[:tags])
 
@@ -50,8 +50,7 @@ module Sinatra
           post ||= Post.get(params[:id]) || halt(404) 
           post = process_category(post, params[:category])
           post = process_tag(post, params[:tags])
-
-          if post.update(:title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile], :position => params[:position])
+          if post.update(:draft => params[:draft], :title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile], :position => params[:position])
             redirect '/'
           else
             do_error post.errors

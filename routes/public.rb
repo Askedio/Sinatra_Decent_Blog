@@ -15,7 +15,13 @@
 			  end
 
 			  app.get '/' do	
-				@posts = Post.paginate( :page => params[:page], :order => [:created_at.desc ])
+				@posts = Post.paginate( :draft => nil, :page => params[:page], :order => [:created_at.desc ])
+				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
+				erb :"public/index" 
+			  end
+
+			  app.get '/drafts' do	
+				@posts = Post.paginate( :draft => 1, :page => params[:page], :order => [:created_at.desc ])
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 
 			  end

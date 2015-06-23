@@ -47,10 +47,7 @@
         </select>
 		  </div>
 
-
-
-
-		  <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button> <input <% if defined?(@post.slug) && @post.draft == 1 %>checked<% end %> name="draft" value="1" id="draft" type="checkbox"> <label for="draft">Draft?</label>
 		</form>
 </article>
 <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
