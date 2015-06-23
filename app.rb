@@ -37,6 +37,7 @@ end
 
 
 
+
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions

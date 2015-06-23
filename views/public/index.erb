@@ -26,9 +26,8 @@
 					</span>
 				</span>
 			</p>
-			
-      <%= post.position %>
-			<% if post.image != '' %>
+
+      <% if post.image != '' %>
 				<% if post.position == 'top' || post.position.nil? %>
 					<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 				<% elsif post.position == 'left' %>

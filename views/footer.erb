@@ -1,6 +1,9 @@
 			</section>
 			<aside class="col-md-4">
-				<form class=" " method="post" action="/search" role="search" id="search">
+	      <%= @aside ? @aside : '' %>
+
+
+				<form method="post" action="/search" role="search" id="search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
 						<div class="input-group-btn">

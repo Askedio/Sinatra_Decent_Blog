@@ -2,6 +2,25 @@ module Sinatra
   module SimpleRubyBlog
     module Helpers
 
+		def process_category new_post, cats
+          new_post.categories.each do |cat|
+            p cat
+            p params[:category]
+            puts cat.id
+            if !params[:category].include?(cat.id.to_s)
+					puts "destroy"
+					#cat.post_categories.all.destroy
+            end
+          end
+
+		  cats.each do |cat|
+            category = Category.first(:id => cat)
+            new_post.categories << category
+          end	
+		  new_post
+		end
+
+
 		def do_error data
 			error = nil
 			data.each do |e|
