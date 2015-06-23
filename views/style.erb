@@ -7,80 +7,44 @@
 
 		@import url(https://fonts.googleapis.com/css?family=Roboto);
 		.img-responsive { margin: 0 auto; }
-		article, aside{ margin-bottom: 60px;border: 1px solid #ccc; padding:15px; border-radius:5px;background:#fff}
+		article, aside .wrapper{ margin-bottom: 60px;border: 1px solid #ccc; padding:15px; border-radius:5px;background:#fff}
 		body{ font-size: 12pt;font-family: 'Roboto', sans-serif;background:#F0F0F0 }
 
 		.bg {
 		  background: url('/images/cover.jpg') no-repeat center center;
-		  position: fixed;
+		  position: absolute;
 		  width: 100%;
-		  height: 50vh; /*same height as jumbotron */
-		  padding-bottom: 20px;
+		  height: 40vh; /*same height as jumbotron */
 		  top:0;
 		  left:0;
 		  z-index: -1;
 		}
 
+.about img{ float: left}
+.about{ margin-bottom: 30px}
+
+
+		.label a{ 
+			color: inherit
+		
+		}
+
+		.jumbotron .shadow {
+		  text-shadow: black 0.1em 0.1em 0.1em;
+
+		}
 		.jumbotron {
 		  margin-bottom: 0px;
-		  height: 50vh;
+		  height: 40vh;
 		  color: white;
-		  text-shadow: black 0.1em 0.1em 0.1em;
 		  background:transparent;
 		  z-index: 3;
-		  margin-bottom: 40px;
 		}
 		.img-thumbnail{ margin-right: 10px}
 
 		.jumbotron h1{ cursor: pointer}
 
 		.avatar{ margin: 10px 10px 0 0 }
-
-		.digg_pagination {
-		  /* self-clearing method: */ }
-		  .digg_pagination a, .digg_pagination span, .digg_pagination em {
-			padding: 0.2em 0.5em;
-			display: block;
-			float: left;
-			margin-right: 1px; }
-		  .digg_pagination .disabled {
-			color: #999999;
-			border: 1px solid #dddddd; }
-		  .digg_pagination .current {
-			font-style: normal;
-			font-weight: bold;
-			background: #2e6ab1;
-			color: white;
-			border: 1px solid #2e6ab1; }
-		  .digg_pagination a {
-			text-decoration: none;
-			color: #105cb6;
-			border: 1px solid #9aafe5; }
-			.digg_pagination a:hover, .digg_pagination a:focus {
-			  color: #000033;
-			  border-color: #000033; }
-		  .digg_pagination .page_info {
-			background: #2e6ab1;
-			color: white;
-			padding: 0.4em 0.6em;
-			width: 22em;
-			margin-bottom: 0.3em;
-			text-align: center; }
-			.digg_pagination .page_info b {
-			  color: #000033;
-			  background: #6aa6ed;
-			  padding: 0.1em 0.25em; }
-		  .digg_pagination:after {
-			content: ".";
-			display: block;
-			height: 0;
-			clear: both;
-			visibility: hidden; }
-		  * html .digg_pagination {
-			height: 1%; }
-		  *:first-child + html .digg_pagination {
-			overflow: hidden; }
-
 
 
 
@@ -163,4 +127,8 @@
 		.social-icons .fa-windows{background-color:#12B6F3;}
 		.social-icons .fa-xing,.social-icons .fa-xing-square{background-color:#00555C;} 
 		.social-icons .fa-youtube,.social-icons .fa-youtube-play,.social-icons .fa-youtube-square{background-color:#C52F30;}
+
+
+
 	</style>
+

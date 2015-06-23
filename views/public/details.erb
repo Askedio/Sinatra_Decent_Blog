@@ -2,7 +2,7 @@
 <article itemscope="" itemtype="http://schema.org/BlogPosting">
 	<header>
 		<h2 itemprop="name headline"><%= @post.title %></h2>
-		<p>Posted on <time datetime="<%= @post.created_at %>" itemprop="datePublished"><%= @post.created_at %></time> by
+		<p>Posted on <time datetime="<%= @post.created_at %>" itemprop="datePublished"><%= @post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 			<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 				<span itemprop="name">
 					<a href="#">William</a>

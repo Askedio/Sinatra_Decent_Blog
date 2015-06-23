@@ -8,16 +8,34 @@
 
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
-			<label for="title">Title:</label>
-			<input maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
+        <label for="title">Title:</label>
+        <input maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
 		  </div>
 		  <div class="form-group">
-			<label for="file">Banner Image:</label>
-			<input class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+        <label for="category">Category:</label>
+        <select id="category" multiple name="category[]" class="form-control" required>
+          <option value=""></option>
+          <% Category.all.each do |cat| %>
+            <option value="<%= cat.id %>"><%= cat.title %></option>
+          <% end %>
+        </select>
 		  </div>
 		  <div class="form-group">
-			<label for="body">Body:</label>
-			<textarea name="body" class="form-control" rows="10" id="body"><%= defined?(@post.body)? @post.body : '' %></textarea>
+        <label for="file">Banner Image:</label>
+        <input class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+		  </div>
+		  <div class="form-group">
+        <label for="position">Banner Position</label>
+        <select id="position" name="position" class="form-control" required>
+          <option value="top">top</option>
+          <option value="left">left</option>
+          <option value="right">right</option>
+        </select>
+		  </div>
+
+		  <div class="form-group">
+        <label for="body">Body:</label>
+        <textarea name="body" class="form-control" rows="20" id="body"><%= defined?(@post.body)? @post.body : '' %></textarea>
 		  </div>
 
 		  <button type="submit" class="btn btn-primary">Submit</button>
@@ -34,7 +52,7 @@ tinymce.init({
          "save table contextmenu directionality emoticons template paste textcolor"
    ],
    content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css,/css/site.css",
-   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", 
+   toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image |  media fullpage | forecolor backcolor emoticons", 
    setup: function(ed) {
       ed.addMenuItem('example', {
          text: 'Insert Code',
@@ -56,18 +74,20 @@ tinymce.init({
 			});
 		}
       });
-   },
-   style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ]
+   }
  }); 
 
-
 </script>
+
+<% @footer = %Q{
+		<link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+		<script>
+			$("#category").select2({
+			  tags: true
+			});
+      $('.bg, .jumbotron').remove()
+
+		</script>
+} %>
 <%= erb :footer %>

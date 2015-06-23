@@ -1,15 +1,52 @@
-	</section>
-	<aside class="col-md-4">
-		<%= erb :aside %>
-	</aside>
-</div>
-</div>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+			</section>
+			<aside class="col-md-4">
+				<form class=" " method="post" action="/search" role="search" id="search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+
+				<br>
+
+				<% if authorized? %>
+				<div class="text-center">
+					<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a> 
+					<a href="/profile" class="btn btn-danger"><em class="fa fa-user"></em> Profile</a>
+					<div class="btn-group" role="group" aria-label="...">
+					  <div class="btn-group" role="group">
+						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  <em class="fa fa-cog"></em>
+						  <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create User</a></li>
+							<li><a href="/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
+							<li><a href="/category"><em class="fa fa-cog"></em> Edit Categories</a></li>
+						</ul>
+					  </div>
+					</div><br><br>
+					</div>
+				<% end %>
+
+				<div class="wrapper">
+					<%= erb :aside %>
+				</div>
+			</aside>
+		</div>
+	</div>
+
+  <link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 	<script src="/js/site.js"></script>
+
+	<%= @footer ? @footer : '' %>
+
   </body>
 </html>

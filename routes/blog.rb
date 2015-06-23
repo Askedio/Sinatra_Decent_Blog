@@ -34,7 +34,16 @@ module Sinatra
 				end
 				
 				person ||= Person.first(:name => session[:username]) || halt(404)
-				new_post = person.posts.new(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image)
+				new_post = person.posts.create(:title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image, :position => params[:position])
+				
+				params[:category].each do |cat|
+					category = Category.first(:id => cat)
+					p category
+					new_post.categories << category
+				end
+
+
+
 
 				if new_post.save
 				  redirect '/'
@@ -46,9 +55,8 @@ module Sinatra
 
 			  app.post '/edit/:id' do
 				protected!
-				##person ||= Person.first(:name => params[:poster])|| halt(404)
-				post ||= Post.get(params[:id]) || halt(404)
-				if post.update(:title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile])
+				post ||= Post.get(params[:id]) || halt(404) 
+				if post.update(:title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile], :position => params[:position])
 				  redirect '/'
 				else
 					do_error post.errors

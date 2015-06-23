@@ -1,0 +1,17 @@
+<%= erb :header %>
+<article>
+	<header>
+		<h2><%= defined?(@person.title) ? 'Edit' : 'Create' %> Category</h2>
+	</header>
+
+		<%= erb :error %>
+
+		<form method="post" role="form" enctype="multipart/form-data">
+		  <div class="form-group">
+			<label for="title">Name:</label>
+			<input name="title" type="text" class="form-control" id="title" required value="<%= defined?(@person.title)? @person.title : '' %>">
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+</article>
+<%= erb :footer %>

@@ -1,11 +1,11 @@
 <h2>About</h2>
 <% Person.all.each do |person| %>
-	<p><img class="avatar img-rounded" align="left" src="<%= person.avatar %>" width="70" height="70" border="0" alt="<%= person.name %>">
+	<div class="about"><img class="avatar img-rounded" src="<%= person.avatar %>" width="70" height="70" alt="<%= person.name %>">
 	<%= person.about %>
 	<% if authorized? %>
 		<div class="clearfix"></div>
 		<a href="/profile/<%= person.name %>"><em class="fa fa-cog"></em></a> &nbsp; 
 		<a href="/profile/delete/<%= person.name %>"><em class="fa fa-trash"></em></a> 
 	<% end %>
-	<br><br>
+	</div>
 <% end %>

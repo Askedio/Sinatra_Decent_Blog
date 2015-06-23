@@ -6,9 +6,20 @@
 <% else %>
 	<% @posts.each do |post| %>
 	<article itemscope="" itemtype="http://schema.org/BlogPosting">
+
+    <% if authorized? %>
+      <div class="pull-right">
+        <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
+        &nbsp;&nbsp;
+        <a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
+      </div>
+    <% end %>
+
 		<header>
 			<h2 itemprop="name headline"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
-			<p>Posted on <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at %></time> by
+
+			<p>
+				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 					<span itemprop="name">
 						<a href="#"><%= post.person.name %></a>
@@ -16,25 +27,42 @@
 				</span>
 			</p>
 			
+      <%= post.position %>
 			<% if post.image != '' %>
-				<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+				<% if post.position == 'top' || post.position.nil? %>
+					<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+				<% elsif post.position == 'left' %>
+					<p><img width="60%" class=" pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+				<% elsif post.position == 'right' %>
+					<p><img width="60%" class=" pull-right" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+				<% end %>
 			<% end %>
 		</header>
+
 		<div itemprop="articleBody">
-		<%= post.body %>	
+		  <%= post.body %>	
 		</div>
+
 		<br>
-		<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
-			<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
-			<li><a href="https://twitter.com/home?status=asked.io/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
-		</ul>
-		<% if authorized? %>
-			<a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> &nbsp; 
-			<a href="/delete/<%= post.slug %>"><em class="fa fa-trash"></em></a>
-		<% end %>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<% if post.categories.length > 0%>
+					<% post.categories.each do |cat| %>
+						<span class="label label-primary"><a href="/category/<%= cat.title %>"><%= cat.title %></a></span> 
+					<% end %>
+				<% end %>
+			</div>
+			<div class="col-sm-6">
+				<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
+					<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
+					<li><a href="https://twitter.com/home?status=asked.io/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
+				</ul>
+			</div>
+		</div>
 		<div class="clearfix"></div>
 	</article>
 	<% end %>
 <% end %>
-<%= will_paginate @posts, renderer: BootstrapPagination::Sinatra %>
+<%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
 <%= erb :footer %>

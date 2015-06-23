@@ -6,16 +6,12 @@
 
 			  app.get '/profile/create' do 
 				protected!
-				@persons = Person.all
 				erb :"admin/profile/create" 
 			  end
 
 			  app.post '/profile/create' do
 				protected!
-
-
 				person = Person.new(:name => params[:name], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
-
 				if person.save
 				  redirect '/'
 				else

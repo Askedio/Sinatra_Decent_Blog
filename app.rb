@@ -12,38 +12,30 @@ require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
 require 'sinatra/flash'
 
-require 'cloudinary'
-require 'cloudinary/uploader'
-require 'cloudinary/utils'
-
-if Cloudinary.config.api_key.blank?
-  require './config/cloudinary'
-end
-
-if Cloudinary.config.api_key.blank?
-  puts "Please configure your Cloudinary account in ./config/cloudinary"
-  exit
-end
-
 
 $data_dir = ENV['OPENSHIFT_DATA_DIR'].nil? ? Dir.pwd : ENV['OPENSHIFT_DATA_DIR']
 
-DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
-
-require_relative  'helpers'
+require_relative  'helpers/cloudinary'
+require_relative  'helpers/blog'
+require_relative  'config/blog'
 require_relative  'routes/blog'
 require_relative  'routes/profile'
+require_relative  'routes/category'
 require_relative  'routes/public'
 require_relative  'models/person'
 require_relative  'models/post'
 
+DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
 DataMapper.auto_upgrade!
+
 
 person= Person.all
 if person.count == 0
 	new_person = Person.new(:name => 'Admin', :password => 'password', :about => 'Default admin account, edit profile then change name and password.', :avatar => '/images/avatar.png')
 	new_person.save
 end
+
+
 
 class SimpleRubyBlog < Sinatra::Base
   
@@ -54,15 +46,14 @@ class SimpleRubyBlog < Sinatra::Base
   helpers Sinatra::SimpleRubyBlog::Helpers
   
   register Sinatra::Flash
-
   register WillPaginate::Sinatra
-  WillPaginate.per_page = 5
-
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
+  register Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
   register Sinatra::SimpleRubyBlog::Routing::Profile
   register Sinatra::SimpleRubyBlog::Routing::Public
 
-
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
+
+  WillPaginate.per_page = 5
 
 end
