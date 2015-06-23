@@ -16,7 +16,7 @@
         <select id="category" multiple name="category[]" class="form-control" required>
           <option value=""></option>
           <% Category.all.each do |cat| %>
-            <option value="<%= cat.id %>"><%= cat.title %></option>
+            <option value="<%= cat.id %>" <%= @post.categories.include?(cat) ? 'selected' : '' %>><%= cat.title %></option>
           <% end %>
         </select>
 		  </div>

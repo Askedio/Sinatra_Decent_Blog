@@ -42,7 +42,8 @@
 			  end
 			  
 			  app.get '/category/:title' do 
-				@posts =  Post.paginate(:page => params[:page], :categories => {:title => params[:title]})
+				cat = Category.first(:title => params[:title])
+				@posts =  cat.posts.paginate(:page => params[:page]) 
 				@page_description = 'We have categories! Browse our grouped posts, pretty legit!'
 				erb :"public/index" 
 			  end
