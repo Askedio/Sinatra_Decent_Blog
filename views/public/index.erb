@@ -6,7 +6,6 @@
 <% else %>
 	<% @posts.each do |post| %>
 	<article itemscope="" itemtype="http://schema.org/BlogPosting">
-
     <% if authorized? %>
       <div class="pull-right">
         <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
@@ -22,7 +21,7 @@
 				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 					<span itemprop="name">
-						<a href="#"><%= post.person.name %></a>
+						<a href="#"><%= post.person.name %></a> 
 					</span>
 				</span>
 			</p>
@@ -59,6 +58,18 @@
 				</ul>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<% if post.tags.length > 0%>
+					<% post.tags.each do |tag| %>
+						<span class="label label-info"><a href="/tag/<%= tag.title %>"><%= tag.title %></a></span> 
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+
+
 		<div class="clearfix"></div>
 	</article>
 	<% end %>

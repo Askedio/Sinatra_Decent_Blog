@@ -3,20 +3,28 @@ module Sinatra
     module Helpers
 
 		def process_category new_post, cats
-          new_post.categories.each do |cat|
-            p cat
-            p params[:category]
-            puts cat.id
-            if !params[:category].include?(cat.id.to_s)
-					puts "destroy"
-					#cat.post_categories.all.destroy
-            end
-          end
+			if !cats.nil?
+			  cats.each do |cat|
+				category = Category.first(:id => cat)
+				if category.nil?
+					category= Category.create(:title => cat)
+				end
+				new_post.categories << category
+			  end	
+			end
+		  new_post
+		end
 
-		  cats.each do |cat|
-            category = Category.first(:id => cat)
-            new_post.categories << category
-          end	
+		def process_tag new_post, tags
+			if !tags.nil?
+			  tags.each do |tag|
+				tagg = Tag.first(:id => tag)
+				if tagg.nil?
+					tagg = Tag.create(:title => tag)
+				end
+				new_post.tags << tagg
+			  end	
+			end
 		  new_post
 		end
 

@@ -1,7 +1,5 @@
 <%= erb :header %>
 
-
-
 <article>
 	<header>
 		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
@@ -11,43 +9,45 @@
 
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
-        <label for="title">Title:</label>
-        <input maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
+        <input placeholder="Title" maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
 		  </div>
+
 		  <div class="form-group">
-        <label for="category">Category:</label>
-        <select id="category" multiple name="category[]" class="form-control" required>
+        <textarea name="body" class="form-control" rows="20" id="body"><%= defined?(@post.body)? @post.body : '' %></textarea>
+		  </div>
+
+
+		  <div class="form-group">
+        <select id="category" multiple name="category[]" class="form-control">
           <% Category.all.each do |cat| %>
             <option value="<%= cat.id %>" <%= defined?(@post.title) && @post.categories.include?(cat) ? 'selected' : '' %>><%= cat.title %></option>
           <% end %>
         </select>
 		  </div>
-		  <div class="form-group">
-        <label for="file">Banner Image:</label>
-        <input class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
-		  </div>
-		  <div class="form-group">
-        <label for="position">Banner Position</label>
-        <select id="position" name="position" class="form-control" required>
-          <option value="top">top</option>
-          <option value="left">left</option>
-          <option value="right">right</option>
-        </select>
-		  </div>
 
 		  <div class="form-group">
-        <label for="body">Body:</label>
-        <textarea name="body" class="form-control" rows="20" id="body"><%= defined?(@post.body)? @post.body : '' %></textarea>
-		  </div>
-
-		  <div class="form-group">
-        <label for="tags">Tags:</label>
         <select id="tags" multiple name="tags[]" class="form-control">
            <% Tag.all.each do |tag| %>
             <option value="<%= tag.id %>" <%= defined?(@post.title) && @post.tags.include?(tag) ? 'selected' : '' %>><%= tag.title %></option>
           <% end %>
        </select>
 		  </div>
+
+		  <div class="form-group">
+        <label for="file"><em class="fa fa-image fa-2x"></em></label>
+        <input class="hidden" onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+		  </div>
+
+		  <div class="form-group" style="display:none" id="banner_position">
+        <label for="position">Banner Position</label>
+        <select id="position" name="position" class="form-control">
+          <option value="top">top</option>
+          <option value="left">left</option>
+          <option value="right">right</option>
+        </select>
+		  </div>
+
+
 
 
 		  <button type="submit" class="btn btn-primary">Submit</button>
@@ -81,7 +81,7 @@ tinymce.init({
 						{type: 'textbox', name: 'title', label: 'Code'}
 					],
 					onsubmit: function(e) {
-						ed.insertContent('<pre><code class="'+e.data.type+'">'+e.data.title+'</code</pre>');
+						ed.insertContent('<pre><code class="'+e.data.type+'">'+e.data.title+'</code></pre>');
 					}
 			});
 		}
@@ -96,10 +96,10 @@ tinymce.init({
 		<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 		<script>
 			$("#category").select2({
-			  tags: true
+			  tags: true, placeholder :'Categories'
 			});
 			$("#tags").select2({
-			  tags: true
+			  tags: true, placeholder :'Tags'
 			});
       $('.bg, .jumbotron').remove()
 

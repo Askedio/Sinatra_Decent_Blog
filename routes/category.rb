@@ -54,6 +54,12 @@
 				erb :"public/category" 
 			  end
 
+			  app.get '/tag/:title' do 
+				cat = Tag.first(:title => params[:title])
+				@posts =  cat.posts.paginate(:page => params[:page]) 
+				@page_description = 'We have categories! Browse our grouped posts, pretty legit!'
+				erb :"public/index" 
+			  end
 
 
 		  end
