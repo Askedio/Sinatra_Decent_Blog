@@ -5,10 +5,21 @@
 	<% else %>
 		<header><h2>Categories</h2></header>
 		<table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+ 				<% if authorized? %>
+        <th>Posts</th>
+        <th>Control</th>
+				<% end %>
+       </tr>
+    </thead>
+     <tbody>
 		<% @posts.each do |post| %>
 			<tr>
-				<td><%= post.title %></td>
+				<td><a href="/category/<%= post.slug %>"><%= post.title %></a></td>
 				<% if authorized? %>
+				<td><%= post.posts.length %></td>
 					<td align="right" width="80">
 						<a href="/category/edit/<%= post.id %>"><em class="fa fa-cog"></em></a> &nbsp; 
 						<a href="/category/delete/<%= post.id %>"><em class="fa fa-trash"></em></a> 
@@ -16,6 +27,7 @@
 				<% end %>
 			</tr>
 		<% end %>
+    </tbody>
 		</table>
 	<% end %>
 	<%= will_paginate @posts, renderer: BootstrapPagination::Sinatra %>

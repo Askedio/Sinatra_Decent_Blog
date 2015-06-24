@@ -23,7 +23,9 @@
     <% end %>
 
 		<header>
-      <img class="avatar img-thumbnail pull-left" src="<%= post.person.avatar %>" width="60" height="60" alt="<%= post.person.name %>">
+      <a href="/author/<%= post.person.name %>">
+        <img class="avatar img-thumbnail pull-left" src="<%= post.person.avatar %>" width="60" height="60" alt="<%= post.person.name %>">
+      </a>
 
       <h2 itemprop="name headline" class="post-title"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
 
@@ -31,7 +33,7 @@
 				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 					<span itemprop="name">
-						<strong><a href="#"><%= post.person.name %></a></strong> - <%= post.person.title %>
+						<strong><a href="/author/<%= post.person.name %>"><%= post.person.name %></a></strong> - <%= post.person.title %>
 					</span>
 				</span>
 			</p>
@@ -59,12 +61,12 @@
 
 				<% if post.categories.length > 0%>
 					<% post.categories.each do |cat| %>
-						<span class="label label-primary"><a href="/category/<%= cat.title %>"><%= cat.title %></a></span> 
+						<span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span> 
 					<% end %>
 				<% end %>
 				<% if post.tags.length > 0%>
 					<% post.tags.each do |tag| %>
-						<span class="label label-info"><a href="/tag/<%= tag.title %>"><%= tag.title %></a></span> 
+						<span class="label label-info"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span> 
 					<% end %>
 				<% end %>
 			</div>

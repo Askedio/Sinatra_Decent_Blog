@@ -9,6 +9,7 @@ class SimpleRubyBlog < Sinatra::Base
   helpers Sinatra::SimpleRubyBlog::Helpers
   
   register Sinatra::Flash
+
   register WillPaginate::Sinatra
 
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin

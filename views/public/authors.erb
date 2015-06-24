@@ -1,0 +1,23 @@
+<%= erb :header %>
+	<% if @posts.length == 0 %>
+		<header><h2>No results found :(</h2></header>
+	<% else %>
+    <% @posts.each do |post| %>
+      <article>
+        <header>
+          <img class="avatar  pull-left" src="<%= post.avatar %>" width="60" height="60" alt="<%= post.name %>">
+          <span class="badge badge-info pull-right" title="Posts"><%= post.posts.length %></span>
+          <h2><%= post.name %></h2>
+          <h4><%= post.title %></h4>
+          <hr>
+        </header>
+        <p><%= post.about %></p>
+        <% if authorized? %>
+          <a href="/profile/<%= post.name %>"><em class="fa fa-cog"></em></a> &nbsp; 
+          <a href="/profile/delete/<%= post.name %>"><em class="fa fa-trash"></em></a> 
+        <% end %>
+      </article>
+    <% end %>
+	<%= will_paginate @posts, renderer: BootstrapPagination::Sinatra %>
+	<% end %>
+<%= erb :footer %>

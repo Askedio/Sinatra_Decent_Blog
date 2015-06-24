@@ -1,16 +1,30 @@
-<br>
-<h4>Asked.io: Authors</h4>
 <div class="wrapper">
-<% Person.all.each do |person| %>
-  <h3><%= person.name %></h3>
-  <h4><%= person.title %></h4>
-	<div class="about"><img class="avatar img-rounded" src="<%= person.avatar %>" width="70" height="70" alt="<%= person.name %>">
-	<%= person.about %>
-	<% if authorized? %>
-		<div class="clearfix"></div>
-		<a href="/profile/<%= person.name %>"><em class="fa fa-cog"></em></a> &nbsp; 
-		<a href="/profile/delete/<%= person.name %>"><em class="fa fa-trash"></em></a> 
-	<% end %>
-	</div>
-<% end %>
+  <h4>Free Email Updates</h4>
+  
+  <form action="//gamecp.us9.list-manage.com/subscribe/post?u=c51506a011e686ef30cdf42cb&amp;id=90c78ff308" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" >
+      <div class="input-group">
+        <input type="email"  name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Enter your email address" required>
+        <input type="hidden" name="b_c51506a011e686ef30cdf42cb_90c78ff308" tabindex="-1" value="">
+        <div class="input-group-btn">
+          <button class="btn btn-primary" type="submit"><i class="fa fa-envelope"></i></button>
+        </div>
+      </div>	
+  </form>
+  <p class="text-muted text-center pt5"><small><em class="fa fa-lock"></em> No spam. Sent with <a href="http://eepurl.com/bc3L_H%22">Mailchimp</a>.</small></p>
 </div>
+<br>
+<h4><a href="/authors">Authors</a></h4>
+<% Person.all.each do |person| %>
+<div class="wrapper">
+  <div class="row">
+    <div class="col-sm-3 ">
+     <img class=" img-rounded" src="<%= person.avatar %>" width="50" height="50" alt="<%= person.name %>">
+    </div>
+    <div class="col-sm-9">
+      <h3 class="m0"><a href="/author/<%= person.name %>"><%= person.name %></a></h3>
+      <div><%= person.title %></div>
+    </div>
+  </div>
+
+</div>
+<% end %>
