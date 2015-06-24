@@ -56,6 +56,7 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
+
 				<% if post.categories.length > 0%>
 					<% post.categories.each do |cat| %>
 						<span class="label label-primary"><a href="/category/<%= cat.title %>"><%= cat.title %></a></span> 
@@ -68,7 +69,11 @@
 				<% end %>
 			</div>
 			<div class="col-sm-6">
-				<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
+         <span class="pull-right comments-link" onclick="$('#comments_<%= i %>').slideToggle()">
+          &nbsp; <em class="fa fa-comments"></em> <%= post.comments.length %>
+         </span>
+
+				<ul class="pull-right social-icons list-unstyled list-inline"> 
 					<li><a class="popup" href="https://www.facebook.com/sharer/sharer.php?u=https://asked.io/posts/<%= post.slug %>"><em class="fa fa-facebook"></em></a></li> 
 					<li><a class="popup" href="https://twitter.com/home?status=https://asked.io/posts/<%= post.slug %>"><em class="fa fa-twitter"></em></a></li> 
 			</ul>
@@ -76,10 +81,9 @@
 		</div>
 
 		<div class="row">
-      <hr>
       <div class="col-sm-12">
-        <h5 class="comments-link" onclick="$('#comments_<%= i %>').slideToggle()"><em class="fa fa-comments"></em> <%= post.comments.length %> Comments</h5>
           <div id="comments_<%= i %>" style="display: none; ">
+            <hr>
             <% post.comments.each do |comment| %>
               <div class="container">
                 <div class="row">
@@ -88,7 +92,7 @@
                       <img class="img-responsive img-rounded" src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment.email) %>">
                     </div>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-11">
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <strong><%= comment.name %></strong> <span class="text-muted pull-right"><%= comment.created_at.strftime("%B %m, %Y %H:%M%P") %></span>
