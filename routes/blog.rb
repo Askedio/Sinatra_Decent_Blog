@@ -5,6 +5,33 @@ module Sinatra
 
 
       def self.registered(app)
+
+
+        app.post '/create/upload'	do 
+          protected!
+          halt 500 unless !params['image'].nil?
+          accepted_formats = [".jpg", ".png", ".gif"]
+          if !accepted_formats.include? File.extname(params['image'][:filename]) 
+           halt 500
+          end
+          image=nil
+
+          new_image	= File.open('public/assests/images/' + params['image'][:filename], "wb") do	|f|
+          f.write(params['image'][:tempfile].read)
+          end
+
+          uploads =	{}
+          uploads[params['image'][:filename]] =	Cloudinary::Uploader.upload	'public/assests/images/' + params['image'][:filename]
+          uploads.each_value.with_index	do |upload,	index|
+           image = upload['secure_url']
+          end
+
+          "<script>top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
+        end
+
+
+
+
           app.get '/create' do 
             protected!
             erb :"admin/post/create" 

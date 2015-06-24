@@ -50,16 +50,25 @@
       <button type="submit" class="btn btn-primary">Submit</button> <input <% if defined?(@post.slug) && @post.draft == 1 %>checked<% end %> name="draft" value="1" id="draft" type="checkbox"> <label for="draft">Draft?</label>
 		</form>
 </article>
+
+<iframe id="form_target" name="form_target" class="hidden"></iframe>
+<form id="upload_form" action="/create/upload" target="form_target" method="post" enctype="multipart/form-data" class="hidden">
+  <input name="image" type="file" onchange="$('#upload_form').submit();this.value='';">
+</form>
+
 <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 <script>
 tinymce.init({
   selector: "textarea",
   theme: "modern",
+
   plugins: [
-       "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+       "image advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
        "save table contextmenu directionality emoticons template paste textcolor"
- ],
+ ],file_browser_callback: function(field_name, url, type, win) {
+        if(type=='image') $('#my_form input').click();
+    },
  content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css,/css/site.css",
  toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  media fullpage | forecolor backcolor emoticons | example",
  setup: function(ed) {
