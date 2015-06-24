@@ -67,7 +67,7 @@
 		<div class="row">
       <hr>
       <div class="col-sm-12">
-        <h5 class="comments-link" onclick="$('#comments_<%= i %>').toggle()"><em class="fa fa-comments"></em> <%= post.comments.length %> Comments</h5>
+        <h5 class="comments-link" onclick="$('#comments_<%= i %>').slideToggle()"><em class="fa fa-comments"></em> <%= post.comments.length %> Comments</h5>
           <div id="comments_<%= i %>" style="display: none; ">
             <% post.comments.each do |comment| %>
               <div class="container">
