@@ -53,39 +53,40 @@
 <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 <script>
 tinymce.init({
-    selector: "textarea",
-    theme: "modern",
-    plugins: [
-         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-         "save table contextmenu directionality emoticons template paste textcolor"
-   ],
-   content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css,/css/site.css",
-   toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image |  media fullpage | forecolor backcolor emoticons", 
-   setup: function(ed) {
-      ed.addMenuItem('example', {
-         text: 'Insert Code',
-         context: 'tools',
-         onclick: function() {
-			ed.windowManager.open({
-				title: 'Insert Code',
-					body: [
-						{type: 'listbox', name: 'type', label: 'Code','values': [
-							{text: 'HTML', value: 'html'},
-							{text: 'Ruby', value: 'ruby'},
-							{text: 'PHP', value: 'php'}
-						]},
-						{type: 'textbox', name: 'title', label: 'Code'}
-					],
-					onsubmit: function(e) {
-						ed.insertContent('<pre><code class="'+e.data.type+'">'+e.data.title+'</code></pre>');
-					}
-			});
-		}
-      });
-   }
- }); 
-
+  selector: "textarea",
+  theme: "modern",
+  plugins: [
+       "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+       "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+       "save table contextmenu directionality emoticons template paste textcolor"
+ ],
+ content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css,/css/site.css",
+ toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  media fullpage | forecolor backcolor emoticons | example",
+ setup: function(ed) {
+  ed.addButton('example', {
+     text: 'Insert',
+     icon: 'code',
+     context: 'tools',
+     onclick: function() {
+        ed.windowManager.open({
+          title: 'Insert Code',
+          width: 300,
+          height: 80,
+            body: [
+              {type: 'listbox', name: 'type', label: '','values': [
+                {text: 'HTML', value: 'html'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'PHP', value: 'php'}
+              ]}
+            ],
+            onsubmit: function(e) {
+              ed.insertContent('<pre><code class="'+e.data.type+'">CODE</code></pre>');
+            }
+        });
+     }
+  });
+ }
+});
 </script>
 
 <% @footer = %Q{
@@ -98,7 +99,8 @@ tinymce.init({
 			$("#tags").select2({
 			  tags: true, placeholder :'Tags'
 			});
-      $('.bg, .jumbotron').remove()
+      $('.bg, .jumbotron, aside').remove()
+      $('.left-side').removeClass('col-md-9');
 
 		</script>
 } %>
