@@ -4,7 +4,7 @@
 		<header><h2>No results found :(</h2></header>
 	</article>
 <% else %>
-	<% @posts.each do |post| %>
+	<% @posts.each_with_index do |post, i| %>
 	<article itemscope="" itemtype="http://schema.org/BlogPosting">
     <% if authorized? %>
       <div class="pull-right">
@@ -50,6 +50,11 @@
 						<span class="label label-primary"><a href="/category/<%= cat.title %>"><%= cat.title %></a></span> 
 					<% end %>
 				<% end %>
+				<% if post.tags.length > 0%>
+					<% post.tags.each do |tag| %>
+						<span class="label label-info"><a href="/tag/<%= tag.title %>"><%= tag.title %></a></span> 
+					<% end %>
+				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
@@ -60,17 +65,65 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6">
-				<% if post.tags.length > 0%>
-					<% post.tags.each do |tag| %>
-						<span class="label label-info"><a href="/tag/<%= tag.title %>"><%= tag.title %></a></span> 
-					<% end %>
-				<% end %>
-			</div>
+      <hr>
+      <div class="col-sm-12">
+        <h5 class="comments-link" onclick="$('#comments_<%= i %>').toggle()"><em class="fa fa-comments"></em> <%= post.comments.length %> Comments</h5>
+          <div id="comments_<%= i %>" style="display: none; ">
+            <% post.comments.each do |comment| %>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <div class="thumbnail">
+                      <img class="img-responsive img-rounded" src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment.email) %>">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <strong><%= comment.name %></strong> <span class="text-muted pull-right"><%= comment.created_at.strftime("%B %m, %Y %H:%M%P") %></span>
+                        <% if authorized? %>
+                          <div class="pull-left">
+                            <a href="/comment/delete/<%= comment.id %>"><em class="fa fa-trash"></em></a> &nbsp;
+                          </div>
+                         <% end %>
+                      </div>
+                      <div class="panel-body">
+                       <%= comment.body %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <form method="post" action="/comment/<%= post.slug %>">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input name="name" type="text" class="form-control" placeholder="Your Name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input name="email" type="email" class="form-control" placeholder="Your e-mail" required>
+                      </div>
+                    </div>
+                  </div>
+                      <div class="form-group">
+                        <textarea name="body" placeholder="Comments" class="form-control" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <input name="website" type="text" class="spam-control">
+                      </div>
+                      <button class="btn btn-block btn-primary">Post my comment</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
 		</div>
-
-
-		<div class="clearfix"></div>
 	</article>
 	<% end %>
 <% end %>

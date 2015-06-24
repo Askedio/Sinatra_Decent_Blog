@@ -19,6 +19,7 @@ require_relative  'helpers/cloudinary'
 require_relative  'helpers/blog'
 require_relative  'config/blog'
 require_relative  'routes/blog'
+require_relative  'routes/comment'
 require_relative  'routes/profile'
 require_relative  'routes/category'
 require_relative  'routes/public'
@@ -51,6 +52,7 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
   register Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
   register Sinatra::SimpleRubyBlog::Routing::Profile
+  register Sinatra::SimpleRubyBlog::Routing::CommentControl
   register Sinatra::SimpleRubyBlog::Routing::Public
 
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
