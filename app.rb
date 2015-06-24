@@ -57,6 +57,6 @@ class SimpleRubyBlog < Sinatra::Base
 
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
-  WillPaginate.per_page = 5
+  WillPaginate.per_page = 8
 
 end
