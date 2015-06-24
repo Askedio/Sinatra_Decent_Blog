@@ -1,5 +1,9 @@
-<h2>About</h2>
+<br>
+<h4>Asked.io: Authors</h4>
+<div class="wrapper">
 <% Person.all.each do |person| %>
+  <h3><%= person.name %></h3>
+  <h4><%= person.title %></h4>
 	<div class="about"><img class="avatar img-rounded" src="<%= person.avatar %>" width="70" height="70" alt="<%= person.name %>">
 	<%= person.about %>
 	<% if authorized? %>
@@ -9,3 +13,4 @@
 	<% end %>
 	</div>
 <% end %>
+</div>
