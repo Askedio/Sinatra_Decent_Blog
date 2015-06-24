@@ -1,52 +1,21 @@
 			</section>
-			<aside class="col-md-4">
+			<aside class="col-md-3 p0">
 	      <%= @aside ? @aside : '' %>
 
+			<div class="wrapper">
+        <h4>Email Updates? Yes please!</h4>
+        
+        <form action="//gamecp.us9.list-manage.com/subscribe/post?u=c51506a011e686ef30cdf42cb&amp;id=90c78ff308" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" >
+            <div class="input-group">
+              <input type="email"  name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Enter your email address" required>
+              <input type="hidden" name="b_c51506a011e686ef30cdf42cb_90c78ff308" tabindex="-1" value="">
+              <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-envelope"></i></button>
+              </div>
+            </div>	
+        </form>
+      </div>
 
-      <form action="//gamecp.us9.list-manage.com/subscribe/post?u=c51506a011e686ef30cdf42cb&amp;id=90c78ff308" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" >
-					<div class="input-group">
-						<input type="email"  name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Join Mailing List" required>
-            <input type="hidden" name="b_c51506a011e686ef30cdf42cb_90c78ff308" tabindex="-1" value="">
-						<div class="input-group-btn">
-							<button class="btn btn-primary" type="submit"><i class="fa fa-envelope"></i></button>
-						</div>
-					</div>	
-      </form>
-      <br>
-
-
-
-
-				<form method="post" action="/search" role="search" id="search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-						</div>
-					</div>
-				</form>
-
-				<br>
-
-				<% if authorized? %>
-				<div class="text-center">
-					<a href="/create" class="btn btn-primary"><em class="fa fa-plus"></em> Create Post</a> 
-					<a href="/profile" class="btn btn-danger"><em class="fa fa-user"></em> Profile</a>
-					<div class="btn-group" role="group" aria-label="...">
-					  <div class="btn-group" role="group">
-						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						  <em class="fa fa-cog"></em>
-						  <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create User</a></li>
-							<li><a href="/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
-							<li><a href="/category"><em class="fa fa-cog"></em> Edit Categories</a></li>
-						</ul>
-					  </div>
-					</div><br><br>
-					</div>
-				<% end %>
 
 				<div class="wrapper">
 					<%= erb :aside %>

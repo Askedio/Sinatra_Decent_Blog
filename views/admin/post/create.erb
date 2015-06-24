@@ -35,7 +35,7 @@
 
 		  <div class="form-group">
         <label for="file"><em class="fa fa-image fa-2x"></em></label>
-        <input class="hidden" onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+        <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
 		  </div>
 
 		  <div class="form-group" style="display:none" id="banner_position">

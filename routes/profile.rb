@@ -11,7 +11,7 @@
 
 			  app.post '/profile/create' do
 				protected!
-				person = Person.new(:name => params[:name], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				person = Person.new(:name => params[:name],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 				if person.save
 				  redirect '/'
 				else
@@ -30,7 +30,7 @@
 			  app.post '/profile/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
-				person.update(:name => params[:name], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				person.update(:name => params[:name],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 			    redirect '/profile'
 			  end
 

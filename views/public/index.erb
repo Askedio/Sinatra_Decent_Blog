@@ -5,7 +5,13 @@
 	</article>
 <% else %>
 	<% @posts.each_with_index do |post, i| %>
-	<article itemscope="" itemtype="http://schema.org/BlogPosting">
+
+
+	<% if !post.image.empty? && (post.position == 'top' || post.position.nil?) %>
+    <div class="post-header-image" title="<%= post.title %>" style="background-image: url(<%= post.image %>)" onclick="window.location='/posts/<%= post.slug %>'"></div>
+  <% end %>
+
+	<article itemscope="" itemtype="http://schema.org/BlogPosting" data-categories="" data-group="" data-tags="">
     <% if authorized? %>
       <div class="pull-right">
         <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
@@ -15,20 +21,24 @@
     <% end %>
 
 		<header>
-			<h2 itemprop="name headline"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
+      <img class="avatar img-thumbnail pull-left" src="<%= post.person.avatar %>" width="60" height="60" alt="<%= post.person.name %>">
 
-			<p>
+      <h2 itemprop="name headline" class="post-title"><a href="/posts/<%= post.slug %>"><%= post.title %></a></h2>
+
+			<p class="post_meta">
 				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-					<span itemprop="name">
-						<a href="#"><%= post.person.name %></a> 
+					<span itemprop="name" class="post_meta-author">
+						<strong><a href="#"><%= post.person.name %></a></strong> - <%= post.person.title %>
 					</span>
 				</span>
 			</p>
 
+
+
+
       <% if post.image != '' %>
 				<% if post.position == 'top' || post.position.nil? %>
-					<p><img class="img-responsive" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 				<% elsif post.position == 'left' %>
 					<p><img width="60%" class=" pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 				<% elsif post.position == 'right' %>
@@ -38,11 +48,10 @@
 		</header>
 
 		<div itemprop="articleBody">
-		  <%= post.body %>	
+		  <%= post.body %>
 		</div>
 
 		<br>
-
 		<div class="row">
 			<div class="col-sm-6">
 				<% if post.categories.length > 0%>
@@ -102,12 +111,12 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input name="name" type="text" class="form-control" placeholder="Your Name" required>
+                        <input name="name" type="text" class="form-control" placeholder="My Name" required>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input name="email" type="email" class="form-control" placeholder="Your e-mail" required>
+                        <input name="email" type="email" class="form-control" placeholder="My E-mail" required>
                       </div>
                     </div>
                   </div>
@@ -127,5 +136,7 @@
 	</article>
 	<% end %>
 <% end %>
-<%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
+<div class="text-center">
+  <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
+</div>
 <%= erb :footer %>
