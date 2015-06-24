@@ -42,9 +42,9 @@
       <% if post.image != '' %>
 				<% if post.position == 'top' || post.position.nil? %>
 				<% elsif post.position == 'left' %>
-					<p><img width="60%" class=" pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+					<p><img width="60%" class="image-left pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 				<% elsif post.position == 'right' %>
-					<p><img width="60%" class=" pull-right" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+					<p><img width="60%" class="image-right pull-right" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
 				<% end %>
 			<% end %>
 		</header>
@@ -69,8 +69,8 @@
 			</div>
 			<div class="col-sm-6">
 				<ul class="pull-right social-icons icon-rounded  list-unstyled list-inline"> 
-					<li><a href="https://www.facebook.com/sharer/sharer.php?u=asked.io/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
-					<li><a href="https://twitter.com/home?status=asked.io/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
+					<li><a class="popup" href="https://www.facebook.com/sharer/sharer.php?u=https://asked.io/posts/<%= post.slug %>"><i class="fa fa-facebook"></i></a></li> 
+					<li><a class="popup" href="https://twitter.com/home?status=https://asked.io/posts/<%= post.slug %>"><i class="fa fa-twitter"></i></a></li>   
 				</ul>
 			</div>
 		</div>

@@ -5,4 +5,8 @@ $(document).ready(function() {
 			window.location='/search/'+ $('#srch-term').val();
 	});
 	$( 'a[href^="http"]:not(".internal")' ).attr( 'target','_blank' );
+	$('.popup').on('click', function() {
+		window.open($(this).prop('href'), '', 'height=260,width=520');
+		return false;
+	});
 });
