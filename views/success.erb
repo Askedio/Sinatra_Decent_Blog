@@ -1,0 +1,8 @@
+<% if !flash[:success].nil? %>
+  <div class="alert alert-success"><h3><em class="fa fa-check"></em> Saved!</em></h3><%= flash[:success] != true ? flash[:success] : '' %></div>
+  <script>
+    setTimeout(function(){
+      $('.alert-success').remove();
+    }, 5000);
+  </script>
+<% end %>

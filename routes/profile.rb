@@ -13,7 +13,9 @@
 				protected!
 				person = Person.new(:name => params[:name],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 				if person.save
-				  redirect '/'
+				  new_person ||= Person.first(:name => params[:name]) || halt(500)
+				  flash[:success] = true
+				  redirect "/profile/#{new_person.name}"
 				else
 					do_error person.errors
 					redirect "/profile/create"
@@ -30,15 +32,19 @@
 			  app.post '/profile/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
-				person.update(:name => params[:name],:slug => params[:slug],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
-			    redirect '/profile'
+				if person.update(:name => params[:name],:slug => params[:slug],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+					flash[:success] = true
+				else
+					do_error person.errors
+				end
+			    redirect "/profile/#{params[:id]}"
 			  end
 
 			  app.get '/profile/delete/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
 				halt 500 unless person.destroy
-				redirect '/'
+				redirect '/authors'
 			  end
 			  
 			  app.get '/profile' do 
@@ -52,6 +58,7 @@
 				protected!
 				person ||= Person.first(:name => session[:username]) || halt(404)
 				person.update(:name => params[:name],:slug => params[:slug], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				flash[:success] = true
 			    redirect '/profile'
 			  end
 

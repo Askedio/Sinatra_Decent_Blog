@@ -15,7 +15,9 @@
 				protected!
 				person = Category.new(:title => params[:title], :description => params[:description])
 				if person.save
-				  redirect '/categories'
+				  new_person ||= Category.first(:title => params[:title]) || halt(500)
+				  flash[:success] = true
+				  redirect "/category/edit/#{new_person.id}"
 				else
 					do_error person.errors
 					redirect "/category/create"
@@ -33,8 +35,12 @@
 			  app.post '/category/edit/:id' do
 				protected!
 				person ||= Category.first(:id => params[:id]) || halt(404)
-				person.update(:title => params[:title],:slug => params[:slug], :description => params[:description])
-			    redirect '/categories'
+				if person.update(:title => params[:title], :slug => params[:slug], :description => params[:description])
+					flash[:success] = true
+				else
+					do_error person.errors
+				end
+				redirect "/category/edit/#{params[:id]}"
 			  end
 
 			  app.get '/category/delete/:id' do

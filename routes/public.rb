@@ -9,8 +9,7 @@
 				@posts =  [post]
 				@page_title = post.title
 				@page_image = post.image
-				description = post.body.gsub(/<\/?[^>]*>/, "")
-				@page_description = description[0..255]
+				@page_description = post.body.gsub(/<\/?[^>]*>/, "")[0..255]
 				erb :"public/index" 
 			  end
 

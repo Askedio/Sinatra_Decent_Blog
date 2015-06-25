@@ -13,9 +13,11 @@
 
 			  app.post '/tag/create' do
 				protected!
-				person = Category.new(:title => params[:title], :description => params[:description])
+				person = Tag.new(:title => params[:title], :description => params[:description])
 				if person.save
-				  redirect '/tags'
+				  new_person ||= Tag.first(:title => params[:title]) || halt(500)
+				  flash[:success] = true
+				  redirect "/tag/edit/#{new_person.id}"
 				else
 					do_error person.errors
 					redirect "/tag/create"
@@ -33,8 +35,12 @@
 			  app.post '/tag/edit/:id' do
 				protected!
 				person ||= Tag.first(:id => params[:id]) || halt(404)
-				person.update(:title => params[:title],:slug => params[:slug], :description => params[:description])
-			    redirect '/tags'
+				if person.update(:title => params[:title], :slug => params[:slug], :description => params[:description])
+					flash[:success] = true
+				else
+					do_error person.errors
+				end
+				redirect "/tag/edit/#{params[:id]}"
 			  end
 
 			  app.get '/tag/delete/:id' do
