@@ -37,7 +37,7 @@
 			  end
 
 			  app.get '/search/:query' do 
-				@posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ],:body.like => "%#{params[:query]}%") 
+				@posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ], :body.like => "%#{params[:query]}%") 
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
 				erb :"public/index" 
 			  end

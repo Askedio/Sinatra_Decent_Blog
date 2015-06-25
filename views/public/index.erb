@@ -53,7 +53,6 @@
 		<div class="post-body" itemprop="articleBody">
 		  <%= post.body %>
 		</div>
-
 		<br>
 		<div class="row">
 			<div class="col-sm-6" itemprop="keywords">
@@ -66,6 +65,14 @@
 					<% post.tags.each do |tag| %>
 						<span class="label label-info"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span> 
 					<% end %>
+
+          <%
+            tt = post.tags.first 
+            tt.posts.all(:limit => 2, :offset => rand(tt.posts.count)).each do |cat| 
+          %>
+            <span class="label label-warning"><a href="/posts/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span> 
+          <% end %>
+
 				<% end %>
 			</div>
 			<div class="col-sm-6">
