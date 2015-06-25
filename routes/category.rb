@@ -6,8 +6,9 @@
 
 			  app.get '/category/create' do 
 				protected!
-				@persons = Person.all
-				erb :"admin/category/create" 
+				@page_title = 'Categories'
+				@page_slug = 'category'
+				erb :"admin/manage/control" 
 			  end
 
 			  app.post '/category/create' do
@@ -24,7 +25,9 @@
 			  app.get '/category/edit/:id' do 
 				protected!
 				@person ||= Category.first(:id => params[:id]) || halt(404)
-				erb :"admin/category/create" 
+				@page_title = 'Categories'
+				@page_slug = 'category'
+				erb :"admin/manage/control" 
 			  end
 
 			  app.post '/category/edit/:id' do
@@ -51,16 +54,10 @@
 			  app.get '/categories' do 
 				@posts = Category.paginate(:page => params[:page]) 
 				@page_description = 'We have categories! Browse our grouped posts, pretty legit!'
-				erb :"public/category" 
+				@page_title = 'Categories'
+				@page_slug = 'category'
+				erb :"public/list" 
 			  end
-
-			  app.get '/tag/:title' do 
-				cat ||= Tag.first(:slug => params[:title])|| halt(404)
-				@posts =  cat.posts.paginate(:page => params[:page]) 
-				@page_description = 'We have tags! Browse our tagged posts, pretty legit!'
-				erb :"public/index" 
-			  end
-
 
 		  end
 	   end

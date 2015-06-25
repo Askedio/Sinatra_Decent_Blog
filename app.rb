@@ -13,6 +13,8 @@ class SimpleRubyBlog < Sinatra::Base
   register WillPaginate::Sinatra
 
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
+ 
+  register Sinatra::SimpleRubyBlog::Routing::TagAdmin
 
   register Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
 

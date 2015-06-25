@@ -3,7 +3,7 @@
 	<% if @posts.length == 0 %>
 		<header><h2>No results found :(</h2></header>
 	<% else %>
-		<header><h2>Categories</h2></header>
+		<header><h2><%= @page_title %></h2></header>
 		<table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -17,12 +17,12 @@
      <tbody>
 		<% @posts.each do |post| %>
 			<tr>
-				<td><a href="/category/<%= post.slug %>"><%= post.title %></a></td>
+				<td><a href="/<%= @page_slug %>/<%= post.slug %>"><%= post.title %></a></td>
 				<% if authorized? %>
 				<td><%= post.posts.length %></td>
 					<td align="right" width="80">
-						<a href="/category/edit/<%= post.id %>"><em class="fa fa-cog"></em></a> &nbsp; 
-						<a href="/category/delete/<%= post.id %>"><em class="fa fa-trash"></em></a> 
+						<a href="/<%= @page_slug %>/edit/<%= post.id %>"><em class="fa fa-cog"></em></a> &nbsp; 
+						<a href="/<%= @page_slug %>/delete/<%= post.id %>"><em class="fa fa-trash"></em></a> 
 					</td>
 				<% end %>
 			</tr>

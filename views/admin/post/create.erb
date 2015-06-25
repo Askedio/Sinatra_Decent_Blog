@@ -15,8 +15,8 @@
 		  <div class="form-group">
         <div name="body" class="form-control" style="height: 30vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
 		  </div>
-
-
+<div class="row">
+<div class="col-sm-6">
 		  <div class="form-group">
         <select id="category" multiple name="category[]" class="form-control">
           <% Category.all.each do |cat| %>
@@ -24,6 +24,8 @@
           <% end %>
         </select>
 		  </div>
+</div>
+<div class="col-sm-6">
 
 		  <div class="form-group">
         <select id="tags" multiple name="tags[]" class="form-control">
@@ -32,6 +34,8 @@
           <% end %>
        </select>
 		  </div>
+</div>
+</div>
 
 		  <div class="form-group">
         <label for="file"><em class="fa fa-image fa-2x"></em></label>
@@ -114,10 +118,10 @@ tinymce.init({
 		<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 		<script>
 			$("#category").select2({
-			  tags: true, placeholder :'Categories'
+			  tags: true, placeholder :'Categories', width: '100%'
 			});
 			$("#tags").select2({
-			  tags: true, placeholder :'Tags'
+			  tags: true, placeholder :'Tags', width: '100%'
 			});
       $('.bg, .jumbotron, aside').remove()
       $('.left-side').removeClass('col-md-9');

@@ -6,7 +6,7 @@
       <article>
         <header>
           <img class="avatar  pull-left" src="<%= post.avatar %>" width="60" height="60" alt="<%= post.name %>">
-          <span class="badge badge-info pull-right" title="Posts"><%= post.posts.length %></span>
+          <a href="/author/<%= post.slug %>/posts"><span class="badge badge-info pull-right" title="Posts"><%= post.posts.length %></span></a>
           <h2><%= post.name %></h2>
           <h4><%= post.title %></h4>
           <hr>

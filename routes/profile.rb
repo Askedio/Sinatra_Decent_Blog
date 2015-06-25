@@ -6,7 +6,7 @@
 
 			  app.get '/profile/create' do 
 				protected!
-				erb :"admin/profile/create" 
+				erb :"admin/profile/control" 
 			  end
 
 			  app.post '/profile/create' do
@@ -24,13 +24,13 @@
 				protected!
 				@persons = Person.all
 				@person ||= Person.first(:name => params[:id]) || halt(404)
-				erb :"admin/profile/create" 
+				erb :"admin/profile/control" 
 			  end
 
 			  app.post '/profile/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
-				person.update(:name => params[:name],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				person.update(:name => params[:name],:slug => params[:slug],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 			    redirect '/profile'
 			  end
 
@@ -45,7 +45,7 @@
 				protected!
 				@persons = Person.all
 				@person ||= Person.first(:name => session[:username]) || halt(404)
-				erb :"admin/profile/create" 
+				erb :"admin/profile/control" 
 			  end
 
 			  app.post '/profile' do

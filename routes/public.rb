@@ -6,12 +6,12 @@
 
 			  app.get '/posts/:id' do
 				post ||= Post.get(params[:id]) || halt(404)
-				@post = post
+				@posts =  [post]
 				@page_title = post.title
 				@page_image = post.image
 				description = post.body.gsub(/<\/?[^>]*>/, "")
 				@page_description = description[0..255]
-				erb :"public/details" 
+				erb :"public/index" 
 			  end
 
 			  app.get '/' do	
@@ -46,10 +46,18 @@
 			  end
 
 			  app.get '/author/:id' do 
-				@posts = Person.paginate(:page => params[:page], :name => params[:id]) 
+				@posts = Person.paginate(:page => params[:page], :slug => params[:id]) 
 				@page_description = 'Who writes for Asked.io? We do :D'
 				erb :"public/authors" 
 			  end
+
+			  app.get '/author/:id/posts' do 
+				person ||= Person.first(:slug => params[:id]) || halt(404)
+				@posts = person.posts.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ]) 
+				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
+				erb :"public/index" 
+			  end
+
 
 			  app.get '/rss' do
 				@posts = Post.all

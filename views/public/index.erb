@@ -23,7 +23,7 @@
     <% end %>
 
 		<header>
-      <a href="/author/<%= post.person.name %>">
+      <a href="/author/<%= post.person.slug %>">
         <img class="avatar img-thumbnail pull-left" src="<%= post.person.avatar %>" width="60" height="60" alt="<%= post.person.name %>">
       </a>
 
@@ -149,7 +149,9 @@
 	</article>
 	<% end %>
 <% end %>
-<div class="text-center">
-  <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
-</div>
+<% if @posts.length > 6 %>
+  <div class="text-center">
+    <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
+  </div>
+<% end %>
 <%= erb :footer %>
