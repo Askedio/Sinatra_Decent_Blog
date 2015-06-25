@@ -4,6 +4,3 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-export CLOUDINARY_CLOUD_NAME=asked-io
-export CLOUDINARY_KEY=225663616768815
-export CLOUDINARY_SECRET=Xz0rlrMJcZfKn9Rb-9FjgwG7k4U
