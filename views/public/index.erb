@@ -86,31 +86,35 @@
       <div class="col-sm-12">
           <div id="comments_<%= i %>" style="display: none; ">
             <hr>
-            <% post.comments.each do |comment| %>
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-1">
-                    <div class="thumbnail">
-                      <img class="img-responsive img-rounded" src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment.email) %>">
-                    </div>
-                  </div>
-                  <div class="col-sm-11">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <strong><%= comment.name %></strong> <span class="text-muted pull-right"><%= comment.created_at.strftime("%B %m, %Y %H:%M%P") %></span>
-                        <% if authorized? %>
-                          <div class="pull-left">
-                            <a href="/comment/delete/<%= comment.id %>"><em class="fa fa-trash"></em></a> &nbsp;
-                          </div>
-                         <% end %>
+             <% if post.comments.length == 0 %>
+              <h3>No comments yet!</h3>
+             <% else %>
+              <% post.comments.each do |comment| %>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-1">
+                      <div class="thumbnail">
+                        <img class="img-responsive img-rounded" src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(comment.email) %>">
                       </div>
-                      <div class="panel-body">
-                       <%= comment.body %>
+                    </div>
+                    <div class="col-sm-11">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <strong><%= comment.name %></strong> <span class="text-muted pull-right"><%= comment.created_at.strftime("%B %m, %Y %H:%M%P") %></span>
+                          <% if authorized? %>
+                            <div class="pull-left">
+                              <a href="/comment/delete/<%= comment.id %>"><em class="fa fa-trash"></em></a> &nbsp;
+                            </div>
+                           <% end %>
+                        </div>
+                        <div class="panel-body">
+                         <%= comment.body %>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
             <hr>
             <div class="row">

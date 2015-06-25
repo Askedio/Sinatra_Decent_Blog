@@ -94,7 +94,7 @@ tinymce.init({
               ]}
             ],
             onsubmit: function(e) {
-              ed.insertContent('<pre><code class="'+e.data.type+'">CODE</code></pre>');
+              ed.insertContent('<pre class="'+e.data.type+'"></pre>');
             }
         });
      }

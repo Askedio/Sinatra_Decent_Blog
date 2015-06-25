@@ -9,4 +9,7 @@ $(document).ready(function() {
 		window.open($(this).prop('href'), '', 'height=260,width=520');
 		return false;
 	});
+	$('pre').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
 });
