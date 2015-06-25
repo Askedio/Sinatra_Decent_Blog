@@ -1,5 +1,6 @@
 require_relative  'init'
 
+
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
@@ -25,6 +26,8 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::Public
 
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
+
+#Mail.send('will@asked.io', 'gcphost@gmail.com', 'Hi', 'Custom Body', './views/emails/email.erb')
 
   WillPaginate.per_page = 8
 

@@ -51,7 +51,7 @@ module Sinatra
 			end
 
 			person ||= Person.first(:name => session[:username]) || halt(404)
-			new_post = person.posts.create(:draft => params[:draft], :title => params[:title], :body => params[:body], :image => image, :position => params[:position])
+			new_post = person.posts.create(:draft => params[:draft], :title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image, :position => params[:position])
 			new_post = process_category(new_post, params[:category])
 			new_post = process_tag(new_post, params[:tags])
 
