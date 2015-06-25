@@ -23,7 +23,7 @@ module Sinatra
           image = upload['secure_url']
 		  File.delete('public/assests/images/' + params['image'][:filename])
 
-          "<script>parent.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
+          "<script data-cfasync=\"false\">top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
         end
 
 
