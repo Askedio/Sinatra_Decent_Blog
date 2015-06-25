@@ -7,7 +7,6 @@
 	<% @posts.each_with_index do |post, i| %>
 
 
-
 	<article class="p0" itemscope="" itemtype="http://schema.org/BlogPosting">
     <% if !post.image.empty? && (post.position == 'top' || post.position.nil?) %>
       <div class="post-header-image" title="<%= post.title %>" style="background-image: url(<%= post.image %>)" onclick="window.location='/posts/<%= post.slug %>'"></div><hr class="m0">

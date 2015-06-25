@@ -6,6 +6,11 @@
 
 			  app.get '/posts/:id' do
 				post ||= Post.get(params[:id]) || halt(404)
+				unless !request.env["HTTP_USER_AGENT"].match(/\(.*https?:\/\/.*\)/).nil?
+					stat ||= Stat.first_or_create(:post_slug => params[:id]) || halt(404)
+					stat.update(:hits => (defined?(post.stat.hits) && (post.stat.hits.is_a? Integer)) ? (post.stat.hits+1) : 1)
+				end
+
 				@posts =  [post]
 				@page_title = post.title
 				@page_image = post.image
