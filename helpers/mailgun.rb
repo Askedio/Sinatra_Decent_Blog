@@ -11,7 +11,7 @@ module Sinatra
                               :subject => subject,
                               :html    => html}
 
-			conn = Faraday.new('https://api.mailgun.net/v2', { ssl: { verify: false } }) do |faraday|
+			conn = Faraday.new('https://api.mailgun.net/v3', { ssl: { verify: false } }) do |faraday|
 			  faraday.request  :url_encoded
 			  faraday.response :logger
 			  faraday.adapter  Faraday.default_adapter
