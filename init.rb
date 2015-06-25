@@ -11,6 +11,7 @@ require 'will_paginate'
 require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
 require 'sinatra/flash'
+require 'builder' 
 
 require_relative  'helpers/init'
 require_relative  'config/init'

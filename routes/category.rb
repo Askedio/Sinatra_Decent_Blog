@@ -30,7 +30,7 @@
 			  app.post '/category/edit/:id' do
 				protected!
 				person ||= Category.first(:id => params[:id]) || halt(404)
-				person.update(:title => params[:title], :description => params[:description])
+				person.update(:title => params[:title],:slug => params[:slug], :description => params[:description])
 			    redirect '/categories'
 			  end
 
@@ -57,7 +57,7 @@
 			  app.get '/tag/:title' do 
 				cat ||= Tag.first(:slug => params[:title])|| halt(404)
 				@posts =  cat.posts.paginate(:page => params[:page]) 
-				@page_description = 'We have categories! Browse our grouped posts, pretty legit!'
+				@page_description = 'We have tags! Browse our tagged posts, pretty legit!'
 				erb :"public/index" 
 			  end
 
