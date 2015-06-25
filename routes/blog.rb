@@ -3,36 +3,31 @@ module Sinatra
     module Routing
       module BlogAdmin
 
+		  def self.registered(app)
+			app.post '/create/upload'   do 
+			  protected!
+			  halt 500 unless !params['image'].nil?
+			  accepted_formats = [".jpg", ".png", ".gif"]
+			  halt 500 unless accepted_formats.include? File.extname(params['image'][:filename]) 
+			  image='public/assests/images/' + params['image'][:filename]
 
-      def self.registered(app)
+			  new_image = File.open(image, "wb") do |f|
+				  f.write(params['image'][:tempfile].read)
+			  end
 
-         
+			  if !Cloudinary.config.api_key.blank?
+				  upload =  Cloudinary::Uploader.upload image
+				  image = upload['secure_url']
+				  File.delete(image)|| halt(500)
+			  end
 
-        app.post '/create/upload'	do 
-          protected!
-          halt 500 unless !params['image'].nil?
-          accepted_formats = [".jpg", ".png", ".gif"]
-          halt 500 unless accepted_formats.include? File.extname(params['image'][:filename]) 
-          image=nil
+			  "<script data-cfasync=\"false\">top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
+			 end
 
-          new_image	= File.open('public/assests/images/' + params['image'][:filename], "wb") do	|f|
-			  f.write(params['image'][:tempfile].read)
-          end
-
-          upload =	Cloudinary::Uploader.upload	'public/assests/images/' + params['image'][:filename]
-          image = upload['secure_url']
-		  File.delete('public/assests/images/' + params['image'][:filename])
-
-          "<script data-cfasync=\"false\">top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
-        end
-
-
-
-
-          app.get '/create' do 
-            protected!
-            erb :"admin/post/create" 
-          end
+			  app.get '/create' do 
+				protected!
+				erb :"admin/post/create" 
+			  end
 
           app.post '/create' do
 			protected!
@@ -40,19 +35,19 @@ module Sinatra
 			if !params['myfile'].nil?
 				accepted_formats = [".jpg", ".png", ".gif"]
 				halt 500 unless accepted_formats.include? File.extname(params['myfile'][:filename]) 
-
-				new_image = File.open('public/assests/images/' + params['myfile'][:filename], "wb") do |f|
+				image = 'public/assests/images/' + params['myfile'][:filename]
+				new_image = File.open(image, "wb") do |f|
 					f.write(params['myfile'][:tempfile].read)
 				end
 				
-				old_name = 'public/assests/images/' + params['myfile'][:filename]
 				new_name = 'public/assests/images/' + params[:title].slugify + File.extname(params['myfile'][:filename])
-				File.rename(old_name, new_name)
-
-				upload = Cloudinary::Uploader.upload(new_name, :use_filename => true)
-				image = upload['secure_url']
-
-				File.delete(new_name)
+				File.rename(image, new_name)|| halt(500)
+				
+				if !Cloudinary.config.api_key.blank?
+					upload = Cloudinary::Uploader.upload(new_name, :use_filename => true)
+					image = upload['secure_url']
+					File.delete(new_name)|| halt(500)
+				end
 			end
 
 			person ||= Person.first(:name => session[:username]) || halt(404)
