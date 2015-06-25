@@ -31,4 +31,5 @@ class SimpleRubyBlog < Sinatra::Base
 
   WillPaginate.per_page = 8
 
+
 end

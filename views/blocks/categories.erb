@@ -1,0 +1,10 @@
+<section>
+  <h4>Top Categories</h4>
+  <ul class="list-group ">
+    <% Category.all(:limit => 5, :offset => 3).sort_by { |category| -category.posts.count }.each do |cat| %>
+      <% if defined? cat.slug %>
+        <li class="list-group-item"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></li>
+      <% end %>
+    <% end %>
+  </ul>
+</section>

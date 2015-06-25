@@ -1,17 +1,19 @@
-<div class="wrapper">
-  <h4>Free Email Updates</h4>
-  <form action="<%= $mailchimp_url %>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-      <div class="input-group">
-        <input type="email"  name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Enter your email address" required>
-        <input type="hidden" name="b_c51506a011e686ef30cdf42cb_90c78ff308" tabindex="-1" value="">
-        <div class="input-group-btn">
-          <button class="btn btn-primary" type="submit"><i class="fa fa-envelope"></i></button>
-        </div>
-      </div>	
-  </form>
-  <p class="text-muted text-center pt5">
-    <small>
-      <em class="fa fa-lock"></em> No spam. Sent with <a href="http://eepurl.com/bc3L_H">Mailchimp</a>.
-    </small>
-  </p>
-</div>
+<section>
+  <div class="wrapper">
+    <h4>Free Email Updates</h4>
+    <form action="<%= $mailchimp_url %>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+        <div class="input-group">
+          <input type="email"  name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Enter your email address" required>
+          <input type="hidden" name="b_c51506a011e686ef30cdf42cb_90c78ff308" tabindex="-1" value="">
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-envelope"></i></button>
+          </div>
+        </div>	
+    </form>
+    <p class="text-muted text-center pt5">
+      <small>
+        <em class="fa fa-lock"></em> No spam. Sent with <a href="http://eepurl.com/bc3L_H">Mailchimp</a>.
+      </small>
+    </p>
+  </div>
+</section>

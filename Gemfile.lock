@@ -33,10 +33,6 @@ GEM
     ffi (1.9.8-x86-mingw32)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    json (1.8.1)
-    mailgun-ruby (1.0.3)
-      json (~> 1.8)
-      rest-client (~> 1.6)
     mime-types (2.6.1)
     multi_json (1.11.1)
     netrc (0.10.3)
@@ -92,7 +88,6 @@ DEPENDENCIES
   dm-timestamps
   dm-validations
   do_sqlite3
-  mailgun-ruby
   sinatra
   sinatra-flash
   sinatra-reloader

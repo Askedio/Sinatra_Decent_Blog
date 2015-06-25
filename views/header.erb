@@ -25,11 +25,15 @@
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="navbar-header">
-    <a class="navbar-brand" href="/">Asked.io:</a>
+    <a class="navbar-brand" href="/"><%= $site_name %></a>
   </div>
 
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
+
+      <% Category.all(:limit => 3).sort_by { |category| -category.posts.count }.each do |cat| %>
+       <li><a href="/category/<%= cat.slug %>"><%= cat.title %></a></li>
+      <% end %>
 
       <% if authorized? %>
         <li><a href="/create"><em class="fa fa-plus"></em> Create Post</a></li> 
