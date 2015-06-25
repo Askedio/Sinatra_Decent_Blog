@@ -51,7 +51,7 @@
 			  app.post '/profile' do
 				protected!
 				person ||= Person.first(:name => session[:username]) || halt(404)
-				person.update(:name => params[:name], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				person.update(:name => params[:name],:slug => params[:slug], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 			    redirect '/profile'
 			  end
 
