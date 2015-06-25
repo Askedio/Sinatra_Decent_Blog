@@ -11,9 +11,14 @@ module Sinatra
                               :subject => subject,
                               :html    => html}
 
-            
-            mg_client = Mailgun::Client.new $maingun_apikey
-            mg_client.send_message $maingun_domain, message_params
+			conn = Faraday.new('https://api.mailgun.net/v2', { ssl: { verify: false } }) do |faraday|
+			  faraday.request  :url_encoded
+			  faraday.response :logger
+			  faraday.adapter  Faraday.default_adapter
+			end
+			 
+			conn.basic_auth('api', $maingun_apikey)
+			conn.post("#{$maingun_domain}/messages", message_params)
         end
       end
     end

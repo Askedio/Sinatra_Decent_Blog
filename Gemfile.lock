@@ -30,11 +30,14 @@ GEM
       data_objects (= 0.10.16)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.8-x86-mingw32)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     mime-types (2.6.1)
     multi_json (1.11.1)
+    multipart-post (2.0.0)
     netrc (0.10.3)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -88,6 +91,7 @@ DEPENDENCIES
   dm-timestamps
   dm-validations
   do_sqlite3
+  faraday
   sinatra
   sinatra-flash
   sinatra-reloader
