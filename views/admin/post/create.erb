@@ -13,7 +13,7 @@
 		  </div>
 
 		  <div class="form-group">
-        <textarea name="body" class="form-control" rows="20" id="body"><%= defined?(@post.body)? @post.body : '' %></textarea>
+        <div name="body" class="form-control" style="height: 30vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
 		  </div>
 
 
@@ -41,9 +41,9 @@
 		  <div class="form-group" style="display:none" id="banner_position">
         <label for="position">Banner Position</label>
         <select id="position" name="position" class="form-control">
-          <option value="top">top</option>
-          <option value="left">left</option>
-          <option value="right">right</option>
+          <option value="top" <%= defined?(@post.title) && @post.position == 'top' ? 'selected' : '' %>>top</option>
+          <option value="left" <%= defined?(@post.title) && @post.position == 'left' ? 'selected' : '' %>>left</option>
+          <option value="right" <%= defined?(@post.title) && @post.position == 'right' ? 'selected' : '' %>>right</option>
         </select>
 		  </div>
 
@@ -58,25 +58,30 @@
 
 <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 <script>
-tinymce.init({
+tinymce.init({ 
+  entity_encoding : "named",
   extended_valid_elements:"*[*]",
-  selector: "textarea",
+  selector: "#body",
   theme: "modern",
 
   plugins: [
-       "image advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+       "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-       "save table contextmenu directionality emoticons template paste textcolor"
+       "table contextmenu directionality emoticons template paste textcolor"
  ],file_browser_callback: function(field_name, url, type, win) {
         if(type=='image') $('#my_form input').click();
     },
- content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css,/css/site.css",
+ content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css",
  toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  media fullpage | forecolor backcolor emoticons | example",
  setup: function(ed) {
   ed.addButton('example', {
      text: 'Insert',
      icon: 'code',
      context: 'tools',
+     oninit: function(){
+              ed.insertContent('poop');
+
+     },
      onclick: function() {
         ed.windowManager.open({
           title: 'Insert Code',
@@ -101,6 +106,7 @@ tinymce.init({
   });
  }
 });
+
 </script>
 
 <% @footer = %Q{
