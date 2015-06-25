@@ -7,7 +7,7 @@
 			  app.post '/comment/:id' do
 				halt 404 unless params[:website].empty?
 				post ||= Post.get(params[:id]) || halt(404)
-				post.comments.new(:body => params[:body], :name => params[:name], :email => params[:email])
+				post.comments.new(:body => params[:body].gsub(/<\/?[^>]*>/, ""), :name => params[:name].gsub(/<\/?[^>]*>/, ""), :email => params[:email].gsub(/<\/?[^>]*>/, ""))
 				  if !post.save
 					do_error post.errors
 				  end
