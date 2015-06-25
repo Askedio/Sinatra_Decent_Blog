@@ -18,3 +18,4 @@ gem 'sitemap_generator'
 
 gem 'sinatra-flash'
 gem 'cloudinary'
+gem 'builder'
