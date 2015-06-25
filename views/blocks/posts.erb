@@ -1,0 +1,6 @@
+<h4>Top Posts</h4>
+<ul class="list-group ">
+  <% Stat.all(:limit => 5, :order => [:hits.desc ]).each  do |stat|  %>
+      <li class="list-group-item"><a href="/posts/<%= stat.post.slug %>"><%= stat.post.title %></a></li>
+  <% end %>
+</ul>
