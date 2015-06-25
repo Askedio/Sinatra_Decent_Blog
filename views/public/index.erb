@@ -8,7 +8,7 @@
 
 
 
-	<article class="p0" itemscope="" itemtype="http://schema.org/BlogPosting" data-categories="" data-group="" data-tags="">
+	<article class="p0" itemscope="" itemtype="http://schema.org/BlogPosting">
     <% if !post.image.empty? && (post.position == 'top' || post.position.nil?) %>
       <div class="post-header-image" title="<%= post.title %>" style="background-image: url(<%= post.image %>)" onclick="window.location='/posts/<%= post.slug %>'"></div><hr class="m0">
     <% end %>
@@ -57,8 +57,7 @@
 
 		<br>
 		<div class="row">
-			<div class="col-sm-6">
-
+			<div class="col-sm-6" itemprop="keywords">
 				<% if post.categories.length > 0%>
 					<% post.categories.each do |cat| %>
 						<span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span> 

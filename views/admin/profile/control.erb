@@ -11,10 +11,12 @@
         <label for="title">Name:</label>
         <input name="name" type="text" class="form-control" id="title" required value="<%= defined?(@person.name)? @person.name : '' %>">
 		  </div>
-		  <div class="form-group">
-        <label for="slug">Slug:</label>
-        <input name="slug" type="text" class="form-control" id="slug" required value="<%= defined?(@person.slug)? @person.slug : '' %>">
-		  </div>
+      <% if defined?(@person.slug) %>
+        <div class="form-group">
+          <label for="slug">Slug:</label>
+          <input name="slug" type="text" class="form-control" id="slug" required value="<%= defined?(@person.slug)? @person.slug : '' %>">
+        </div>
+      <% end %>
 		  <div class="form-group">
         <label for="password">Password:</label>
         <input name="password" id="password"  class="form-control" type="password" value="<%= defined?(@person.password)? @person.password : ''  %>">
