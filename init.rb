@@ -12,8 +12,8 @@ require 'will_paginate-bootstrap'
 require 'will_paginate/data_mapper' 
 require 'sinatra/flash'
 require 'builder' 
-require 'mailgun'
-require 'erb'
+#require 'mailgun'
+#require 'erb'
 
 require_relative  'helpers/init'
 require_relative  'config/init'
@@ -25,4 +25,4 @@ DataMapper.auto_upgrade!
 
 require_relative  'seeds/init'
 
-include ERB::Util
+#include ERB::Util
