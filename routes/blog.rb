@@ -106,7 +106,7 @@ module Sinatra
 				do_error post.errors
 			  end
 
-			  redirect "/edit/#{params[:id]}"
+			  redirect "/posts/#{params[:id]}"
           end
 
           app.get '/edit/:id' do
