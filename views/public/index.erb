@@ -55,7 +55,7 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-sm-6" itemprop="keywords">
+			<div class="col-sm-8" itemprop="keywords">
 				<% if post.categories.length > 0%>
 					<% post.categories.each do |cat| %>
 						<span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span> 
@@ -75,7 +75,7 @@
 
 				<% end %>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
          <span class="pull-right comments-link" onclick="$('#comments_<%= i %>').slideToggle()">
           &nbsp; <em class="fa fa-comments"></em> <%= post.comments.length %>
          </span>
