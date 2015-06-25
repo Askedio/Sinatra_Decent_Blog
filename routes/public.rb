@@ -58,7 +58,6 @@
 				erb :"public/index" 
 			  end
 
-
 			  app.get '/rss' do
 				@posts = Post.all
 			    builder :rss

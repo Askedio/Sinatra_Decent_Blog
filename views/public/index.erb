@@ -33,7 +33,7 @@
 				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
 				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
 					<span itemprop="name">
-						<strong><a href="/author/<%= post.person.name %>"><%= post.person.name %></a></strong> - <%= post.person.title %>
+						<strong><a href="/author/<%= post.person.slug %>"><%= post.person.name %></a></strong> - <%= post.person.title %>
 					</span>
 				</span>
 			</p>

@@ -1,0 +1,14 @@
+<h4><a href="/authors">Authors</a></h4>
+<% Person.all.each do |person| %>
+<div class="wrapper">
+  <div class="row">
+    <div class="col-sm-3 ">
+     <img class=" img-rounded" src="<%= person.avatar %>" width="50" height="50" alt="<%= person.name %>">
+    </div>
+    <div class="col-sm-9">
+      <h3 class="m0"><a href="/author/<%= person.slug %>"><%= person.name %></a></h3>
+      <div><%= person.title %></div>
+    </div>
+  </div>
+</div>
+<% end %>
