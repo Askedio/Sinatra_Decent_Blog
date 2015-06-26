@@ -68,7 +68,7 @@ module Sinatra
 			if new_post
 			  new_post2 ||= Post.first(:title => params[:title]) || halt(500)
 			  flash[:success] = true
-			  redirect "/posts/#{new_post2.slug}"
+			  redirect "/#{new_post2.slug}"
 			else
 			do_error new_post.errors
 				redirect "/create"
@@ -91,7 +91,7 @@ module Sinatra
 				do_error post.errors
 			  end
 
-			  redirect "/posts/#{params[:id]}"
+			  redirect "/#{params[:id]}"
           end
 
           app.get '/edit/:id' do

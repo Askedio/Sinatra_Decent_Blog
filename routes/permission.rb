@@ -62,7 +62,6 @@
 				erb :"admin/profile/permissions/list" 
 			  end
 
-
 		  end
 	   end
     end

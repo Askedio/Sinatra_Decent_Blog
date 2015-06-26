@@ -3,7 +3,7 @@
   <ul class="list-group ">
     <% Stat.all(:limit => 5, :order => [:hits.desc ]).each  do |stat|  %>
       <% if defined? stat.post.slug %>
-        <li class="list-group-item"><a href="/posts/<%= stat.post.slug %>"><%= stat.post.title %></a></li>
+        <li class="list-group-item"><a href="/<%= stat.post.slug %>"><%= stat.post.title %></a></li>
       <% end %>
     <% end %>
   </ul>

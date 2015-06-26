@@ -8,6 +8,6 @@ SitemapGenerator::Sitemap.create do
 
   @posts = Post.all()
   @posts.each do |post|
-	  add '/posts/' + post.slug, :changefreq => 'weekly'
+	  add '/' + post.slug, :changefreq => 'weekly'
   end
 end

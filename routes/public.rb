@@ -4,7 +4,7 @@
       module Public
 		def self.registered(app)
 
-			  app.get '/posts/:id' do
+			  app.get '/:id' do
 				post ||= Post.get(params[:id]) || halt(404)
 				unless !request.env["HTTP_USER_AGENT"].match(/\(.*https?:\/\/.*\)/).nil?
 					stat ||= Stat.first_or_create(:post_slug => params[:id]) || halt(404)

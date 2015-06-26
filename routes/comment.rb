@@ -20,16 +20,16 @@
 				session[:comment_name] = name
 				session[:comment_email] = email
 
-				Helpers::Mail.send_all(email, 'Comments made', "Post: /posts/#{post.slug}<br>Name: #{name}<br>Email: #{email}<br>Comment: #{comments}", './views/emails/email.erb')
+				Helpers::Mail.send_all(email, 'Comments made', "Post: /#{post.slug}<br>Name: #{name}<br>Email: #{email}<br>Comment: #{comments}", './views/emails/email.erb')
 					
-				redirect "/posts/#{post.slug}"
+				redirect "/#{post.slug}"
 			  end
 
 			app.get '/comment/delete/:id' do
 				protected!
 				post ||= Comment.first(:id => params[:id]) || halt(404)
 				halt 500 unless post.destroy
-				redirect "/posts/#{post.post.slug}"
+				redirect "/#{post.post.slug}"
 			end
 
 		  end
