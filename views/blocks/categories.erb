@@ -1,5 +1,5 @@
 <section>
-  <h4>Top Categories</h4>
+  <h4><a href="/categories">Top Categories</a></h4>
   <ul class="list-group ">
     <% Category.all(:limit => 5, :offset => 3).sort_by { |category| -category.posts.count }.each do |cat| %>
       <% if defined? cat.slug %>

@@ -52,7 +52,7 @@
 			  
 			  app.get '/category/:title' do 
 				cat ||= Category.first(:slug => params[:title])|| halt(404)
-				@posts =  cat.posts.paginate(:page => params[:page]) 
+				@posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ]) 
 				@page_description = 'We have categories! Browse our grouped posts, pretty legit!'
 				erb :"public/index" 
 			  end

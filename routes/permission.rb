@@ -13,7 +13,7 @@
 
 			  app.post '/perms/create' do
 				protected!
-				roles ||= Role.all(:id => params[:roles]) || halt(500)
+				roles ||= Role.all(:id => add_missing(params[:roles], Roles)) || halt(500)
 				person = Permission.new(:title => params[:title], :description => params[:description], :roles => roles)
 				if person.save
 				  new_person ||= Permission.first(:title => params[:title]) || halt(500)
@@ -36,7 +36,7 @@
 			  app.post '/perms/edit/:id' do
 				protected!
 				person ||= Permission.first(:id => params[:id]) || halt(404)
-				roles ||= Role.all(:id => params[:roles]) || halt(404)
+				roles ||= Role.all(:id => add_missing(params[:roles], Role)) || halt(404)
 				if person.update(:title => params[:title], :roles => roles, :description => params[:description])
 					flash[:success] = true
 				else

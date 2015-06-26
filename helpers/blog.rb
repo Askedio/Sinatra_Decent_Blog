@@ -1,6 +1,22 @@
 module Sinatra
   module SimpleRubyBlog
     module Helpers
+		def is_number?(object)
+		  true if Float(object) rescue false
+		end	
+
+		def add_missing array, model
+		 if !array.nil?
+			array.each do |r|
+			  if !is_number?(r)
+				array <<  model.create(:title => r).id
+			    array.delete r
+			   end
+			end	
+		end
+			
+			array
+		end
 
 		def process_category new_post, cats
 			if !cats.nil?

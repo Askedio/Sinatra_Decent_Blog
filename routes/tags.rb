@@ -60,7 +60,7 @@
 
 			  app.get '/tag/:title' do 
 				cat ||= Tag.first(:slug => params[:title])|| halt(404)
-				@posts =  cat.posts.paginate(:page => params[:page]) 
+				@posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ]) 
 				@page_description = 'We have tags! Browse our tagged posts, pretty legit!'
 				erb :"public/index" 
 			  end

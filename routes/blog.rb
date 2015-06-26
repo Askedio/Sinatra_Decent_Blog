@@ -50,12 +50,22 @@ module Sinatra
 				end
 			end
 
-			person ||= Person.first(:name => session[:username]) || halt(404)
-			new_post = person.posts.create(:draft => params[:draft], :title => params[:title], :slug => params[:title].slugify, :body => params[:body], :image => image, :position => params[:position])
-			new_post = process_category(new_post, params[:category])
-			new_post = process_tag(new_post, params[:tags])
+			if Post.count(:slug => params[:title].slugify) > 0
+				params[:title] = "#{params[:title]} #{rand(10)}"
+			end
+			 
 
-			if new_post.save
+			person ||= Person.first(:name => session[:username]) || halt(404)
+			new_post = person.posts.create(:draft => params[:draft],
+							:tags => Tag.all(:id => add_missing(params[:tags], Tag)),
+							:categories => Category.all(:id => add_missing(params[:category], Category)),
+							:title => params[:title],
+							:slug => params[:title].slugify,
+							:body => params[:body],
+							:image => image, 
+							:position => params[:position])
+
+			if new_post
 			  new_post2 ||= Post.first(:title => params[:title]) || halt(500)
 			  flash[:success] = true
 			  redirect "/posts/#{new_post2.slug}"
@@ -68,9 +78,14 @@ module Sinatra
           app.post '/edit/:id' do
 			  protected!
 			  post ||= Post.get(params[:id]) || halt(404) 
-			  post = process_category(post, params[:category])
-			  post = process_tag(post, params[:tags])
-			  if post.update(:draft => params[:draft], :title => params[:title], :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, :body => params[:body], :image => params[:myfile], :position => params[:position])
+			  if post.update(:draft => params[:draft],
+							  :tags => Tag.all(:id => add_missing(params[:tags], Tag)),
+							  :categories => Category.all(:id => add_missing(params[:category], Category)),
+							  :title => params[:title],
+							  :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, 
+							  :body => params[:body], 
+							  :image => params[:myfile],
+							  :position => params[:position])
 				flash[:success] = true
 			  else
 				do_error post.errors
