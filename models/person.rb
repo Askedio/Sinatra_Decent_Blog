@@ -15,7 +15,6 @@ class Person
   has 1.0/0, :permissions, :through => Resource
 end
 
-
 class Role
   include DataMapper::Resource
 
