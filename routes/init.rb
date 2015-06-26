@@ -1,7 +1,0 @@
-require_relative  'blog'
-require_relative  'comment'
-require_relative  'profile'
-require_relative  'category'
-require_relative  'public'
-require_relative  'tags'
-require_relative  'permission'

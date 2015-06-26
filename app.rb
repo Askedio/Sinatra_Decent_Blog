@@ -1,4 +1,4 @@
-require_relative  'init'
+include ERB::Util
 
 
 class SimpleRubyBlog < Sinatra::Base
@@ -33,7 +33,5 @@ class SimpleRubyBlog < Sinatra::Base
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
   WillPaginate.per_page = 8
-
- # after its all done lets check?
 
 end
