@@ -65,6 +65,7 @@
 				erb :"public/list" 
 			  end
 
+
 		  end
 	   end
     end

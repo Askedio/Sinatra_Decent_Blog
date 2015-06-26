@@ -11,7 +11,8 @@
 
 			  app.post '/profile/create' do
 				protected!
-				person = Person.new(:name => params[:name], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+				person = Person.new(:name => params[:name], :permissions => perms, :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 				if person.save
 				  new_person ||= Person.first(:name => params[:name]) || halt(500)
 				  flash[:success] = true
@@ -32,7 +33,8 @@
 			  app.post '/profile/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
-				if person.update(:name => params[:name],:slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+				if person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 					flash[:success] = true
 				else
 					do_error person.errors
@@ -57,7 +59,8 @@
 			  app.post '/profile' do
 				protected!
 				person ||= Person.first(:name => session[:username]) || halt(404)
-				person.update(:name => params[:name],:slug => params[:slug], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+				person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 				flash[:success] = true
 			    redirect '/profile'
 			  end
