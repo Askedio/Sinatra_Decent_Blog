@@ -68,7 +68,7 @@
 
           <%
             tt = post.tags.first 
-            tt.posts.all(:limit => 2, :offset => rand(tt.posts.count)).each do |cat| 
+            tt.posts.all(:slug.not => post.slug, :limit => 2, :offset => rand(tt.posts.count)).each do |cat| 
           %>
             <span class="label label-warning"><a href="/posts/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span> 
           <% end %>
