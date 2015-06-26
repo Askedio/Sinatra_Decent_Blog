@@ -3,36 +3,28 @@ module Sinatra
     module Routing
       module CategoryAdmin
         def self.registered(app)
-          app.get '/category/create' do
-            protected!
-            @page_title = 'Categories'
-            @page_slug = 'category'
-            erb :"admin/manage/control", :layout => :'layouts/control'
+
+          get_create = lambda do 
+            render_output('admin/manage/control', 'layouts/control')
           end
 
-          app.post '/category/create' do
-            protected!
+          post_create = lambda do 
             person = Category.new(:title => params[:title], :description => params[:description])
             if person.save
-              new_person ||= Category.first(:title => params[:title]) || halt(500)
               flash[:success] = true
-              redirect "/category/edit/#{new_person.id}"
+              redirect "/category/edit/#{person.id}"
             else
               do_error person.errors
               redirect "/category/create"
             end
           end
 
-          app.get '/category/edit/:id' do
-            protected!
+          get_edit = lambda do 
             @person ||= Category.first(:id => params[:id]) || halt(404)
-            @page_title = 'Categories'
-            @page_slug = 'category'
-            erb :"admin/manage/control", :layout => :'layouts/control'
+            render_output('admin/manage/control', 'layouts/control')
           end
 
-          app.post '/category/edit/:id' do
-            protected!
+          post_edit = lambda do 
             person ||= Category.first(:id => params[:id]) || halt(404)
             if person.update(:title => params[:title], :slug => params[:slug], :description => params[:description])
               flash[:success] = true
@@ -42,27 +34,48 @@ module Sinatra
             redirect "/category/edit/#{params[:id]}"
           end
 
-          app.get '/category/delete/:id' do
-            protected!
+          get_delete = lambda do 
             person ||= Category.first(:id => params[:id]) || halt(404)
             halt 500 unless person.destroy
             redirect '/categories'
           end
 
-          app.get '/category/:title' do
+          get_category = lambda do 
             cat ||= Category.first(:slug => params[:title])|| halt(404)
             @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
-            @page_description = 'We have categories! Browse our grouped posts, pretty legit!'
-            erb :"public/index"
+            @page_title = cat.title
+            @page_description = cat.description
+            @page_slug = 'category'
+            render_output('public/index')
           end
 
-          app.get '/categories' do
+          get_index = lambda do 
             @posts = Category.paginate(:page => params[:page])
-            @page_description = 'We have categories! Browse our grouped posts, pretty legit!'
-            @page_title = 'Categories'
+            @page_title = t.category.titles.categories
+            @page_description = t.category.description
             @page_slug = 'category'
-            erb :"public/list"
+            render_output('public/list')
           end
+
+          app.namespace '/category' do
+            before  { 
+              auth? 
+              @page_title = t.category.titles.category
+              @page_description = t.category.description
+              @page_slug = 'category'
+            }
+
+            get  '/create', &get_create
+            post '/create', &post_create
+
+            get  '/edit/:id', &get_edit
+            post '/edit/:id', &post_edit
+
+            get  '/delete/:id', &get_delete
+          end
+
+          app.get '/category/:title', &get_category
+          app.get '/categories', &get_index
 
         end
       end

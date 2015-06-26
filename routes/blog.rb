@@ -23,7 +23,7 @@ module Sinatra
           end
 
           get_create = lambda do 
-            erb :"admin/post/control", :layout => :'layouts/control'
+            render_output('admin/post/control', 'layouts/control')
           end
 
           post_create = lambda do 
@@ -69,7 +69,7 @@ module Sinatra
               redirect "/#{new_post2.slug}"
             else
             do_error new_post.errors
-              redirect "/create"
+              redirect "/admin/create"
             end
           end
 
@@ -94,11 +94,10 @@ module Sinatra
             redirect "/#{params[:id]}" 
           end
 
-
           get_edit = lambda do 
             post ||= Post.get(params[:id]) || halt(404)
             @post = post
-            erb :"admin/post/control", :layout => :'layouts/control'
+            render_output('admin/post/control','layouts/control')
           end
 
           get_delete = lambda do 
@@ -108,14 +107,20 @@ module Sinatra
           end
 
           app.namespace '/admin' do
-            before  { auth? }
+            before  { 
+              auth? 
+              @page_title = t.blog.titles.default
+              @page_description = t.blog.description
+            }
 
-            post '/create/upload', &post_upload
-            get '/create', &get_create
+            get  '/create', &get_create
             post '/create', &post_create
+            post '/create/upload', &post_upload
+
+            get  '/edit/:id', &get_edit
             post '/edit/:id', &post_edit
-            get '/edit/:id', &get_edit
-            get '/delete/:id', &get_delete
+
+            get  '/delete/:id', &get_delete
           end
 
         end

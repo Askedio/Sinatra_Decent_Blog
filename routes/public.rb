@@ -6,7 +6,7 @@ module Sinatra
 
         get_index = lambda do 
           @posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ])
-          @page_description = t.public.titles.default
+          @page_description = t.public.description.default
 
           @featured = Post.first(:offset => rand(Post.all(:featured.not => nil).count), :draft => nil, :featured.not => nil)
           render_output('public/index','layouts/home')
@@ -14,38 +14,38 @@ module Sinatra
 
         get_drafts = lambda do 
           @posts = Post.paginate(:draft => 1, :page => params[:page], :order => [:created_at.desc ])
-          @page_description = t.public.titles.default
+          @page_description = t.public.description.default
           render_output('public/index')
         end
 
         get_search = lambda do 
           @posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ], :body.like => "%#{params[:query]}%")
-          @page_description = t.public.titles.default
+          @page_description = t.public.description.default
           render_output('public/index')
         end
 
         get_authors = lambda do 
           @posts = Person.paginate(:page => params[:page])
-          @page_description = t.public.titles.authors
+          @page_description = t.public.description.authors
           render_output('public/authors')
         end
 
         get_author = lambda do 
           @posts = Person.paginate(:page => params[:page], :slug => params[:id])
-          @page_description = t.public.titles.authors
+          @page_description = t.public.description.authors
           render_output('public/authors')
         end
 
         get_author_posts = lambda do 
           person ||= Person.first(:slug => params[:id]) || halt(404)
           @posts = person.posts.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ])
-          @page_description = t.public.titles.default
+          @page_description = t.public.description.default
           render_output('public/index')
         end
 
         get_featured = lambda do 
           @posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ], :featured.not => nil)
-          @page_description = t.public.titles.featured
+          @page_description = t.public.description.featured
           render_output('public/index')
         end
         get_rss = lambda do 

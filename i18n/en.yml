@@ -1,6 +1,26 @@
 public:
-  titles:
+  description:
     default: A day-to-day log of the questions we've asked &amp; the answers we've found.
     featured: Featured articles.
     authors: Who writes for Asked.io? We do :D
-
+category:
+  titles:
+    category: Category
+    categories: Categories
+  description: We have categories!
+blog:
+  titles:
+    default: Post
+  description: We have posts!
+profile:
+  titles:
+    default: Profile
+  description: We have profiles!
+tag:
+  titles:
+    default: Tags
+  description: We have tags!
+permissions:
+  titles:
+    default: Permissions
+  description: We have permissions!

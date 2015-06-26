@@ -1,68 +1,63 @@
- module Sinatra
+module Sinatra
   module SimpleRubyBlog
-   module Routing
+    module Routing
       module Profile
-       def self.registered(app)
-        app.get '/profile/create' do
-          protected!
-          erb :"admin/profile/control", :layout => :'layouts/control'
-        end
-
-        app.post '/profile/create' do
-          protected!
-          perms ||= Permission.all(:id => params[:permissions]) || halt(404)
-          person = Person.new(:name => params[:name], :permissions => perms, :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
-          if person.save
-            new_person ||= Person.first(:name => params[:name]) || halt(500)
-            flash[:success] = true
-            redirect "/profile/#{new_person.name}"
-          else
-            do_error person.errors
-            redirect "/profile/create"
+        def self.registered(app)
+          get_create = lambda do 
+            render_output('admin/profile/control','layouts/control')
           end
-        end
 
-        app.get '/profile/:id' do
-          protected!
-          @persons = Person.all
-          @person ||= Person.first(:name => params[:id]) || halt(404)
-          erb :"admin/profile/control", :layout => :'layouts/control'
-        end
-
-        app.post '/profile/:id' do
-          protected!
-          person ||= Person.first(:name => params[:id]) || halt(404)
-          perms ||= Permission.all(:id => params[:permissions]) || halt(404)
-          if person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
-            flash[:success] = true
-          else
-            do_error person.errors
+          post_create = lambda do 
+            perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+            person = Person.new(:name => params[:name], :permissions => perms, :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+            if person.save
+              new_person ||= Person.first(:name => params[:name]) || halt(500)
+              flash[:success] = true
+              redirect "/profile/#{new_person.name}"
+            else
+              do_error person.errors
+              redirect "/profile/create"
+            end
           end
-            redirect "/profile/#{params[:id]}"
-        end
 
-        app.get '/profile/delete/:id' do
-          protected!
-          person ||= Person.first(:name => params[:id]) || halt(404)
-          halt 500 unless person.destroy
-          redirect '/authors'
-        end
+          get_profile = lambda do 
+            @persons = Person.all
+            @person ||= Person.first(:name => params[:id]) || halt(404)
+            render_output('admin/profile/control','layouts/control')
+          end
 
-        app.get '/profile' do
-          protected!
-          @persons = Person.all
-          @person ||= Person.first(:name => session[:username]) || halt(404)
-          erb :"admin/profile/control", :layout => :'layouts/control'
-        end
+          post_profile = lambda do 
+            person ||= Person.first(:name => params[:id]) || halt(404)
+            perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+            if person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+              flash[:success] = true
+            else
+              do_error person.errors
+            end
+              redirect "/profile/#{params[:id]}"
+          end
 
-        app.post '/profile' do
-          protected!
-          person ||= Person.first(:name => session[:username]) || halt(404)
-          perms ||= Permission.all(:id => params[:permissions]) || halt(404)
-          person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
-          flash[:success] = true
-          redirect '/profile'
-        end
+          get_delete = lambda do 
+            person ||= Person.first(:name => params[:id]) || halt(404)
+            halt 500 unless person.destroy
+            redirect '/authors'
+          end
+
+          app.namespace '/profile' do
+            before  { 
+              auth? 
+              @page_title = t.profile.titles.default
+              @page_description = t.profile.description
+            }
+
+            get  '/create', &get_create
+            post '/create', &post_create
+              
+            get  '/:id', &get_profile
+            post '/:id', &post_profile
+
+            get  '/delete/:id', &get_delete
+          end
 
       end
      end
