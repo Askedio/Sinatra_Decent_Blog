@@ -1,12 +1,7 @@
-<%= erb :header %>
-
 <article>
 	<header>
 		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
 	</header>
-
-		<%= erb :error %>
-
 		<form method="post" role="form" enctype="multipart/form-data">
 		  <div class="form-group">
         <input placeholder="Title" maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
@@ -128,4 +123,3 @@ tinymce.init({
 
 		</script>
 } %>
-<%= erb :footer %>

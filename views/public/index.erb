@@ -1,4 +1,3 @@
-<%= erb :header %>
 <% if @posts.length == 0 %>
 	<article>
 		<header><h2>No results found :(</h2></header>
@@ -13,15 +12,7 @@
     <% end %>
     <div class="p15">
 
-    <% if authorized? %>
-      <div class="pull-right">
-        <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
-        &nbsp;&nbsp;
-        <a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
-      </div>
-    <% end %>
-
-		<header>
+    <header>
       <a href="/author/<%= post.person.slug %>">
         <img class="avatar img-thumbnail pull-left" src="<%= post.person.avatar %>" width="60" height="60" alt="<%= post.person.name %>">
       </a>
@@ -86,6 +77,14 @@
 			</ul>
 			</div>
 		</div>
+    <% if authorized? %>
+      <div>
+        <a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
+        &nbsp;&nbsp;
+        <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
+      </div>
+    <% end %>
+
 
 		<div class="row">
       <div class="col-sm-12">
@@ -129,13 +128,13 @@
 
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input name="name" type="text" class="form-control" placeholder="My Name" required>
+                        <input name="name" type="text" class="form-control" placeholder="My Name" required value="<%= defined?(session[:comment_name]) ? session[:comment_name] : '' %>">
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input name="email" type="email" class="form-control" placeholder="My E-mail" required>
+                        <input name="email" type="email" class="form-control" placeholder="My E-mail" required value="<%= defined?(session[:comment_email]) ? session[:comment_email] : '' %>">
                       </div>
                     </div>
 
@@ -165,4 +164,3 @@
     <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra, :previous_label => 'Previous', :next_label => 'Next' %>
   </div>
 <% end %>
-<%= erb :footer %>
