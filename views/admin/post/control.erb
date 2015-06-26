@@ -1,8 +1,8 @@
 <article>
-	<header>
-		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
-	</header>
-		<form method="post" role="form" enctype="multipart/form-data">
+  <header>
+    <h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
+  </header>
+    <form method="post" role="form" enctype="multipart/form-data">
 
       <div class="form-group">
         <div class="input-group">
@@ -13,9 +13,9 @@
         </div>
       </div>
 
-		  <div class="form-group">
+      <div class="form-group">
         <div name="body" class="form-control" style="height: 46vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
-		  </div>
+      </div>
 
       <div class="row">
         <div class="col-md-1 col-sm-6 col-xs-3">
@@ -74,7 +74,7 @@
       </div>
 
 
-		  <div class="form-group" style="display:none" id="banner_position">
+      <div class="form-group" style="display:none" id="banner_position">
         <div class="form-group">
         <label for="position">Banner Position</label>
         <select id="position" name="position" class="form-control">
@@ -82,93 +82,87 @@
           <option value="left" <%= defined?(@post.title) && @post.position == 'left' ? 'selected' : '' %>>left</option>
           <option value="right" <%= defined?(@post.title) && @post.position == 'right' ? 'selected' : '' %>>right</option>
         </select>
- 		    </div>
-         
+        </div>
+
         <input placeholder="https://<img url>" <% if !defined?(@post.slug) %>class="hidden"<% end %> style="margin-bottom: 10px" onclick="$('#banner_position').show()" class="form-control pull-left" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
 
-		  </div>
+      </div>
 
       <button onclick="$('#draft').attr('checked', true)" type="submit" class="btn btn-warning btn-block">Save Draft</button>
       <button onclick="$('#draft').removeAttr('checked')" type="submit" class="btn btn-primary btn-block">Save Post</button>
-      
+
       <input class="hidden" id="draft" <% if defined?(@post.slug) && @post.draft == 1 %>checked<% end %> name="draft" value="1" id="draft" type="checkbox">
-		</form>
+    </form>
 </article>
-
-<iframe src="about:blank" id="form_target" name="form_target" class="hidden"></iframe>
-<form id="upload_form" action="/create/upload" target="form_target" method="post" enctype="multipart/form-data" >
-  <input name="image" type="file" onchange="$('#upload_form').submit();this.value='';" class="hidden">
-</form>
-
-<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-<script>
-tinymce.init({ 
-  entity_encoding : "named",
-  extended_valid_elements:"*[*]",
-  selector: "#body",
-  browser_spellcheck : true,
-  schema: "html5",
-  theme: "modern",
-
-  plugins: [
-       "image advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-       "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-       "table contextmenu directionality emoticons template paste textcolor"
- ],file_browser_callback: function(field_name, url, type, win) {
-        if(type=='image') $('#upload_form input').click();
-    },
- content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css",
- toolbar: "link image | example | code | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |  media fullpage | forecolor backcolor",
- setup: function(ed) {
-  ed.addButton('example', {
-     text: 'Insert',
-     icon: 'code',
-     context: 'tools',
-     oninit: function(){
-              ed.insertContent('poop');
-
-     },
-     onclick: function() {
-        ed.windowManager.open({
-          title: 'Insert Code',
-          width: 300,
-          height: 80,
-            body: [
-              {type: 'listbox', name: 'type', label: '','values': [
-                {text: 'HTML', value: 'html'},
-                {text: 'Ruby', value: 'ruby'},
-                {text: 'PHP', value: 'php'},
-                {text: 'JAVA', value: 'java'},
-                {text: 'C#', value: 'csharp'},
-                {text: 'CPP', value: 'cpp'},
-                {text: 'JS', value: 'javascript'}
-              ]}
-            ],
-            onsubmit: function(e) {
-              ed.insertContent('<pre><code class="'+e.data.type+'">#</code></pre>');
-            }
-        });
-     }
-  });
- }
-});
-
-</script>
-
 <% @footer = %Q{
-		<link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
-		<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-		<script>
-			$("#category").select2({
-			  tags: true, placeholder :'Categories', width: '100%'
-			});
-			$("#tags").select2({
-			  tags: true, placeholder :'Tags', width: '100%'
-			});
+    <link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <script>
+      $("#category").select2({
+        tags: true, placeholder :'Categories', width: '100%'
+      });
+      $("#tags").select2({
+        tags: true, placeholder :'Tags', width: '100%'
+      });
       $('.layout-picker').on('click', function(){
          $('.layout-picker').removeClass('active');
          $(this).addClass('active');
         $('#template').val($(this).data('tpl'));
       });
-		</script>
+    </script>
+
+    <iframe src="about:blank" id="form_target" name="form_target" class="hidden"></iframe>
+    <form id="upload_form" action="/create/upload" target="form_target" method="post" enctype="multipart/form-data" >
+      <input name="image" type="file" onchange="$('#upload_form').submit();this.value='';" class="hidden">
+    </form>
+
+    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script>
+    tinymce.init({
+      entity_encoding : "named",
+      extended_valid_elements:"*[*]",
+      selector: "#body",
+      browser_spellcheck : true,
+      schema: "html5",
+      theme: "modern",
+
+      plugins: [
+       "image advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+       "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+       "table contextmenu directionality emoticons template paste textcolor"
+      ],file_browser_callback: function(field_name, url, type, win) {
+        if(type=='image') $('#upload_form input').click();
+      },
+     content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css",
+     toolbar: "link image | example | code | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |  media fullpage | forecolor backcolor",
+     setup: function(ed) {
+      ed.addButton('example', {
+         text: 'Insert',
+         icon: 'code',
+         context: 'tools',
+         onclick: function() {
+            ed.windowManager.open({
+              title: 'Insert Code',
+              width: 300,
+              height: 80,
+                body: [
+                  {type: 'listbox', name: 'type', label: '','values': [
+                    {text: 'HTML', value: 'html'},
+                    {text: 'Ruby', value: 'ruby'},
+                    {text: 'PHP', value: 'php'},
+                    {text: 'JAVA', value: 'java'},
+                    {text: 'C#', value: 'csharp'},
+                    {text: 'CPP', value: 'cpp'},
+                    {text: 'JS', value: 'javascript'}
+                  ]}
+                ],
+                onsubmit: function(e) {
+                  ed.insertContent('<pre><code class="'+e.data.type+'">#</code></pre>');
+                }
+            });
+         }
+      });
+     }
+    });
+    </script>
 } %>

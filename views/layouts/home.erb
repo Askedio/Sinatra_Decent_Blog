@@ -15,20 +15,20 @@
       </div>
     </header>
 
-	  <div class="row">
+    <div class="row">
 
       <section class="left-side col-md-9">
         <h2 class="hide"><%= @page_title %></h2>
           <%= erb :'flash/error' %>
           <%= erb :'flash/success' %>
           <%= yield %>
-			</section>
+      </section>
 
-			<aside class="col-md-3 p0">
-	      <%= @aside ? @aside : '' %>
-				<%= erb :'blocks/init' %>
-			</aside>
+      <aside class="col-md-3 p0">
+        <%= @aside ? @aside : '' %>
+        <%= erb :'blocks/init' %>
+      </aside>
 
-		</div>
+    </div>
 </div>
 <%= erb :footer %>

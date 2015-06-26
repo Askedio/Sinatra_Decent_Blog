@@ -8,5 +8,5 @@ class Comment
   property :created_at , DateTime
   property :updated_at , DateTime
 
-  belongs_to :post  
+  belongs_to :post
 end
