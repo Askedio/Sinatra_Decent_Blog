@@ -103,9 +103,9 @@ module Sinatra
             post ||= Post.get(params[:id]) || halt(404)
             @post = post
             erb :"admin/post/control", :layout => :'layouts/control'
-              end
+          end
 
-              app.get '/delete/:id' do
+          app.get '/delete/:id' do
             protected!
             post ||= Post.get(params[:id]) || halt(404)
             halt 500 unless post.destroy

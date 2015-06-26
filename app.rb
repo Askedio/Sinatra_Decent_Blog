@@ -30,8 +30,12 @@ class SimpleRubyBlog < Sinatra::Base
 
   register Sinatra::SimpleRubyBlog::Routing::Public
 
+  #register Sinatra::RouteGroup
+ 
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
+
   WillPaginate.per_page = 8
+
 
 end

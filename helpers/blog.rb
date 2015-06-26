@@ -2,6 +2,11 @@ module Sinatra
   module SimpleRubyBlog
     module Helpers
 
+ def group(*args)
+      ::RouteGroup::group(*args)
+    end
+
+
       def render_output tpl, lay='layout'
         erb :"#{tpl}", :layout => :"#{lay}"   
       end
@@ -9,8 +14,8 @@ module Sinatra
       def featured param, post
         if (param.nil? && !post.featured.nil?)
           post.featured.destroy
-        nil
-        else
+          nil
+        elsif !param.nil?
           Featured.new
         end
       end

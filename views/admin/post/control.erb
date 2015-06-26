@@ -24,7 +24,7 @@
               </div>
         </div>
         <div class="col-md-3 col-sm-6  col-xs-9 ">
-          <input placeholder="Template" maxlength="50" name="template" type="hidden" id="template"  value="<%= defined?(@post.template) ? @post.template : 'layout' %>">
+          <input placeholder="Template" maxlength="50" name="template" type="hidden" id="template"  value="<%= (defined?(@post.template) && @post.template) ? @post.template : 'layout' %>">
           <div class="row pull-right">
             <div class="col-sm-12">
               <div class="layout-picker pull-left <% if ((defined?(@post.template) && @post.template == 'layout')) || !defined?(@post.template) %>active<% end %>" title="2 Column" data-tpl="layout">

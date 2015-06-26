@@ -18,6 +18,7 @@ require 'builder'
 require 'tilt/erb'
 require 'faraday'
 require 'sinatra/r18n'
+
 Bundler.require
 
 Dir.glob('./{models,helpers,routes,config}/*.rb').each { |file| require file }

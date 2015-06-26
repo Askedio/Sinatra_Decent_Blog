@@ -77,6 +77,9 @@
         app.get '/rss', &get_rss
         app.get '/:id', &get_post
 
+
+
+
       end
      end
     end
