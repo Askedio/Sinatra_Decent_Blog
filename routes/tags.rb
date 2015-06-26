@@ -45,7 +45,7 @@
             cat ||= Tag.first(:slug => params[:title])|| halt(404)
             @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
             @page_title = cat.title
-            @page_description = cat.description
+            @page_description = cat.description.gsub(/<\/?[^>]*>/, "")[0..255]
             render_output('public/index')
          end
 

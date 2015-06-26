@@ -12,9 +12,8 @@ module Sinatra
            roles ||= Role.all(:id => add_missing(params[:roles], Roles)) || halt(500)
             person = Permission.new(:title => params[:title], :description => params[:description], :roles => roles)
             if person.save
-              new_person ||= Permission.first(:title => params[:title]) || halt(500)
               flash[:success] = true
-              redirect "/perms/edit/#{new_person.id}"
+              redirect "/perms/edit/#{person.id}"
             else
               do_error person.errors
               redirect "/perms/create"

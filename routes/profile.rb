@@ -11,9 +11,8 @@ module Sinatra
             perms ||= Permission.all(:id => params[:permissions]) || halt(404)
             person = Person.new(:name => params[:name], :permissions => perms, :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
             if person.save
-              new_person ||= Person.first(:name => params[:name]) || halt(500)
               flash[:success] = true
-              redirect "/profile/#{new_person.name}"
+              redirect "/profile/#{person.name}"
             else
               do_error person.errors
               redirect "/profile/create"
