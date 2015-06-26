@@ -18,16 +18,6 @@
 				erb :"public/index" 
 			  end
 
-
-			  app.get '/test' do	
-				Helpers::Mail.send('will@asked.io', 'gcphost@gmail.com', 'Hi', 'Custom Body', './views/emails/email.erb')
-
-				@posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ])
-				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
-				erb :"public/index" 
-			  end
-
-
 			  app.get '/' do	
 				@posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ])
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
@@ -73,7 +63,7 @@
 
 			  app.get '/rss' do
 				@posts = Post.all
-			    builder :rss
+			    builder :'rss/index'
 			  end
 		  end
 	   end

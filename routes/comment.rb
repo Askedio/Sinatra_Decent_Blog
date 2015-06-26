@@ -7,10 +7,21 @@
 			  app.post '/comment/:id' do
 				halt 404 unless params[:website].empty?
 				post ||= Post.get(params[:id]) || halt(404)
-				post.comments.new(:body => params[:body].gsub(/<\/?[^>]*>/, ""), :name => params[:name].gsub(/<\/?[^>]*>/, ""), :email => params[:email].gsub(/<\/?[^>]*>/, ""))
-				  if !post.save
+
+				comments = params[:body].gsub(/<\/?[^>]*>/, "")
+				name = params[:name].gsub(/<\/?[^>]*>/, "")
+				email = params[:email].gsub(/<\/?[^>]*>/, "")
+
+				post.comments.new(:body => comments, :name => name, :email => email)
+				if !post.save
 					do_error post.errors
-				  end
+				end
+
+				session[:comment_name] = name
+				session[:comment_email] = email
+
+				Helpers::Mail.send_all(email, 'Comments made', "Post: /posts/#{post.slug}<br>Name: #{name}<br>Email: #{email}<br>Comment: #{comments}", './views/emails/email.erb')
+					
 				redirect "/posts/#{post.slug}"
 			  end
 

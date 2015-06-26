@@ -6,6 +6,7 @@ class Person
    property :avatar      , String
    property :password      , String
    property :title      , String
+   property :email      , String
    property :about      , Text 
    has n, :posts
 end

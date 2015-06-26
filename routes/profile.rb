@@ -11,7 +11,7 @@
 
 			  app.post '/profile/create' do
 				protected!
-				person = Person.new(:name => params[:name],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				person = Person.new(:name => params[:name], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 				if person.save
 				  new_person ||= Person.first(:name => params[:name]) || halt(500)
 				  flash[:success] = true
@@ -32,7 +32,7 @@
 			  app.post '/profile/:id' do
 				protected!
 				person ||= Person.first(:name => params[:id]) || halt(404)
-				if person.update(:name => params[:name],:slug => params[:slug],:title => params[:title], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+				if person.update(:name => params[:name],:slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
 					flash[:success] = true
 				else
 					do_error person.errors
