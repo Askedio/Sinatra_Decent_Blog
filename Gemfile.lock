@@ -97,6 +97,7 @@ DEPENDENCIES
   do_sqlite3
   faraday
   sinatra
+  sinatra-contrib
   sinatra-flash
   sinatra-r18n
   sinatra-reloader
