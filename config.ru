@@ -17,6 +17,7 @@ require 'builder'
 require 'tilt/erb'
 require 'sinatra/r18n'
 require "sinatra/config_file"
+require "sinatra/namespace"
 
 Bundler.require
 

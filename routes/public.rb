@@ -1,4 +1,4 @@
- module Sinatra
+module Sinatra
   module SimpleRubyBlog
     module Routing
      module Public
@@ -71,13 +71,14 @@
         app.get '/drafts', &get_drafts
         app.get '/search/:query', &get_search
         app.get '/authors', &get_authors
-        app.get '/author/:id', &get_author
-        app.get '/author/:id/posts', &get_author_posts
         app.get '/featured', &get_featured
         app.get '/rss', &get_rss
         app.get '/:id', &get_post
 
-
+        app.namespace '/author' do
+          get '/:id', &get_author
+          get '/:id/posts', &get_author_posts
+        end
 
 
       end

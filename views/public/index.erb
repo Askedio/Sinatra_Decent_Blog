@@ -82,9 +82,9 @@
 		</div>
     <% if authorized? %>
       <div>
-        <a href="/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
+        <a href="/admin/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
         &nbsp;&nbsp;
-        <a href="/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
+        <a href="/admin/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
       </div>
     <% end %>
 

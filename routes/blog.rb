@@ -3,8 +3,7 @@ module Sinatra
     module Routing
       module BlogAdmin
         def self.registered(app)
-          app.post '/create/upload'   do
-            protected!
+          post_upload = lambda do 
             halt 500 unless !params['image'].nil?
             accepted_formats = [".jpg", ".png", ".gif"]
             halt 500 unless accepted_formats.include? File.extname(params['image'][:filename])
@@ -16,20 +15,18 @@ module Sinatra
 
             if !Cloudinary.config.api_key.blank?
               upload =  Cloudinary::Uploader.upload image
-              image = upload['secure_url']
               File.delete(image)|| halt(500)
+              image = upload['secure_url']
             end
 
             "<script data-cfasync=\"false\">top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
           end
 
-          app.get '/create' do
-            protected!
+          get_create = lambda do 
             erb :"admin/post/control", :layout => :'layouts/control'
           end
 
-          app.post '/create' do
-            protected!
+          post_create = lambda do 
             image = ''
             if !params['myfile'].nil?
               accepted_formats = [".jpg", ".png", ".gif"]
@@ -76,8 +73,7 @@ module Sinatra
             end
           end
 
-          app.post '/edit/:id' do
-            protected!
+          post_edit = lambda do 
             post ||= Post.get(params[:id]) || halt(404)
 
             if post.update(:draft => params[:draft],
@@ -95,21 +91,31 @@ module Sinatra
               do_error post.errors
             end
 
-            redirect "/#{params[:id]}"
+            redirect "/#{params[:id]}" 
           end
 
-          app.get '/edit/:id' do
-            protected!
+
+          get_edit = lambda do 
             post ||= Post.get(params[:id]) || halt(404)
             @post = post
             erb :"admin/post/control", :layout => :'layouts/control'
           end
 
-          app.get '/delete/:id' do
-            protected!
+          get_delete = lambda do 
             post ||= Post.get(params[:id]) || halt(404)
             halt 500 unless post.destroy
             redirect '/'
+          end
+
+          app.namespace '/admin' do
+            before  { auth? }
+
+            post '/create/upload', &post_upload
+            get '/create', &get_create
+            post '/create', &post_create
+            post '/edit/:id', &post_edit
+            get '/edit/:id', &get_edit
+            get '/delete/:id', &get_delete
           end
 
         end

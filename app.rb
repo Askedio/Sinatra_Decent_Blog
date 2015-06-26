@@ -2,6 +2,10 @@ class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
 
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   register Sinatra::ConfigFile
   config_file 'config/config.yml'
 
@@ -10,6 +14,8 @@ class SimpleRubyBlog < Sinatra::Base
   helpers Sinatra::SimpleRubyBlog::Helpers
   
   register Sinatra::Flash
+
+  register Sinatra::Namespace
 
   register Sinatra::R18n
   R18n::I18n.default = 'en'
@@ -35,5 +41,7 @@ class SimpleRubyBlog < Sinatra::Base
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
   WillPaginate.per_page = 8
+
+  not_found{ render_output('not_found') }
 
 end
