@@ -2,11 +2,6 @@ module Sinatra
   module SimpleRubyBlog
     module Helpers
 
- def group(*args)
-      ::RouteGroup::group(*args)
-    end
-
-
       def render_output tpl, lay='layout'
         erb :"#{tpl}", :layout => :"#{lay}"   
       end

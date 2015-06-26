@@ -2,7 +2,7 @@ require 'rubygems'
 require './app'
 require 'sitemap_generator'
 
-SitemapGenerator::Sitemap.default_host = $site_url
+SitemapGenerator::Sitemap.default_host = settings.site_url
 SitemapGenerator::Sitemap.create do
   add '/', :changefreq => 'daily', :priority => 0.9
 

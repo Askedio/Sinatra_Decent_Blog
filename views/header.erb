@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title><%= $site_name %> <%= @page_title %></title>
+	<title><%= settings.site_name %> <%= @page_title %></title>
   <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="<%= $site_name %> <%= @page_title %>">
+  <meta property="og:title" content="<%= settings.site_name %> <%= @page_title %>">
 	<meta property="og:type" content="blog">
-	<meta property="og:url" content="<%= $site_url %><%= @post ?  "/#{@post.slug}" : '' %>">
-	<meta property="og:site_name" content="<%= $site_name %>">
+	<meta property="og:url" content="<%= settings.site_url %><%= @post ?  "/#{@post.slug}" : '' %>">
+	<meta property="og:site_name" content="<%= settings.site_name %>">
 	<meta property="og:description" content="<%= @page_description %>">
-	<meta property="og:image" content="<%= $site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+	<meta property="og:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
 
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:site" content="<%= $site_twitter %>">
-	<meta name="twitter:title" content="<%= $site_name %> <%= @page_title %>">
+	<meta name="twitter:site" content="<%= settings.site_twitter %>">
+	<meta name="twitter:title" content="<%= settings.site_name %> <%= @page_title %>">
 	<meta name="twitter:description" content="<%= @page_description %>">
-	<meta name="twitter:image" content="<%= $site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+	<meta name="twitter:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
 
 	<%= erb :style %>
 
@@ -25,7 +25,7 @@
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="navbar-header">
-    <a class="navbar-brand" href="/"><%= $site_name %></a>
+    <a class="navbar-brand" href="/"><%= settings.site_name %></a>
   </div>
 
   <div class="collapse navbar-collapse">

@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'bundler'
 require 'rack'
-require 'rubygems'
 require 'sinatra'
 require 'dm-core'
 require 'dm-sqlite-adapter'
@@ -16,8 +15,8 @@ require 'will_paginate/data_mapper'
 require 'sinatra/flash'
 require 'builder' 
 require 'tilt/erb'
-require 'faraday'
 require 'sinatra/r18n'
+require "sinatra/config_file"
 
 Bundler.require
 
@@ -27,6 +26,7 @@ DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
 DataMapper.auto_upgrade!
 
 Dir.glob('./seeds/*.rb').each { |file| require file }
+
 
 require './app'
 map('/') { run SimpleRubyBlog }

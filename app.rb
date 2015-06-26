@@ -1,9 +1,9 @@
-include ERB::Util
-
-
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
+
+  register Sinatra::ConfigFile
+  config_file 'config/config.yml'
 
   set :root, File.dirname(__FILE__)
 
@@ -34,8 +34,6 @@ class SimpleRubyBlog < Sinatra::Base
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
-
   WillPaginate.per_page = 8
-
 
 end

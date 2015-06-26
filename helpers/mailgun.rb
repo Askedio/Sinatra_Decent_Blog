@@ -1,3 +1,6 @@
+include ERB::Util
+require 'faraday'
+
 module Sinatra
   module SimpleRubyBlog
     module Helpers
