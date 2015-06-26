@@ -1,12 +1,17 @@
 module Sinatra
   module SimpleRubyBlog
     module Helpers
+
+      def render_output tpl, lay='layout'
+        erb :"#{tpl}", :layout => :"#{lay}"   
+      end
+
       def featured param, post
         if (param.nil? && !post.featured.nil?)
-        post.featured.destroy
+          post.featured.destroy
         nil
         else
-        Featured.new
+          Featured.new
         end
       end
 

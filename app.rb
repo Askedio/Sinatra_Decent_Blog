@@ -11,6 +11,9 @@ class SimpleRubyBlog < Sinatra::Base
   
   register Sinatra::Flash
 
+  register Sinatra::R18n
+  R18n::I18n.default = 'en'
+
   register WillPaginate::Sinatra
 
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
