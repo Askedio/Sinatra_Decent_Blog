@@ -8,10 +8,16 @@
 		  </div>
 
 		  <div class="form-group">
-        <div name="body" class="form-control" style="height: 30vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
+        <div name="body" class="form-control" style="height: 46vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
 		  </div>
 <div class="row">
-<div class="col-sm-6">
+<div class="col-sm-1">
+		  <div class="form-group">
+        <label for="file"><em class="fa fa-image fa-3x"></em></label>
+        <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+		  </div>
+</div>
+<div class="col-sm-5">
 		  <div class="form-group">
         <select id="category" multiple name="category[]" class="form-control">
           <% Category.all.each do |cat| %>
@@ -32,10 +38,6 @@
 </div>
 </div>
 
-		  <div class="form-group">
-        <label for="file"><em class="fa fa-image fa-2x"></em></label>
-        <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
-		  </div>
 
 		  <div class="form-group" style="display:none" id="banner_position">
         <label for="position">Banner Position</label>
@@ -46,7 +48,10 @@
         </select>
 		  </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button> <input <% if defined?(@post.slug) && @post.draft == 1 %>checked<% end %> name="draft" value="1" id="draft" type="checkbox"> <label for="draft">Draft?</label>
+      <button onclick="$('#draft').attr('checked', true)" type="submit" class="btn btn-warning btn-block">Save Draft</button>
+      <button onclick="$('#draft').removeAttr('checked')" type="submit" class="btn btn-primary btn-block">Save Post</button>
+      
+      <input class="hidden" id="draft" <% if defined?(@post.slug) && @post.draft == 1 %>checked<% end %> name="draft" value="1" id="draft" type="checkbox">
 		</form>
 </article>
 
@@ -61,6 +66,7 @@ tinymce.init({
   entity_encoding : "named",
   extended_valid_elements:"*[*]",
   selector: "#body",
+  browser_spellcheck : true,
   theme: "modern",
 
   plugins: [
@@ -71,7 +77,7 @@ tinymce.init({
         if(type=='image') $('#upload_form input').click();
     },
  content_css: "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css",
- toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image |  media fullpage | forecolor backcolor emoticons | example",
+ toolbar: "link image | example | code | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |  media fullpage | forecolor backcolor",
  setup: function(ed) {
   ed.addButton('example', {
      text: 'Insert',
@@ -98,7 +104,7 @@ tinymce.init({
               ]}
             ],
             onsubmit: function(e) {
-              ed.insertContent('<pre><code class="'+e.data.type+'"></code></pre>');
+              ed.insertContent('<pre><code class="'+e.data.type+'">#</code></pre>');
             }
         });
      }
