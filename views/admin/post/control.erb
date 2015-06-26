@@ -3,6 +3,7 @@
 		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
 	</header>
 		<form method="post" role="form" enctype="multipart/form-data">
+
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">
@@ -17,13 +18,41 @@
 		  </div>
 
       <div class="row">
-        <div class="col-sm-1">
+        <div class="col-md-1 col-sm-6 col-xs-3">
               <div class="form-group">
                 <label for="file"><em class="fa fa-image fa-3x"></em></label>
-                <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
               </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-md-3 col-sm-6  col-xs-9 ">
+          <input placeholder="Template" maxlength="50" name="template" type="hidden" id="template"  value="<%= defined?(@post.template) ? @post.template : 'layout' %>">
+          <div class="row pull-right">
+            <div class="col-sm-12">
+              <div class="layout-picker pull-left <% if ((defined?(@post.template) && @post.template == 'layout')) || !defined?(@post.template) %>active<% end %>" title="2 Column" data-tpl="layout">
+                  <div class="item pull-left" style="width: 28px; height: 100%"></div>
+                  <div class="item pull-right" style="width: 5px; height: 100%"></div>
+                  <div class="clearfix"></div>
+              </div>
+
+              <div class="layout-picker pull-left <% if (defined?(@post.template) && @post.template  == 'layouts/2column-alt') %>active<% end %>" title="2 Column Alt" data-tpl="layouts/2column-alt">
+                  <div class="item pull-right" style="width: 28px; height: 100%"></div>
+                  <div class="item pull-left" style="width: 5px; height: 100%"></div>
+                  <div class="clearfix"></div>
+              </div>
+
+              <div class="layout-picker pull-left <% if (defined?(@post.template) && @post.template  == 'layouts/1column') %>active<% end %>" title="1 Column" data-tpl="layouts/1column">
+                <div class="item" style="width: 100%; height: 100%"></div>
+              </div>
+
+              <div class="layout-picker pull-left <% if (defined?(@post.template) && @post.template == 'layouts/3column') %>active<% end %>" title="3 Column" data-tpl="layouts/3column">
+                  <div class="item pull-left" style="width: 4px; height: 100%"></div>
+                  <div class="item pull-left" style="margin-left: 2px; width: 22px; height: 100%"></div>
+                  <div class="item pull-right" style="width: 4px; height: 100%"></div>
+                  <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
               <div class="form-group">
                 <select id="category" multiple name="category[]" class="form-control">
                   <% Category.all.each do |cat| %>
@@ -32,7 +61,7 @@
                 </select>
               </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-4">
 
               <div class="form-group">
                 <select id="tags" multiple name="tags[]" class="form-control">
@@ -46,12 +75,17 @@
 
 
 		  <div class="form-group" style="display:none" id="banner_position">
+        <div class="form-group">
         <label for="position">Banner Position</label>
         <select id="position" name="position" class="form-control">
           <option value="top" <%= defined?(@post.title) && @post.position == 'top' ? 'selected' : '' %>>top</option>
           <option value="left" <%= defined?(@post.title) && @post.position == 'left' ? 'selected' : '' %>>left</option>
           <option value="right" <%= defined?(@post.title) && @post.position == 'right' ? 'selected' : '' %>>right</option>
         </select>
+ 		    </div>
+         
+        <input placeholder="https://<img url>" <% if !defined?(@post.slug) %>class="hidden"<% end %> style="margin-bottom: 10px" onclick="$('#banner_position').show()" class="form-control pull-left" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+
 		  </div>
 
       <button onclick="$('#draft').attr('checked', true)" type="submit" class="btn btn-warning btn-block">Save Draft</button>
@@ -131,5 +165,10 @@ tinymce.init({
 			$("#tags").select2({
 			  tags: true, placeholder :'Tags', width: '100%'
 			});
+      $('.layout-picker').on('click', function(){
+         $('.layout-picker').removeClass('active');
+         $(this).addClass('active');
+        $('#template').val($(this).data('tpl'));
+      });
 		</script>
 } %>

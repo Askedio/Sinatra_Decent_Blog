@@ -71,7 +71,7 @@
 				@page_title = post.title
 				@page_image = post.image
 				@page_description = post.body.gsub(/<\/?[^>]*>/, "")[0..255]
-				erb :"public/index" 
+				erb :"public/index", :layout => (post.template ? (:"#{post.template}") : (:'layout'))
 			  end
 
 		  end

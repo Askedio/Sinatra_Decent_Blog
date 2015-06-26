@@ -4,6 +4,7 @@ class Post
     property :slug       , String   , key: true, unique_index: true, default: lambda { |resource,prop| resource.title.downcase.gsub " ", "-" }
     property :title      , String   , required: true
     property :draft      , Integer
+    property :template      , String 
     property :image      , Text 
     property :position   , Text 
     property :body       , Text     , required: true

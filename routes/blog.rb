@@ -88,6 +88,7 @@ module Sinatra
 							  :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, 
 							  :body => params[:body], 
 							  :image => params[:myfile],
+							  :template => params[:template],
 							  :featured => featured(params[:featured], post),
 							  :position => params[:position])
 				flash[:success] = true

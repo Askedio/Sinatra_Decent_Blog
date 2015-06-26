@@ -1,0 +1,12 @@
+<%= erb :header %>
+ <div class="container">
+	  <div class="row">
+      <section>
+        <h2 class="hide"><%= @page_title %></h2>
+          <%= erb :'flash/error' %>
+          <%= erb :'flash/success' %>
+          <%= yield %>
+			</section>
+		</div>
+</div>
+<%= erb :footer %>
