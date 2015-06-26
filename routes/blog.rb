@@ -63,6 +63,8 @@ module Sinatra
 							:slug => params[:title].slugify,
 							:body => params[:body],
 							:image => image, 
+							:featured => (!params[:featured].nil? ? Featured.new : nil),
+
 							:position => params[:position])
 
 			if new_post
@@ -78,6 +80,7 @@ module Sinatra
           app.post '/edit/:id' do
 			  protected!
 			  post ||= Post.get(params[:id]) || halt(404) 
+
 			  if post.update(:draft => params[:draft],
 							  :tags => Tag.all(:id => add_missing(params[:tags], Tag)),
 							  :categories => Category.all(:id => add_missing(params[:category], Category)),
@@ -85,6 +88,7 @@ module Sinatra
 							  :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify, 
 							  :body => params[:body], 
 							  :image => params[:myfile],
+							  :featured => featured(params[:featured], post),
 							  :position => params[:position])
 				flash[:success] = true
 			  else

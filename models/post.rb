@@ -14,4 +14,12 @@ class Post
 	has n, :tags, :through => Resource
     has n, :comments
     has 1, :stat
+    has 1, :featured
+end
+class Featured
+   include DataMapper::Resource
+ 
+   property :id, Serial
+
+   has n, :posts, :through => Resource
 end

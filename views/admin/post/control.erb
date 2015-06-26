@@ -3,9 +3,14 @@
 		<h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
 	</header>
 		<form method="post" role="form" enctype="multipart/form-data">
-		  <div class="form-group">
-        <input placeholder="Title" maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
-		  </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">
+            <input type="checkbox" name="featured" value="1" <% if (defined?(@post.featured) && @post.featured) %>checked<% end %> title="Featured Post">
+          </div>
+          <input placeholder="Title" maxlength="50" name="title" type="text" class="form-control" id="title" required <% if defined?(@post.title) %>value="<%= @post.title %>"<% end %>>
+        </div>
+      </div>
 
 		  <div class="form-group">
         <div name="body" class="form-control" style="height: 46vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>

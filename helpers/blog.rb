@@ -1,6 +1,17 @@
 module Sinatra
   module SimpleRubyBlog
     module Helpers
+		
+		def featured param, post
+		  if (param.nil? && !post.featured.nil?)
+			post.featured.destroy
+			nil
+		  else
+			Featured.new
+		  end
+		end
+
+
 		def is_number?(object)
 		  true if Float(object) rescue false
 		end	
