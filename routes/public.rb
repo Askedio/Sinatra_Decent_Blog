@@ -21,7 +21,7 @@
 			  app.get '/' do	
 				@posts = Post.paginate(:draft => nil, :page => params[:page], :order => [:created_at.desc ])
 				@page_description = 'A day-to-day log of the questions we\'ve asked &amp; the answers we\'ve found.'
-				erb :"public/index" 
+				erb :"public/index", :layout => :'layouts/home'
 			  end
 
 			  app.get '/page/:page' do	

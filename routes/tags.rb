@@ -8,7 +8,7 @@
 				protected!
 				@page_title = 'Tags'
 				@page_slug = 'tag'
-				erb :"admin/manage/control" 
+				erb :"admin/manage/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/tag/create' do
@@ -29,7 +29,7 @@
 				@person ||= Tag.first(:id => params[:id]) || halt(404)
 				@page_title = 'Tags'
 				@page_slug = 'tag'
-				erb :"admin/manage/control" 
+				erb :"admin/manage/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/tag/edit/:id' do

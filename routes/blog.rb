@@ -26,7 +26,7 @@ module Sinatra
 
 			  app.get '/create' do 
 				protected!
-				erb :"admin/post/create" 
+				erb :"admin/post/control", :layout => :'layouts/control' 
 			  end
 
           app.post '/create' do
@@ -83,7 +83,7 @@ module Sinatra
 			  protected!
 			  post ||= Post.get(params[:id]) || halt(404)
 			  @post = post
-			  erb :"admin/post/create" 
+			  erb :"admin/post/control", :layout => :'layouts/control' 
           end
 
           app.get '/delete/:id' do

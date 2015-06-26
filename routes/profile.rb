@@ -6,7 +6,7 @@
 
 			  app.get '/profile/create' do 
 				protected!
-				erb :"admin/profile/control" 
+				erb :"admin/profile/control", :layout => :'layouts/control'
 			  end
 
 			  app.post '/profile/create' do
@@ -26,7 +26,7 @@
 				protected!
 				@persons = Person.all
 				@person ||= Person.first(:name => params[:id]) || halt(404)
-				erb :"admin/profile/control" 
+				erb :"admin/profile/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/profile/:id' do
@@ -51,7 +51,7 @@
 				protected!
 				@persons = Person.all
 				@person ||= Person.first(:name => session[:username]) || halt(404)
-				erb :"admin/profile/control" 
+				erb :"admin/profile/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/profile' do

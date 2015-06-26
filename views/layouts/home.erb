@@ -1,6 +1,13 @@
 <%= erb :header %>
-
  <div class="container">
+
+    <header class="hidden-sm hidden-xs">
+      <div class="bg"></div>
+      <div class="jumbotron ">
+        <h1 class="shadow" onclick="window.location='/'"><%= $site_name %></h1>
+        <p class="shadow"><%= $site_slogan %></p>
+      </div>
+    </header>
 
 	  <div class="row">
 
@@ -17,6 +24,5 @@
 			</aside>
 
 		</div>
-
 </div>
 <%= erb :footer %>

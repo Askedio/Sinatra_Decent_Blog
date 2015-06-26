@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<title><%= $site_name %> <%= @page_title %></title>
+  <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="<%= $site_name %> <%= @page_title %>">
+	<meta property="og:type" content="blog">
+	<meta property="og:url" content="<%= $site_url %><%= @post ?  "/posts/#{@post.slug}" : '' %>">
+	<meta property="og:site_name" content="<%= $site_name %>">
+	<meta property="og:description" content="<%= @page_description %>">
+	<meta property="og:image" content="<%= $site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="<%= $site_twitter %>">
+	<meta name="twitter:title" content="<%= $site_name %> <%= @page_title %>">
+	<meta name="twitter:description" content="<%= @page_description %>">
+	<meta name="twitter:image" content="<%= $site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+
+	<%= erb :style %>
+
+  </head>
+  <body>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/"><%= $site_name %></a>
+  </div>
+
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+
+      <% Category.all(:limit => 3).sort_by { |category| -category.posts.count }.each do |cat| %>
+       <li><a href="/category/<%= cat.slug %>"><%= cat.title %></a></li>
+      <% end %>
+
+      <% if authorized? %>
+        <li><a href="/create"><em class="fa fa-plus"></em> Create Post</a></li> 
+        <li><a href="/profile"><em class="fa fa-user"></em> Profile</a></li>
+
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><em class="fa fa-cog"></em> Settings <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+              <li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create User</a></li>
+              <li><a href="/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
+              <li><a href="/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
+              <li><a href="/categories"><em class="fa fa-list"></em> Categories</a></li>
+              <li><a href="/tags"><em class="fa fa-list"></em> Tags</a></li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+    <div class="col-sm-3 col-md-3 pull-right">
+
+				<form method="post" action="/search" role="search" class="navbar-form" id="search">
+					<div class="input-group">
+						<input type="text" class="form-control input-sm" placeholder="Search" name="srch-term" id="srch-term">
+						<div class="input-group-btn">
+							<button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="https://github.com/Askedio/Sinatra_Decent_Blog" title="Fork: Sinatra Decent Blog"><em class="fa fa-github"></em></a></li>
+      <li><a href="/rss" title="Asked.io: RSS Feed"><em class="fa fa-rss"></em></a></li>
+    </ul>
+  </div>
+</nav>

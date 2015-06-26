@@ -8,7 +8,7 @@
 				protected!
 				@page_title = 'Categories'
 				@page_slug = 'category'
-				erb :"admin/manage/control" 
+				erb :"admin/manage/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/category/create' do
@@ -29,7 +29,7 @@
 				@person ||= Category.first(:id => params[:id]) || halt(404)
 				@page_title = 'Categories'
 				@page_slug = 'category'
-				erb :"admin/manage/control" 
+				erb :"admin/manage/control", :layout => :'layouts/control' 
 			  end
 
 			  app.post '/category/edit/:id' do
