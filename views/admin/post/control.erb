@@ -10,33 +10,34 @@
 		  <div class="form-group">
         <div name="body" class="form-control" style="height: 46vh" id="body"><%= defined?(@post.body)? @post.body : '' %></div>
 		  </div>
-<div class="row">
-<div class="col-sm-1">
-		  <div class="form-group">
-        <label for="file"><em class="fa fa-image fa-3x"></em></label>
-        <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
-		  </div>
-</div>
-<div class="col-sm-5">
-		  <div class="form-group">
-        <select id="category" multiple name="category[]" class="form-control">
-          <% Category.all.each do |cat| %>
-            <option value="<%= cat.id %>" <%= defined?(@post.title) && @post.categories.include?(cat) ? 'selected' : '' %>><%= cat.title %></option>
-          <% end %>
-        </select>
-		  </div>
-</div>
-<div class="col-sm-6">
 
-		  <div class="form-group">
-        <select id="tags" multiple name="tags[]" class="form-control">
-           <% Tag.all.each do |tag| %>
-            <option value="<%= tag.id %>" <%= defined?(@post.title) && @post.tags.include?(tag) ? 'selected' : '' %>><%= tag.title %></option>
-          <% end %>
-       </select>
-		  </div>
-</div>
-</div>
+      <div class="row">
+        <div class="col-sm-1">
+              <div class="form-group">
+                <label for="file"><em class="fa fa-image fa-3x"></em></label>
+                <input <% if !defined?(@post.slug) %>class="hidden"<% end %> onclick="$('#banner_position').show()" class="form-control" id="file" type="<% if defined?(@post.slug) %>text<% else%>file<% end %>" name="myfile" <% if defined?(@post.title) %>value="<%= @post.image %>"<% end %>>
+              </div>
+        </div>
+        <div class="col-sm-5">
+              <div class="form-group">
+                <select id="category" multiple name="category[]" class="form-control">
+                  <% Category.all.each do |cat| %>
+                    <option value="<%= cat.id %>" <%= defined?(@post.title) && @post.categories.include?(cat) ? 'selected' : '' %>><%= cat.title %></option>
+                  <% end %>
+                </select>
+              </div>
+        </div>
+        <div class="col-sm-6">
+
+              <div class="form-group">
+                <select id="tags" multiple name="tags[]" class="form-control">
+                   <% Tag.all.each do |tag| %>
+                    <option value="<%= tag.id %>" <%= defined?(@post.title) && @post.tags.include?(tag) ? 'selected' : '' %>><%= tag.title %></option>
+                  <% end %>
+               </select>
+              </div>
+        </div>
+      </div>
 
 
 		  <div class="form-group" style="display:none" id="banner_position">
