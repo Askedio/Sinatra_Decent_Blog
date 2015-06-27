@@ -59,7 +59,7 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
 
               :position => params[:position])
 
-      if new_post
+      if new_post.save
         flash[:success] = true
         redirect "/#{new_post.slug}"
       else
