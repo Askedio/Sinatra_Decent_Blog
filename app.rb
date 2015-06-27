@@ -39,7 +39,6 @@ class SimpleRubyBlog < Sinatra::Base
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
   use Rack::Session::Moneta, store: Moneta.new(:DataMapper, setup: "sqlite3://#{$data_dir}/my_app.db")
-  enable :sessions
  
   WillPaginate.per_page = 8
 
