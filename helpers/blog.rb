@@ -61,7 +61,7 @@ module Sinatra
       end
 
       def authorized?
-        return session[:username].nil? ? false : true
+        return session[:username].nil?
       end
 
       def unauthorize

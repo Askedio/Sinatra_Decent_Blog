@@ -12,10 +12,10 @@ module Sinatra
             person = Category.new(:title => params[:title], :description => params[:description])
             if person.save
               flash[:success] = true
-              redirect "/category/edit/#{person.id}"
+              redirect "/admin/category/edit/#{person.id}"
             else
               do_error person.errors
-              redirect "/category/create"
+              redirect "/admin/category/create"
             end
           end
 
@@ -31,7 +31,7 @@ module Sinatra
             else
               do_error person.errors
             end
-            redirect "/category/edit/#{params[:id]}"
+            redirect "/admin/category/edit/#{params[:id]}"
           end
 
           get_delete = lambda do 
@@ -59,6 +59,7 @@ module Sinatra
 
           app.namespace '/admin/category' do
             before  { 
+              auth? 
               @page_title = t.category.titles.category
               @page_description = t.category.description
               @page_slug = 'category'

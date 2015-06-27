@@ -13,10 +13,10 @@
             if person.save
               new_person ||= Tag.first(:title => params[:title]) || halt(500)
               flash[:success] = true
-              redirect "/tag/edit/#{new_person.id}"
+              redirect "/admin/tag/edit/#{new_person.id}"
             else
               do_error person.errors
-              redirect "/tag/create"
+              redirect "/admin/tag/create"
             end
           end
 
@@ -32,7 +32,7 @@
             else
               do_error person.errors
             end
-            redirect "/tag/edit/#{params[:id]}"
+            redirect "/admin/tag/edit/#{params[:id]}"
           end
 
           get_delete = lambda do 
