@@ -29,6 +29,8 @@ module Sinatra
   module SimpleRubyBlog
     module Routing
     end
+    module Helpers
+    end
   end
 end
 

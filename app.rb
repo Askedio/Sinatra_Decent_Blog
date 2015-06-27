@@ -1,5 +1,3 @@
-
-
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
@@ -42,8 +40,6 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::SimpleRubyBlog::Routing::CommentControl
 
   register Sinatra::SimpleRubyBlog::Routing::Public
-
-  #register Sinatra::RouteGroup
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
 
