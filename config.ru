@@ -19,7 +19,7 @@ require 'sinatra/r18n'
 require "sinatra/config_file"
 require "sinatra/namespace"
 require 'sitemap_generator'
-require 'xml-sitemap'
+
 Bundler.require
 
 
