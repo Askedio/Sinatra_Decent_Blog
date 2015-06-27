@@ -1,6 +1,4 @@
 class SimpleRubyBlog < Sinatra::Base
-  
-
   configure :development do
     register Sinatra::Reloader
   end
@@ -17,7 +15,6 @@ class SimpleRubyBlog < Sinatra::Base
   register Sinatra::Namespace
 
   register Sinatra::R18n
-  R18n::I18n.default = 'en'
 
   register WillPaginate::Sinatra
 
@@ -40,7 +37,9 @@ class SimpleRubyBlog < Sinatra::Base
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
   use Rack::Session::Moneta, store: Moneta.new(:DataMapper, setup: "sqlite3://#{$data_dir}/my_app.db")
  
-  WillPaginate.per_page = 8
+  WillPaginate.per_page = settings.post_per_page
+
+  R18n::I18n.default = settings.language
 
   not_found{ render_output('not_found') }
 
