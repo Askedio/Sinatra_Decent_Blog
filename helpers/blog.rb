@@ -86,8 +86,7 @@ module Sinatra
       end
 
       def authorized?
-        @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-        if @auth.provided? && @auth.basic? && @auth.credentials
+        if defined?session[:username]
           return true
         else
           return false

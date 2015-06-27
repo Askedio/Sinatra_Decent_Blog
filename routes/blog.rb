@@ -4,13 +4,13 @@ module Sinatra
       module BlogAdmin
         def self.registered(app)
           post_upload = lambda do 
-            halt 500 unless !params['image'].nil?
+            halt 500 unless !params['upload'].nil?
             accepted_formats = [".jpg", ".png", ".gif"]
-            halt 500 unless accepted_formats.include? File.extname(params['image'][:filename])
-            image='public/assests/images/' + params['image'][:filename]
+            halt 500 unless accepted_formats.include? File.extname(params['upload'][:filename])
+            image='public/assests/images/' + params['upload'][:filename]
 
             new_image = File.open(image, "wb") do |f|
-              f.write(params['image'][:tempfile].read)
+              f.write(params['upload'][:tempfile].read)
             end
 
             if !Cloudinary.config.api_key.blank?
@@ -18,8 +18,7 @@ module Sinatra
               File.delete(image)|| halt(500)
               image = upload['secure_url']
             end
-
-            "<script data-cfasync=\"false\">top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('#{image}').closest('.mce-window').find('.mce-primary').click();</script>"
+            "#{image}"
           end
 
           get_create = lambda do 

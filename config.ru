@@ -22,6 +22,8 @@ require 'sitemap_generator'
 require 'xml-sitemap'
 Bundler.require
 
+
+
 Dir.glob('./{models,helpers,routes,config}/*.rb').each { |file| require file }
 
 DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
