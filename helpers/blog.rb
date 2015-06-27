@@ -59,7 +59,7 @@ module Sinatra::SimpleRubyBlog::Helpers
   end
 
   def authorized?
-    return !session[:username].nil?
+    return session[:username].nil? ? false : true
   end
 
   def unauthorize
