@@ -40,8 +40,6 @@ class SimpleRubyBlog < Sinatra::Base
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
  
-  use Rack::Session::Pool
-
   WillPaginate.per_page = 8
 
   not_found{ render_output('not_found') }
