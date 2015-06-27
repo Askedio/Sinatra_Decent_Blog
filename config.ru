@@ -19,6 +19,8 @@ require 'sinatra/r18n'
 require "sinatra/config_file"
 require "sinatra/namespace"
 require 'sitemap_generator'
+require 'moneta'
+require 'rack/session/moneta'
 
 Bundler.require
 
@@ -28,6 +30,7 @@ Dir.glob('./{models,helpers,routes,config}/*.rb').each { |file| require file }
 
 DataMapper.setup( :default, "sqlite3://#{$data_dir}/my_app.db" )
 DataMapper.auto_upgrade!
+
 
 Dir.glob('./seeds/*.rb').each { |file| require file }
 

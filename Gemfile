@@ -22,3 +22,5 @@ gem 'cloudinary'
 gem 'builder'
 gem 'faraday'
 gem 'sinatra-r18n'
+
+gem 'moneta'

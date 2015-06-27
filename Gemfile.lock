@@ -36,6 +36,7 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     mime-types (2.6.1)
+    moneta (0.7.20)
     multi_json (1.11.1)
     multipart-post (2.0.0)
     netrc (0.10.3)
@@ -96,6 +97,7 @@ DEPENDENCIES
   dm-validations
   do_sqlite3
   faraday
+  moneta
   sinatra
   sinatra-contrib
   sinatra-flash

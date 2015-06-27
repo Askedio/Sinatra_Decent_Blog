@@ -2,6 +2,9 @@ class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
   
+
+
+
   configure :development do
     register Sinatra::Reloader
   end
@@ -39,6 +42,8 @@ class SimpleRubyBlog < Sinatra::Base
   #register Sinatra::RouteGroup
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
+
+  use Rack::Session::Moneta, store: Moneta.new(:DataMapper, setup: "sqlite3://#{$data_dir}/my_app.db")
  
   WillPaginate.per_page = 8
 
