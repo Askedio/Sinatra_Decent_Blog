@@ -57,7 +57,7 @@
             render_output('public/list')
           end
 
-          app.namespace '/tag' do
+          app.namespace '/admin/tag' do
             before  { 
               auth? 
               @page_title = t.tag.titles.default

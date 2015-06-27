@@ -49,7 +49,7 @@ module Sinatra
           render_output('public/index')
         end
         get_rss = lambda do 
-          @posts = Post.all
+          @posts = Post.all(:order => [:created_at.desc ])
           builder :'rss/index'
         end
 
@@ -67,12 +67,32 @@ module Sinatra
           render_output('public/index', (post.template ? (:"#{post.template}") : (:'layout')))
         end
 
+        get_logout = lambda do 
+          unauthorize
+          redirect '/'
+        end
+
+        get_login = lambda do 
+          render_output('public/login')
+        end
+
+        post_login = lambda do 
+         redirect login(params[:user], params[:password]) ? (!params[:redirect_to].strip!.empty? ? params[:redirect_to] : '/') : '/login'
+        end
+
         app.get '/', &get_index
         app.get '/drafts', &get_drafts
         app.get '/search/:query', &get_search
         app.get '/authors', &get_authors
         app.get '/featured', &get_featured
         app.get '/rss', &get_rss
+
+
+        app.get  '/logout', &get_logout
+        app.get  '/login', &get_login
+        app.post '/login', &post_login
+
+
         app.get '/:id', &get_post
 
         app.namespace '/author' do

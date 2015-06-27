@@ -1,7 +1,7 @@
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
-
+  
   configure :development do
     register Sinatra::Reloader
   end
@@ -39,6 +39,8 @@ class SimpleRubyBlog < Sinatra::Base
   #register Sinatra::RouteGroup
  
   use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public/assests'
+ 
+  use Rack::Session::Pool
 
   WillPaginate.per_page = 8
 

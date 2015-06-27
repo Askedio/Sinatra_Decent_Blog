@@ -50,23 +50,23 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <% if authorized? %>
-        <li><a href="/admin/create"><em class="fa fa-file-text"></em></a></li> 
-        <li><a href="/profile/<%= session[:username] %>"><em class="fa fa-user"></em></a></li>
+        <li><a href="/admin/create" title="Create Post" data-toggle="tooltip" data-placement="bottom"><em class="fa fa-file-text"></em></a></li> 
+        <li><a href="/profile/<%= session[:username] %>" title="Your Profile"  data-toggle="tooltip" data-placement="bottom"><em class="fa fa-user"></em></a></li>
 
-
-        <li class="dropdown">
+        <li class="dropdown" title="Settings" data-toggle="tooltip" data-placement="bottom">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><em class="fa fa-cog"></em> <b class="caret"></b></a>
           <ul class="dropdown-menu">
               <li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create User</a></li>
-              <li><a href="/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
-              <li><a href="/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
+              <li><a href="/admin/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
+              <li><a href="/admin/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
               <li><a href="/categories"><em class="fa fa-list"></em> Categories</a></li>
               <li><a href="/tags"><em class="fa fa-list"></em> Tags</a></li>
+              <li><a href="/logout"><em class="fa fa-sign-out"></em> Logout</a></li>
           </ul>
         </li>
       <% end %>
-      <li><a href="https://github.com/Askedio/Sinatra_Decent_Blog" title="Fork: Sinatra Decent Blog"><em class="fa fa-github"></em></a></li>
-      <li><a href="/rss" title="Asked.io: RSS Feed"><em class="fa fa-rss"></em></a></li>
+      <li><a href="https://github.com/Askedio/Sinatra_Decent_Blog" title="Fork: Sinatra Decent Blog" data-toggle="tooltip" data-placement="bottom"><em class="fa fa-github"></em></a></li>
+      <li><a href="/rss" title="Asked.io: RSS Feed"  data-toggle="tooltip" data-placement="bottom"><em class="fa fa-rss"></em></a></li>
     </ul>
   </div>
 </nav>

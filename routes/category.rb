@@ -57,9 +57,8 @@ module Sinatra
             render_output('public/list')
           end
 
-          app.namespace '/category' do
+          app.namespace '/admin/category' do
             before  { 
-              auth? 
               @page_title = t.category.titles.category
               @page_description = t.category.description
               @page_slug = 'category'

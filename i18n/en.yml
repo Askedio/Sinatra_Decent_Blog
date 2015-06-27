@@ -24,3 +24,6 @@ permissions:
   titles:
     default: Permissions
   description: We have permissions!
+login:
+  errors:
+    failed: Unable to login.

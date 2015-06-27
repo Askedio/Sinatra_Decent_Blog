@@ -31,32 +31,6 @@ module Sinatra
         array
       end
 
-      def process_category new_post, cats
-        if !cats.nil?
-          cats.each do |cat|
-          category = Category.first(:id => cat)
-          if category.nil?
-            category= Category.create(:title => cat)
-          end
-          new_post.categories << category
-          end
-        end
-        new_post
-      end
-
-      def process_tag new_post, tags
-        if !tags.nil?
-          tags.each do |tag|
-          tagg = Tag.first(:id => tag)
-          if tagg.nil?
-            tagg = Tag.create(:title => tag)
-          end
-          new_post.tags << tagg
-          end
-        end
-        new_post
-      end
-
       def do_error data
         error = nil
         data.each do |e|
@@ -65,32 +39,33 @@ module Sinatra
         flash[:error] = error
       end
 
-      def protected!
-        return if auth?
-          headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-          halt 401, "Not authorized\n"
+      def auth?
+        if authorized? 
+         return true
+        else
+          flash[:redirect_to] = request.fullpath
+          redirect '/login'
+        end
       end
 
-      def auth?
-        @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-        if @auth.provided? && @auth.basic? && @auth.credentials
-           user = Person.first(:name => @auth.credentials[0])
+      def login name, pass
+        if !name.empty? && !pass.empty?
+          user = Person.first(:name => name, :password => pass)
+          if user
+            session[:username] = user.name
+            return true
+         end
         end
-        if user && user.password == @auth.credentials[1]
-          session[:username] = user.name
-          return true
-        else
-          response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
-          throw(:halt, [401, "Not authorized\n"])
-        end
+        flash[:error] = t.login.errors.failed
+        false
       end
 
       def authorized?
-        if defined?session[:username]
-          return true
-        else
-          return false
-        end
+        return session[:username].nil? ? false : true
+      end
+
+      def unauthorize
+        session.destroy
       end
 
     end

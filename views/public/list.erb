@@ -20,8 +20,8 @@
 				<% if authorized? %>
 				<td><%= post.posts.length %></td>
 					<td align="right" width="80">
-						<a href="/<%= @page_slug %>/edit/<%= post.id %>"><em class="fa fa-cog"></em></a> &nbsp; 
-						<a href="/<%= @page_slug %>/delete/<%= post.id %>"><em class="fa fa-trash"></em></a> 
+						<a href="/admin/<%= @page_slug %>/edit/<%= post.id %>"><em class="fa fa-cog"></em></a> &nbsp; 
+						<a href="/admin/<%= @page_slug %>/delete/<%= post.id %>"><em class="fa fa-trash"></em></a> 
 					</td>
 				<% end %>
 			</tr>

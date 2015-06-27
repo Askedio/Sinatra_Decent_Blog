@@ -14,4 +14,6 @@ $(document).ready(function() {
 	  tabReplace: '  '
 	})
 	hljs.initHighlighting();
+    
+	$('[data-toggle="tooltip"]').tooltip();
 });

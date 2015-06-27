@@ -1,0 +1,19 @@
+ <article>
+  <header><h2>Please sign-in</h2></header>
+
+  <form method="post" role="form">
+    <div class="form-group">
+      <label for="inputEmail" class="sr-only">User</label>
+      <input name="user" type="text" id="inputEmail" class="form-control" placeholder="User" required autofocus>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign-in</button>
+    <input type="hidden" name="redirect_to" value=" <%= flash[:redirect_to] %>">
+
+  </form>
+</article>

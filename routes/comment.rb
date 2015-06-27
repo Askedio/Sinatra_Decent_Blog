@@ -25,7 +25,7 @@ module Sinatra
           end
 
           get_delete = lambda do 
-            protected!
+            auth?
             post ||= Comment.first(:id => params[:id]) || halt(404)
             halt 500 unless post.destroy
             redirect "/#{post.post.slug}"
