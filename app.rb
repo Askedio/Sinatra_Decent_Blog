@@ -1,3 +1,5 @@
+
+
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
@@ -25,6 +27,8 @@ class SimpleRubyBlog < Sinatra::Base
 
   register WillPaginate::Sinatra
 
+  register Sinatra::SimpleRubyBlog::Routing
+ 
   register Sinatra::SimpleRubyBlog::Routing::BlogAdmin
  
   register Sinatra::SimpleRubyBlog::Routing::TagAdmin

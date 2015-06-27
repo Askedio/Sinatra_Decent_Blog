@@ -25,6 +25,13 @@ require 'rack/session/moneta'
 Bundler.require
 
 
+module Sinatra
+  module SimpleRubyBlog
+    module Routing
+    end
+  end
+end
+
 
 Dir.glob('./{models,helpers,routes,config}/*.rb').each { |file| require file }
 
