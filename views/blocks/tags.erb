@@ -1,10 +1,12 @@
+<% if Tag.count > 0 %>
 <section>
   <h4><a href="/tags">Top Tags</a></h4>
   <ul class="list-group ">
-    <% Tag.all(:limit => 5, :offset => 3).sort_by { |tag| -tag.posts.count }.each do |cat| %>
+    <% Tag.all(:limit => 5).sort_by { |tag| -tag.posts.count }.each do |cat| %>
       <% if defined? cat.slug %>
         <li class="list-group-item"><a href="/tag/<%= cat.slug %>"><%= cat.title %></a></li>
       <% end %>
     <% end %>
   </ul>
 </section>
+<% end %>

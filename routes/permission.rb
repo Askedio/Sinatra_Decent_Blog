@@ -9,7 +9,7 @@ module Sinatra
           end
 
           post_create = lambda do 
-           roles ||= Role.all(:id => add_missing(params[:roles], Roles)) || halt(500)
+           roles ||= Role.all(:id => add_missing(params[:roles], Role)) || halt(500)
             person = Permission.new(:title => params[:title], :description => params[:description], :roles => roles)
             if person.save
               flash[:success] = true

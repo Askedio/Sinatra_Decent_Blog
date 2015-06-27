@@ -9,7 +9,14 @@ module Sinatra
 
           post_create = lambda do 
             perms ||= Permission.all(:id => params[:permissions]) || halt(404)
-            person = Person.new(:name => params[:name], :permissions => perms, :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+            person = Person.new(:name => params[:name],
+                        :slug => params[:name].slugify,
+                        :permissions => perms,
+                        :title => params[:title],
+                        :email => params[:email],
+                        :avatar => params[:avatar],
+                        :about => params[:about],
+                        :password => params[:password])
             if person.save
               flash[:success] = true
               redirect "/profile/#{person.name}"
@@ -28,7 +35,14 @@ module Sinatra
           post_profile = lambda do 
             person ||= Person.first(:name => params[:id]) || halt(404)
             perms ||= Permission.all(:id => params[:permissions]) || halt(404)
-            if person.update(:name => params[:name], :permissions => perms, :slug => params[:slug], :title => params[:title], :email => params[:email], :avatar => params[:avatar], :about => params[:about], :password => params[:password])
+            if person.update(:name => params[:name],
+                        :permissions => perms,
+                        :slug => params[:slug].slugify,
+                        :title => params[:title],
+                        :email => params[:email],
+                        :avatar => params[:avatar],
+                        :about => params[:about],
+                        :password => params[:password])
               flash[:success] = true
             else
               do_error person.errors

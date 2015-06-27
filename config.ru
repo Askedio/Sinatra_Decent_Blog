@@ -18,7 +18,8 @@ require 'tilt/erb'
 require 'sinatra/r18n'
 require "sinatra/config_file"
 require "sinatra/namespace"
-
+require 'sitemap_generator'
+require 'xml-sitemap'
 Bundler.require
 
 Dir.glob('./{models,helpers,routes,config}/*.rb').each { |file| require file }

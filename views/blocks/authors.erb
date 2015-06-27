@@ -1,3 +1,4 @@
+<% if Person.count > 0 %>
 <section>
   <h4><a href="/authors">Authors</a></h4>
   <% Person.all.each do |person| %>
@@ -14,3 +15,4 @@
   </div>
   <% end %>
 </section>
+<% end %>
