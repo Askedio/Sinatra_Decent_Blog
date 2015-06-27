@@ -60,9 +60,8 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
               :position => params[:position])
 
       if new_post
-        new_post2 ||= Post.first(:title => params[:title]) || halt(500)
         flash[:success] = true
-        redirect "/#{new_post2.slug}"
+        redirect "/#{new_post.slug}"
       else
       do_error new_post.errors
         redirect "/admin/create"
