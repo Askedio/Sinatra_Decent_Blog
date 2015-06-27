@@ -23,6 +23,7 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
     end
 
     post_create = lambda do 
+    # TO-DO: we loose data if an error 404 or 500 occurs, any lost post = pissed off author
       image = ''
       if !params['myfile'].nil?
         accepted_formats = [".jpg", ".png", ".gif"]
