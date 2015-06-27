@@ -1,28 +1,24 @@
 <%= erb :header %>
-
  <div class="container">
+    <div class="row">
 
-	  <div class="row">
-
-			<aside class="col-md-3 p0">
+      <aside class="col-md-3 p0">
         <%= erb :'blocks/email' %>
         <%= erb :'blocks/authors' %>
-			</aside>
+      </aside>
 
       <section class="left-side col-md-6">
         <h2 class="hide"><%= @page_title %></h2>
           <%= erb :'flash/error' %>
           <%= erb :'flash/success' %>
           <%= yield %>
-			</section>
+      </section>
 
-			<aside class="col-md-3 p0">
+      <aside class="col-md-3 p0">
         <%= erb :'blocks/posts' %>
         <%= erb :'blocks/categories' %>
-        <%= erb :'blocks/tags' %>		
+        <%= erb :'blocks/tags' %>
       </aside>
-
-		</div>
-
+    </div>
 </div>
 <%= erb :footer %>

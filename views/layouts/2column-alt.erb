@@ -1,22 +1,18 @@
 <%= erb :header %>
-
  <div class="container">
 
-	  <div class="row">
-			<aside class="col-md-3 p0">
-	      <%= @aside ? @aside : '' %>
-				<%= erb :'blocks/init' %>
-			</aside>
+    <div class="row">
+      <aside class="col-md-3 p0">
+        <%= @aside ? @aside : '' %>
+        <%= erb :'blocks/init' %>
+      </aside>
 
       <section class="left-side col-md-9">
         <h2 class="hide">Blog List</h2>
           <%= erb :'flash/error' %>
           <%= erb :'flash/success' %>
           <%= yield %>
-			</section>
-
-
-		</div>
-
+      </section>
+    </div>
 </div>
 <%= erb :footer %>
