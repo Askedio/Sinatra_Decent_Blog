@@ -50,6 +50,7 @@ module Sinatra
 
       def login name, pass
         if !name.empty? && !pass.empty?
+         # TO-DO: Fix bcrypt on local install so we can secure passwords
           user = Person.first(:name => name, :password => pass)
           if user
             session[:username] = user.name

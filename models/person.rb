@@ -1,3 +1,4 @@
+# TO-DO: Fix bcrypt on local install so we can secure passwords
 class Person
   include DataMapper::Resource
 
@@ -13,25 +14,4 @@ class Person
   has n, :posts
   has 1.0/0, :roles, :through => Resource
   has 1.0/0, :permissions, :through => Resource
-end
-
-class Role
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :title, String
-  property :description, Text
-
-  has n, :permissions, :through => Resource
-end
-
-class Permission
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :title, String
-  property :description, Text
-
-  has n, :roles, :through => Resource
-  has n, :persons, :through => Resource
 end
