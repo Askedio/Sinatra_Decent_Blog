@@ -1,7 +1,6 @@
 class SimpleRubyBlog < Sinatra::Base
   
   enable :sessions
-  
 
   configure :development do
     register Sinatra::Reloader
