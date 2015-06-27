@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title><%= settings.site_name %> <%= @page_title %></title>
-  <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= settings.site_name %> <%= @page_title %></title>
 
-  <meta property="og:title" content="<%= settings.site_name %> <%= @page_title %>">
-	<meta property="og:type" content="blog">
-	<meta property="og:url" content="<%= settings.site_url %><%= @post ?  "/#{@post.slug}" : '' %>">
-	<meta property="og:site_name" content="<%= settings.site_name %>">
-	<meta property="og:description" content="<%= @page_description %>">
-	<meta property="og:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:site" content="<%= settings.site_twitter %>">
-	<meta name="twitter:title" content="<%= settings.site_name %> <%= @page_title %>">
-	<meta name="twitter:description" content="<%= @page_description %>">
-	<meta name="twitter:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
+    <meta property="og:title" content="<%= settings.site_name %> <%= @page_title %>">
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="<%= settings.site_url %><%= @post ?  "/#{@post.slug}" : '' %>">
+    <meta property="og:site_name" content="<%= settings.site_name %>">
+    <meta property="og:description" content="<%= @page_description %>">
+    <meta property="og:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
 
-	<%= erb :style %>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="<%= settings.site_twitter %>">
+    <meta name="twitter:title" content="<%= settings.site_name %> <%= @page_title %>">
+    <meta name="twitter:description" content="<%= @page_description %>">
+    <meta name="twitter:image" content="<%= settings.site_url %><%= @page_image ?  @page_image : '/images/cover_sm.jpg' %>">
 
+    <%= erb :style %>
   </head>
   <body>
 
@@ -30,7 +30,7 @@
 
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
-       <li><a href="/featured"><em class="fa fa-star"></em> Featured</a></li> 
+       <li><a href="/featured"><em class="fa fa-star"></em> Featured</a></li>
 
       <% Category.all(:limit => 3).sort_by { |category| -category.posts.count }.each do |cat| %>
        <li><a href="/category/<%= cat.slug %>"><%= cat.title %></a></li>
@@ -38,19 +38,18 @@
 
     </ul>
     <div class="col-sm-3 col-md-3 pull-right">
-
-				<form method="post" action="/search" role="search" class="navbar-form" id="search">
-					<div class="input-group">
-						<input type="text" class="form-control input-sm" placeholder="Search" name="srch-term" id="srch-term">
-						<div class="input-group-btn">
-							<button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
-						</div>
-					</div>
-				</form>
+      <form method="post" action="/search" role="search" class="navbar-form" id="search">
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" placeholder="Search" name="srch-term" id="srch-term">
+          <div class="input-group-btn">
+            <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <% if authorized? %>
-        <li><a href="/admin/create" title="Create Post" data-toggle="tooltip" data-placement="bottom"><em class="fa fa-file-text"></em></a></li> 
+        <li><a href="/admin/create" title="Create Post" data-toggle="tooltip" data-placement="bottom"><em class="fa fa-file-text"></em></a></li>
         <li><a href="/profile/<%= session[:username] %>" title="Your Profile"  data-toggle="tooltip" data-placement="bottom"><em class="fa fa-user"></em></a></li>
 
         <li class="dropdown" title="Settings" data-toggle="tooltip" data-placement="bottom">

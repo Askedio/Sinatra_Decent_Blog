@@ -1,12 +1,12 @@
 <% if @posts.length == 0 %>
-	<article>
-		<header><h2>No results found :(</h2></header>
-	</article>
+  <article>
+    <header><h2>No results found :(</h2></header>
+  </article>
 <% else %>
-	<% @posts.each_with_index do |post, i| %>
+  <% @posts.each_with_index do |post, i| %>
 
 
-	<article class="p0" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article class="p0" itemscope="" itemtype="http://schema.org/BlogPosting">
     <% if !post.image.empty? && (post.position == 'top' || post.position.nil?) %>
       <div class="post-header-image" title="<%= post.title %>" style="background-image: url(<%= post.image %>)" onclick="window.location='/<%= post.slug %>'"></div><hr class="m0">
     <% end %>
@@ -19,77 +19,77 @@
 
       <h2 itemprop="name headline" class="post-title"><a href="/<%= post.slug %>"><%= post.title %></a></h2>
 
-			<p class="post-meta">
+      <p class="post-meta">
         <% if post.featured %>
           <em class="fa fa-star" title="Featured Post"></em>
         <% end %>
-				<time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
-				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-					<span itemprop="name">
-						<strong><a href="/author/<%= post.person.slug %>"><%= post.person.name %></a></strong> - <%= post.person.title %>
-					</span>
-				</span>
-			</p>
+        <time datetime="<%= post.created_at %>" itemprop="datePublished"><%= post.created_at.strftime("%B %m, %Y %H:%M%P") %></time> by
+        <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <span itemprop="name">
+            <strong><a href="/author/<%= post.person.slug %>"><%= post.person.name %></a></strong> - <%= post.person.title %>
+          </span>
+        </span>
+      </p>
 
 
 
 
       <% if post.image != '' %>
-				<% if post.position == 'top' || post.position.nil? %>
-				<% elsif post.position == 'left' %>
-					<p><img width="60%" class="image-left pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
-				<% elsif post.position == 'right' %>
-					<p><img width="60%" class="image-right pull-right" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
-				<% end %>
-			<% end %>
-		</header>
+        <% if post.position == 'top' || post.position.nil? %>
+        <% elsif post.position == 'left' %>
+          <p><img width="60%" class="image-left pull-left" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+        <% elsif post.position == 'right' %>
+          <p><img width="60%" class="image-right pull-right" src="<%= post.image %>" alt="<%= post.title %>" itemprop="image"></p>
+        <% end %>
+      <% end %>
+    </header>
 
-		<div class="post-body" itemprop="articleBody">
-		  <%= post.body %>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-sm-8" itemprop="keywords">
-				<% if post.categories.length > 0%>
-					<% post.categories.each do |cat| %>
-						<span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span> 
-					<% end %>
-				<% end %>
-				<% if post.tags.length > 0%>
-					<% post.tags.each do |tag| %>
-						<span class="label label-info"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span> 
-					<% end %>
-
-          <%
-            tt = post.tags.first 
-            tt.posts.all(:slug.not => post.slug, :limit => 2, :offset => rand(tt.posts.count)).each do |cat| 
-          %>
-            <span class="label label-warning"><a href="/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span> 
+    <div class="post-body" itemprop="articleBody">
+      <%= post.body %>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-8" itemprop="keywords">
+        <% if post.categories.length > 0%>
+          <% post.categories.each do |cat| %>
+            <span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span>
+          <% end %>
+        <% end %>
+        <% if post.tags.length > 0%>
+          <% post.tags.each do |tag| %>
+            <span class="label label-info"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span>
           <% end %>
 
-				<% end %>
-			</div>
-			<div class="col-sm-4">
+          <%
+            tt = post.tags.first
+            tt.posts.all(:slug.not => post.slug, :limit => 2, :offset => rand(tt.posts.count)).each do |cat|
+          %>
+            <span class="label label-warning"><a href="/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span>
+          <% end %>
+
+        <% end %>
+      </div>
+      <div class="col-sm-4">
          <span class="pull-right comments-link" onclick="$('#comments_<%= i %>').slideToggle()">
           &nbsp; <em class="fa fa-comments"></em> <%= post.comments.length %>
          </span>
 
-				<ul class="pull-right social-icons list-unstyled list-inline"> 
-					<li><a class="popup" href="https://www.facebook.com/sharer/sharer.php?u=https://asked.io/<%= post.slug %>"><em class="fa fa-facebook"></em></a></li> 
-					<li><a class="popup" href="https://twitter.com/home?status=https://asked.io/<%= post.slug %>"><em class="fa fa-twitter"></em></a></li> 
-			</ul>
-			</div>
-		</div>
+        <ul class="pull-right social-icons list-unstyled list-inline">
+          <li><a class="popup" href="https://www.facebook.com/sharer/sharer.php?u=https://asked.io/<%= post.slug %>"><em class="fa fa-facebook"></em></a></li>
+          <li><a class="popup" href="https://twitter.com/home?status=https://asked.io/<%= post.slug %>"><em class="fa fa-twitter"></em></a></li>
+      </ul>
+      </div>
+    </div>
     <% if authorized? %>
       <div>
-        <a href="/admin/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a> 
+        <a href="/admin/edit/<%= post.slug %>"><em class="fa fa-cog"></em></a>
         &nbsp;&nbsp;
         <a href="/admin/delete/<%= post.slug %>" onclick="return confirm('You sure?')"><em class="fa fa-trash"></em></a>
       </div>
     <% end %>
 
 
-		<div class="row">
+    <div class="row">
       <div class="col-sm-12">
           <div id="comments_<%= i %>" style="display: none; ">
             <hr>
@@ -157,10 +157,10 @@
             </div>
           </div>
       </div>
-		</div>
-	</div>
-	</article>
-	<% end %>
+    </div>
+  </div>
+  </article>
+  <% end %>
 <% end %>
 <% if @posts.length > 6 %>
   <div class="text-center">
