@@ -27,19 +27,22 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
       image = ''
       if !params['myfile'].nil?
         accepted_formats = [".jpg", ".png", ".gif"]
-        halt 500 unless accepted_formats.include? File.extname(params['myfile'][:filename])
-        image = 'public/assests/images/' + params['myfile'][:filename]
-        new_image = File.open(image, "wb") do |f|
-          f.write(params['myfile'][:tempfile].read)
-        end
+        if accepted_formats.include? File.extname(params['myfile'][:filename])
+          image = 'public/assests/images/' + params['myfile'][:filename]
+          new_image = File.open(image, "wb") do |f|
+            f.write(params['myfile'][:tempfile].read)
+          end
 
-        new_name = 'public/assests/images/' + params[:title].slugify + File.extname(params['myfile'][:filename])
-        File.rename(image, new_name)|| halt(500)
+          new_name = 'public/assests/images/' + params[:title].slugify + File.extname(params['myfile'][:filename])
+          File.rename(image, new_name)|| halt(500)
 
-        if !Cloudinary.config.api_key.blank?
-          upload = Cloudinary::Uploader.upload(new_name, :use_filename => true)
-          image = upload['secure_url']
-          File.delete(new_name)|| halt(500)
+          if !Cloudinary.config.api_key.blank?
+            upload = Cloudinary::Uploader.upload(new_name, :use_filename => true)
+            image = upload['secure_url']
+            File.delete(new_name)|| halt(500)
+          end
+         else
+          flash[:error] = 'Unable to upload image'
         end
       end
 
@@ -48,8 +51,7 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
       end
 
 
-      person ||= Person.first(:name => session[:username]) || halt(404)
-      new_post = person.posts.create(:draft => params[:draft],
+      new_post = Person.first(:name => session[:username]).posts.create(:draft => params[:draft],
               :tags => Tag.all(:id => add_missing(params[:tags], Tag)),
               :categories => Category.all(:id => add_missing(params[:category], Category)),
               :title => params[:title],
@@ -57,15 +59,16 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
               :body => params[:body],
               :image => image,
               :featured => (!params[:featured].nil? ? Featured.new : nil),
-
               :position => params[:position])
 
       if new_post.saved?
         flash[:success] = true
-        redirect "/#{new_post.slug}"
+        #redirect "/#{new_post.slug}"
+        json :success => "/#{new_post.slug}"
       else
-      do_error new_post.errors
-        redirect "/admin/create"
+        do_error new_post.errors
+        json :failed => new_post.errors
+        #redirect "/admin/create"
       end
     end
 
@@ -75,8 +78,8 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
       if post.update(:draft => params[:draft],
               :tags => Tag.all(:id => add_missing(params[:tags], Tag)),
               :categories => Category.all(:id => add_missing(params[:category], Category)),
-              :title => params[:title],
-              :slug => params[:title].gsub(/<\/?[^>]*>/, "").slugify,
+              :title => params[:title].striptags,
+              :slug => params[:title].striptags.slugify,
               :body => params[:body],
               :image => params[:myfile],
               :template => params[:template],

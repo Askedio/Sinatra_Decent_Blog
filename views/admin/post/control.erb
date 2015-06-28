@@ -2,7 +2,7 @@
   <header>
     <h2><%= defined?(@post.slug) ? 'Edit' : 'Create' %> Post</h2>
   </header>
-    <form method="post" role="form" enctype="multipart/form-data">
+    <form id="form" method="post" role="form" enctype="multipart/form-data">
 
       <div class="form-group">
         <div class="input-group">
@@ -151,4 +151,25 @@
      };
    })();
   </script>
+  <script>
+
+
+  $.fn.postJson = function(success) {
+    return this.each(function() {
+      $(this).on('submit', function(){
+        $.post( $(this).data('action'),  $(this).serialize(), success, "json");
+        return false;
+      });
+    });
+  };
+
+  $('#form').postJson(function( data ) {
+    if(data.success){
+      window.location=data.success
+    }
+  });
+
+  </script>
+
+
 } %>

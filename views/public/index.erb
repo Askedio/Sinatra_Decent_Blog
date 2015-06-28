@@ -52,19 +52,19 @@
       <div class="col-sm-8" itemprop="keywords">
         <% if post.categories.length > 0%>
           <% post.categories.each do |cat| %>
-            <span class="label label-primary"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span>
+            <span class="label label-primary" title="<%= cat.title %>"><a href="/category/<%= cat.slug %>"><%= cat.title %></a></span>
           <% end %>
         <% end %>
         <% if post.tags.length > 0%>
           <% post.tags.each do |tag| %>
-            <span class="label label-info"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span>
+            <span class="label label-info" title="<%= tag.title %>"><a href="/tag/<%= tag.slug %>"><%= tag.title %></a></span>
           <% end %>
 
           <%
             tt = post.tags.first
             tt.posts.all(:slug.not => post.slug, :limit => 2, :offset => rand(tt.posts.count)).each do |cat|
           %>
-            <span class="label label-warning"><a href="/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span>
+            <span class="label label-warning" title="<%= cat.title[0,32] %>"><a href="/<%= cat.slug %>"><%= cat.title[0,32] %><%= cat.title.length > 32 ? '...' : '' %></a></span>
           <% end %>
 
         <% end %>

@@ -24,3 +24,5 @@ gem 'faraday'
 gem 'sinatra-r18n'
 
 gem 'moneta'
+
+gem 'striptags', :path => 'libs/striptags'

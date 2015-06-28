@@ -60,7 +60,7 @@ module Sinatra::SimpleRubyBlog::Routing::Public
       @posts =  [post]
       @page_title = post.title
       @page_image = post.image
-      @page_description = post.body.gsub(/<\/?[^>]*>/, "")[0..255]
+      @page_description = post.body.striptags[0..255]
       render_output('public/index', (post.template ? (:"#{post.template}") : (:'layout')))
     end
 
@@ -76,6 +76,7 @@ module Sinatra::SimpleRubyBlog::Routing::Public
     post_login = lambda do 
      redirect login(params[:user], params[:password]) ? (!params[:redirect_to].strip!.empty? ? params[:redirect_to] : '/') : '/login'
     end
+
 
     app.get '/', &get_index
     app.get '/drafts', &get_drafts

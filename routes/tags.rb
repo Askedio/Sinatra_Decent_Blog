@@ -42,7 +42,7 @@ module Sinatra::SimpleRubyBlog::Routing::TagAdmin
       cat ||= Tag.first(:slug => params[:title])|| halt(404)
       @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
       @page_title = cat.title
-      @page_description = defined?cat.description ? cat.description.gsub(/<\/?[^>]*>/, "")[0..255] : t.tag.description
+      @page_description = defined?cat.description ? cat.description.striptags[0..255] : t.tag.description
       render_output('public/index')
    end
 

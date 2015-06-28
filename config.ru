@@ -21,6 +21,7 @@ require "sinatra/namespace"
 require 'sitemap_generator'
 require 'moneta'
 require 'rack/session/moneta'
+require "sinatra/json"
 
 Bundler.require
 

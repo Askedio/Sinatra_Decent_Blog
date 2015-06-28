@@ -1,3 +1,8 @@
+PATH
+  remote: libs/striptags
+  specs:
+    striptags (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -106,6 +111,7 @@ DEPENDENCIES
   sitemap_generator
   slugify
   sqlite3-ruby
+  striptags!
   will_paginate
   will_paginate-bootstrap
 

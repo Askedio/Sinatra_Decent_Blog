@@ -41,7 +41,7 @@ module Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
       cat ||= Category.first(:slug => params[:title])|| halt(404)
       @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
       @page_title = cat.title
-      @page_description = defined?cat.description ? cat.description.gsub(/<\/?[^>]*>/, "")[0..255] : t.category.description
+      @page_description = defined?cat.description ? cat.description.striptags[0..255] : t.category.description
       @page_slug = 'category'
       render_output('public/index')
     end

@@ -4,9 +4,9 @@ module Sinatra::SimpleRubyBlog::Routing::CommentControl
       halt 404 unless params[:website].empty?
       post ||= Post.get(params[:id]) || halt(404)
 
-      comments = params[:body].gsub(/<\/?[^>]*>/, "")
-      name = params[:name].gsub(/<\/?[^>]*>/, "")
-      email = params[:email].gsub(/<\/?[^>]*>/, "")
+      comments = params[:body].striptags
+      name = params[:name].striptags
+      email = params[:email].striptags
 
       post.comments.new(:body => comments, :name => name, :email => email)
       if !post.save
