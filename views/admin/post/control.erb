@@ -152,24 +152,12 @@
    })();
   </script>
   <script>
-
-
-  $.fn.postJson = function(success) {
-    return this.each(function() {
-      $(this).on('submit', function(){
-        $.post( $(this).data('action'),  $(this).serialize(), success, "json");
-        return false;
-      });
+    $('#form').postJson(function( data ) {
+      if(data.success){
+        window.location=data.success
+      }else if(data.failed){
+        alert('Sorry, something was wrong: ' + data.failed);
+      } else alert('Sorry, something went very wrong: ' + data);
     });
-  };
-
-  $('#form').postJson(function( data ) {
-    if(data.success){
-      window.location=data.success
-    }
-  });
-
   </script>
-
-
 } %>

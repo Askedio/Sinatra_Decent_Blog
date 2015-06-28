@@ -2,7 +2,7 @@ module Sinatra::SimpleRubyBlog::Routing::TagAdmin
   def self.registered(app)
 
     get_create = lambda do 
-      render_output('admin/manage/control', 'layouts/control')
+      render_output('admin/manage/control', 'layouts/control', t.tag.titles.default, t.tag.description)
     end
 
     post_create = lambda do 
@@ -19,7 +19,7 @@ module Sinatra::SimpleRubyBlog::Routing::TagAdmin
 
     get_edit = lambda do 
       @person ||= Tag.first(:id => params[:id]) || halt(404)
-      render_output('admin/manage/control', 'layouts/control')
+      render_output('admin/manage/control', 'layouts/control', t.tag.titles.default, t.tag.description)
     end
 
     post_edit = lambda do 
@@ -41,17 +41,13 @@ module Sinatra::SimpleRubyBlog::Routing::TagAdmin
     get_tag = lambda do 
       cat ||= Tag.first(:slug => params[:title])|| halt(404)
       @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
-      @page_title = cat.title
-      @page_description = defined?cat.description ? cat.description.striptags[0..255] : t.tag.description
-      render_output('public/index')
+      render_output('public/index', nil, cat.title, (defined?cat.description ? cat.description.striptags[0..255] : t.tag.description))
    end
 
     get_index = lambda do 
       @posts = Tag.paginate(:page => params[:page])
-      @page_title = t.tag.titles.default
-      @page_description = t.tag.description
       @page_slug = 'tag'
-      render_output('public/list')
+      render_output('public/list', nil, t.tag.titles.default, t.tag.description)
     end
 
     app.namespace '/admin/tag' do

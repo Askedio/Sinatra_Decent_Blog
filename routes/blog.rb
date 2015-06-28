@@ -85,12 +85,14 @@ module Sinatra::SimpleRubyBlog::Routing::BlogAdmin
               :template => params[:template],
               :featured => featured(params[:featured], post),
               :position => params[:position])
-      flash[:success] = true
-      else
+        flash[:success] = true
+         json :success => "/#{post.slug}"
+     else
         do_error post.errors
+        json :failed => new_post.errors
       end
 
-      redirect "/#{params[:id]}" 
+      #redirect "/#{params[:id]}" 
     end
 
     get_edit = lambda do 

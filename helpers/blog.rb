@@ -1,5 +1,14 @@
 module Sinatra::SimpleRubyBlog::Helpers
-  def render_output tpl, lay='layout'
+  def render_output tpl, lay = nil, title = nil, description = nil
+    if lay.nil?
+      lay = 'layout'
+    end
+    unless title.nil?
+      @page_title = title
+    end
+    unless description.nil?
+      @page_description = description
+    end
     erb :"#{tpl}", :layout => :"#{lay}"   
   end
 

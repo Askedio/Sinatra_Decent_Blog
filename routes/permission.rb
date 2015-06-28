@@ -40,11 +40,9 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
     end
 
     get_index = lambda do 
-      @page_title = t.permissions.titles.default
-      @page_description = t.permissions.description
       @page_slug = 'perms'
       @posts = Permission.paginate(:page => params[:page])
-      render_output('admin/profile/permissions/list')
+      render_output('admin/profile/permissions/list', nil, t.permissions.titles.default, t.permissions.description)
     end
 
     app.namespace '/perms' do

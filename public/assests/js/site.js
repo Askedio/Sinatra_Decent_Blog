@@ -17,3 +17,11 @@ $(document).ready(function() {
     
 	$('[data-toggle="tooltip"]').tooltip();
 });
+$.fn.postJson = function(success) {
+  return this.each(function() {
+	$(this).on('submit', function(){
+	  $.post( $(this).data('action'),  $(this).serialize(), success, "json");
+	  return false;
+	});
+  });
+};

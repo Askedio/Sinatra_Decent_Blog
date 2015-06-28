@@ -40,24 +40,20 @@ module Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
     get_category = lambda do 
       cat ||= Category.first(:slug => params[:title])|| halt(404)
       @posts =  cat.posts.paginate(:page => params[:page], :order => [ :updated_at.desc ])
-      @page_title = cat.title
-      @page_description = defined?cat.description ? cat.description.striptags[0..255] : t.category.description
       @page_slug = 'category'
-      render_output('public/index')
+      render_output('public/index', nil, cat.title, (defined?cat.description ? cat.description.striptags[0..255] : t.category.description))
     end
 
     get_index = lambda do 
       @posts = Category.paginate(:page => params[:page])
-      @page_title = t.category.titles.categories
-      @page_description = t.category.description
       @page_slug = 'category'
-      render_output('public/list')
+      render_output('public/list', nil, t.category.titles.default, t.category.description)
     end
 
     app.namespace '/admin/category' do
       before  { 
         auth? 
-        @page_title = t.category.titles.category
+        @page_title = t.category.titles.default
         @page_description = t.category.description
         @page_slug = 'category'
       }
