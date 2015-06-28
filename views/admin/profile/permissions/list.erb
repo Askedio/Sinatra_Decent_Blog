@@ -1,5 +1,5 @@
 <article>
-  <% if @posts.length == 0 %>
+  <% if @data.length == 0 %>
     <header><h2>No results found :(</h2></header>
   <% else %>
     <header><h2><%= @page_title %></h2></header>
@@ -13,7 +13,7 @@
        </tr>
     </thead>
      <tbody>
-    <% @posts.each do |post| %>
+    <% @data.each do |post| %>
       <tr>
         <td><a href="/<%= @page_slug %>/edit/<%= post.id %>"><%= post.title %></a></td>
         <% if authorized? %>
@@ -27,5 +27,5 @@
     </tbody>
     </table>
   <% end %>
-  <%= will_paginate @posts, renderer: BootstrapPagination::Sinatra %>
+  <%= will_paginate @data, renderer: BootstrapPagination::Sinatra %>
 </article>

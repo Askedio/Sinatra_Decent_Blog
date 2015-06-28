@@ -1,23 +1,23 @@
 <article>
   <header>
-    <h2><%= defined?(@person.title) ? 'Edit' : 'Create' %> <%= @page_title %></h2>
+    <h2><%= defined?(@data.title) ? 'Edit' : 'Create' %> <%= @page_title %></h2>
   </header>
   <form method="post" role="form" enctype="multipart/form-data">
     <div class="form-group">
       <label for="title">Name:</label>
-      <input name="title" type="text" class="form-control" id="title" required value="<%= defined?(@person.title)? @person.title : '' %>">
+      <input name="title" type="text" class="form-control" id="title" required value="<%= defined?(@data.title)? @data.title : '' %>">
     </div>
       <div class="form-group">
         <label for="roles">Roles</label>
         <select id="roles" multiple name="roles[]" class="form-control">
            <% Role.all.each do |role| %>
-            <option value="<%= role.id %>" <%= defined?(@person.title) && @person.roles.include?(role) ? 'selected' : '' %>><%= role.title %></option>
+            <option value="<%= role.id %>" <%= defined?(@data.title) && @data.roles.include?(role) ? 'selected' : '' %>><%= role.title %></option>
           <% end %>
        </select>
       </div>
     <div class="form-group">
       <label for="body">Description</label>
-      <textarea name="description" class="form-control" rows="10" id="body"><%= defined?(@person.description)? @person.description : ''  %></textarea>
+      <textarea name="description" class="form-control" rows="10" id="body"><%= defined?(@data.description)? @data.description : ''  %></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

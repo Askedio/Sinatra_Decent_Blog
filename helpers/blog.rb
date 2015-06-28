@@ -1,4 +1,49 @@
 module Sinatra::SimpleRubyBlog::Helpers
+
+
+  def do_error data
+    error = nil
+    data.each do |e|
+     error = "#{error}  #{e}"
+    end
+    flash[:error] = error
+  end
+
+  def do_delete(model, dest)
+    if model.first(:id => params[:id]).destroy
+      flash[:success] = true
+     else
+      flash[:error] = error
+    end
+    redirect dest
+  end
+
+  def do_edit model, slug, d
+    halt(404) unless model 
+    help_redirect(model, model.update(d), slug)
+    redirect "/#{slug}/edit/#{params[:id]}"
+  end
+
+  def do_create model, slug, d
+    saved = model.create(d)
+    help_redirect(model, saved, slug)
+    redirect "/#{slug}/edit/#{saved.id}"
+  end
+
+  def help_redirect model, check, slug
+    if check
+      flash[:success] = true
+    else
+      do_error model.errors
+    end
+  end
+
+  def do_output model, tpl, lay = nil, title = nil, description = nil
+    halt(404) unless model 
+    @data = model
+    render_output(tpl, lay, title, description)
+  end
+    
   def render_output tpl, lay = nil, title = nil, description = nil
     if lay.nil?
       lay = 'layout'
@@ -35,14 +80,6 @@ module Sinatra::SimpleRubyBlog::Helpers
       end
     end
     array
-  end
-
-  def do_error data
-    error = nil
-    data.each do |e|
-     error = "#{error}  #{e}"
-    end
-    flash[:error] = error
   end
 
   def auth?
