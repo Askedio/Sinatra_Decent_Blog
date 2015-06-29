@@ -6,14 +6,6 @@ module Sinatra::SimpleRubyBlog::Routing::RoleAdmin
       @page_description = t.roles.description
       nil
     end
-
-    def role_data
-      {
-        :title => params[:title],
-        :description => params[:description]
-      }
-    end
-
   end
 
   def self.registered(app)
@@ -43,11 +35,11 @@ module Sinatra::SimpleRubyBlog::Routing::RoleAdmin
     end
 
     post_create = lambda do 
-      do_create(model, slug, role_data)
+      do_create(model, slug, default_data)
     end
 
     post_edit = lambda do 
-      do_edit(model.first(default_item), slug, role_data)
+      do_edit(model.first(default_item), slug, default_data)
     end
 
     app.namespace "/#{slug}"  do

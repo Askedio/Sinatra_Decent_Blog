@@ -1,4 +1,24 @@
 module Sinatra::SimpleRubyBlog::Helpers
+
+  def default_data
+    {
+      :title => params[:title],
+      :description => params[:description]
+    }
+  end
+
+  def default_item
+    {
+     :id => params[:id]
+    }
+  end
+
+  def default_index
+   {
+     :page => params[:page]
+   }
+  end
+
   def do_error data
     error = nil
     data.each do |e|
@@ -52,6 +72,10 @@ module Sinatra::SimpleRubyBlog::Helpers
     unless description.nil?
       @page_description = description
     end
+    show_template(tpl, lay)
+  end
+
+  def show_template tpl, lay
     erb :"#{tpl}", :layout => :"#{lay}"   
   end
 
