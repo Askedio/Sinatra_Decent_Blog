@@ -1,6 +1,4 @@
 module Sinatra::SimpleRubyBlog::Helpers
-
-
   def do_error data
     error = nil
     data.each do |e|
@@ -20,17 +18,17 @@ module Sinatra::SimpleRubyBlog::Helpers
 
   def do_edit model, slug, d
     halt(404) unless model 
-    help_redirect(model, model.update(d), slug)
+    help_redirect(model, model.update(d))
     redirect "/#{slug}/edit/#{params[:id]}"
   end
 
   def do_create model, slug, d
     saved = model.create(d)
-    help_redirect(model, saved, slug)
+    help_redirect(model, saved)
     redirect "/#{slug}/edit/#{saved.id}"
   end
 
-  def help_redirect model, check, slug
+  def help_redirect model, check
     if check
       flash[:success] = true
     else

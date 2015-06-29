@@ -1,42 +1,41 @@
 module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
   module Helpers
-   def conf
-    @page_title = t.permissions.titles.default
-    @page_description = t.permissions.description
-    @page_slug = 'perms'
-    nil
-   end
+    def conf
+      @page_title = t.permissions.titles.default
+      @page_description = t.permissions.description
+      @page_slug = 'perms'
+      nil
+    end
 
-   def default_data
-    {
-      :title => params[:title],
-      :description => params[:description],
-      :roles => Role.all(:id => add_missing(params[:roles], Role))
-    }
-   end
+    def default_data
+      {
+        :title => params[:title],
+        :description => params[:description],
+        :roles => Role.all(:id => add_missing(params[:roles], Role))
+      }
+    end
 
-   def default_item
-     {
+    def default_item
+      {
        :id => params[:id]
-     }
-   end
+      }
+    end
 
-   def default_index
+    def default_index
      {
        :page => params[:page]
      }
-   end
+    end
   end
 
   def self.registered(app)
     app.helpers Helpers
 
-    model = Permission
-    slug =  'perms'
+    model   = Permission
+    slug    = 'perms'
     control = 'admin/profile/permissions/control'
-    list = 'admin/profile/permissions/list'
-    layout = 'layouts/control'
-
+    list    = 'admin/profile/permissions/list'
+    layout  = 'layouts/control'
 
     get_index = lambda do 
       do_output(model.paginate(default_index), list)
