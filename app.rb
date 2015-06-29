@@ -26,6 +26,8 @@ class SimpleRubyBlog < Sinatra::Base
 
   register Sinatra::SimpleRubyBlog::Routing::CategoryAdmin
 
+  register Sinatra::SimpleRubyBlog::Routing::RoleAdmin
+
   register Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
 
   register Sinatra::SimpleRubyBlog::Routing::Profile

@@ -1,21 +1,21 @@
 <article>
   <header>
-    <h2><%= defined?(@person.title) ? 'Edit' : 'Create' %> <%= @page_title %></h2>
+    <h2><%= defined?(@data.title) ? 'Edit' : 'Create' %> <%= @page_title %></h2>
   </header>
   <form method="post" role="form" enctype="multipart/form-data">
     <div class="form-group">
       <label for="title">Name:</label>
-      <input name="title" type="text" class="form-control" id="title" required value="<%= defined?(@person.title)? @person.title : '' %>">
+      <input name="title" type="text" class="form-control" id="title" required value="<%= defined?(@data.title)? @data.title : '' %>">
     </div>
-    <% if defined?(@person.slug) %>
+    <% if defined?(@data.slug) %>
       <div class="form-group">
         <label for="slug">Slug:</label>
-        <input name="slug" type="text" class="form-control" id="slug" required value="<%= defined?(@person.slug)? @person.slug : '' %>">
+        <input name="slug" type="text" class="form-control" id="slug" required value="<%= defined?(@data.slug)? @data.slug : '' %>">
       </div>
     <% end %>
     <div class="form-group">
-      <label for="body">Description</label>
-      <textarea name="description" class="form-control" rows="10" id="body"><%= defined?(@person.description)? @person.description : ''  %></textarea>
+      <label for="bodyi">Description</label>
+      <textarea name="description" class="form-control" rows="10" id="bodyi"><%= defined?(@data.description)? @data.description : ''  %></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

@@ -40,6 +40,10 @@ permissions:
   titles:
     default: Permissions
   description: We have permissions!
+roles:
+  titles:
+    default: Roles
+  description: We have roles!
 login:
   errors:
     failed: Unable to login.
