@@ -56,12 +56,7 @@
         <li class="dropdown" title="Settings" data-toggle="tooltip" data-placement="bottom">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><em class="fa fa-cog"></em> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-              <li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create User</a></li>
-              <li><a href="/admin/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
-              <li><a href="/admin/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
-              <li><a href="/categories"><em class="fa fa-list"></em> Categories</a></li>
-              <li><a href="/tags"><em class="fa fa-list"></em> Tags</a></li>
-              <li><a href="/logout"><em class="fa fa-sign-out"></em> Logout</a></li>
+            <%= erb :'admin/menu' %>
           </ul>
         </li>
       <% end %>

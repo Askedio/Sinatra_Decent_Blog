@@ -16,13 +16,13 @@
        </select>
       </div>
     <div class="form-group">
-      <label for="body">Description</label>
-      <textarea name="description" class="form-control" rows="10" id="body"><%= defined?(@data.description)? @data.description : ''  %></textarea>
+      <label for="bodyi">Description</label>
+      <textarea name="description" class="form-control" rows="10" id="bodyi"><%= defined?(@data.description)? @data.description : ''  %></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </article>
-<%= erb :'admin/tinymce' %>
+<%= erb :'admin/wysiwyg' %>
 <% @footer = %Q{
   <link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>

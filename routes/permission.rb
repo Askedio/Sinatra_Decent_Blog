@@ -1,9 +1,9 @@
 module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
   module Helpers
     def conf
+      # MODULE SETTINGS
       @page_title = t.permissions.titles.default
       @page_description = t.permissions.description
-      @page_slug = 'perms'
       nil
     end
 
@@ -31,8 +31,9 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
   def self.registered(app)
     app.helpers Helpers
 
+    # MODULE SETTINGS
     model   = Permission
-    slug    = 'perms'
+    slug    = 'admin/permissions'
     control = 'admin/profile/permissions/control'
     list    = 'admin/profile/permissions/list'
     layout  = 'layouts/control'
@@ -65,6 +66,7 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
       before  { 
         auth? 
         conf
+        @page_slug = slug
       }
 
       get  &get_index

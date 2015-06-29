@@ -1,0 +1,15 @@
+  <script src="/js/plugins/ckeditor/ckeditor.js"></script>
+  <script>
+    CKEDITOR.plugins.addExternal('imageupload', '/js/plugins/ckeditor/plugins/imageupload/', 'plugin.js');
+    var editor = CKEDITOR.replace('bodyi', {
+      extraPlugins: 'imageupload,codesnippet,sourcedialog',
+      toolbar: [
+        { name: 'links', items: [ 'Link', 'Unlink' ] },
+        { name: 'others', items: [ 'Imageupload', 'CodeSnippet', 'SourceDialog' ] },
+        { name: 'styles', items: [ 'Format' ] },
+        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'HorizontalRule' ] },
+        { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+        { name: 'insert', items: [ 'Image', 'Flash', 'Table' ] },
+      ]
+    });
+  </script>
