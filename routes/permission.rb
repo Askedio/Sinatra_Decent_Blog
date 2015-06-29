@@ -1,54 +1,79 @@
 module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
-  def self.registered(app)
-    slug =  'perms'
+  module Helpers
+   def conf
+    @page_title = t.permissions.titles.default
+    @page_description = t.permissions.description
+    @page_slug = 'perms'
+    nil
+   end
 
-    get_create = lambda do 
-      render_output('admin/profile/permissions/control', 'layouts/control')
+   def default_data
+    {
+      :title => params[:title],
+      :description => params[:description],
+      :roles => Role.all(:id => add_missing(params[:roles], Role))
+    }
+   end
+
+   def default_item
+     {
+       :id => params[:id]
+     }
+   end
+
+   def default_index
+     {
+       :page => params[:page]
+     }
+   end
+  end
+
+  def self.registered(app)
+    app.helpers Helpers
+
+    model = Permission
+    slug =  'perms'
+    control = 'admin/profile/permissions/control'
+    list = 'admin/profile/permissions/list'
+    layout = 'layouts/control'
+
+
+    get_index = lambda do 
+      do_output(model.paginate(default_index), list)
     end
 
-    post_create = lambda do 
-      do_create(Permission, slug,
-              :title => params[:title],
-              :description => params[:description],
-              :roles => Role.all(:id => add_missing(params[:roles], Role)))
+    get_create = lambda do 
+      render_output(control, layout)
     end
 
     get_edit = lambda do 
-      do_output(Permission.first(:id => params[:id]), 'admin/profile/permissions/control', 'layouts/control')
-    end
-
-    post_edit = lambda do 
-      do_edit(Permission.first(:id => params[:id]), slug, 
-                :title => params[:title],
-                :description => params[:description],
-                :roles => Role.all(:id => add_missing(params[:roles], Role)))
+      do_output(model.first(default_item), control, layout)
     end
 
     get_delete = lambda do 
-      do_delete(Permission, '/perms')
+      do_delete(model, "/#{slug}")
     end
 
-    get_index = lambda do 
-      do_output(Permission.paginate(:page => params[:page]), 'admin/profile/permissions/list')
+    post_create = lambda do 
+      do_create(model, slug, default_data)
     end
 
-    app.namespace '/perms' do
+    post_edit = lambda do 
+      do_edit(model.first(default_item), slug, default_data)
+    end
+
+    app.namespace "/#{slug}"  do
       before  { 
         auth? 
-        @page_title = t.permissions.titles.default
-        @page_description = t.permissions.description
-        @page_slug = slug
+        conf
       }
 
-      get  '/create', &get_create
-      post '/create', &post_create
-
-      get  '/edit/:id', &get_edit
-      post '/edit/:id', &post_edit
-
-      get  '/delete/:id', &get_delete
-
       get  &get_index
+      get  '/create', &get_create
+      get  '/edit/:id', &get_edit
+      get  '/delete/:id', &get_delete
+      post '/create', &post_create
+      post '/edit/:id', &post_edit
     end
   end
 end
