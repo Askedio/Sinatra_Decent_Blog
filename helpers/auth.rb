@@ -1,4 +1,13 @@
 module Sinatra::SimpleRubyBlog::Helpers::Auth
+  def can role
+    role_error unless session[:user].can(role)
+  end
+
+  def role_error
+      flash[:error] = t.errors.invalid_permission
+      redirect '/'
+  end
+
   def auth?
     if authorized? 
      return true
@@ -14,6 +23,7 @@ module Sinatra::SimpleRubyBlog::Helpers::Auth
       user = Person.first(:name => name, :password => pass)
       if user
         session[:username] = user.name
+        session[:user] = user
         return true
      end
     end

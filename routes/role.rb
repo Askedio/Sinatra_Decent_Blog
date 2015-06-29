@@ -1,17 +1,22 @@
 module Sinatra::SimpleRubyBlog::Routing::RoleAdmin
   module Helpers
-    def role_conf
+    def roles_conf
       # MODULE SETTINGS
       @page_title = t.roles.titles.default
       @page_description = t.roles.description
       nil
     end
+
     def roles_data
       {
         :title => params[:title],
         :description => params[:description],
         :permissions => Permission.all(:id => add_missing(params[:permissions], Permission))
       }
+    end
+
+    def roles_auth
+      #can('roles')
     end
   end
 
@@ -52,7 +57,8 @@ module Sinatra::SimpleRubyBlog::Routing::RoleAdmin
     app.namespace "/#{slug}"  do
       before  { 
         auth? 
-        role_conf
+        roles_conf
+        roles_auth
         @page_slug = slug
       }
 

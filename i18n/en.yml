@@ -47,3 +47,5 @@ roles:
 login:
   errors:
     failed: Unable to login.
+errors:
+  invalid_permission: Sorry, you do not have permissions to access that page.
