@@ -16,7 +16,7 @@ module Sinatra::SimpleRubyBlog::Routing::RoleAdmin
     end
 
     def roles_auth
-      #can('roles')
+      can('roles')
     end
   end
 

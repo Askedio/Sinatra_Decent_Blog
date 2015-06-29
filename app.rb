@@ -49,4 +49,8 @@ class SimpleRubyBlog < Sinatra::Base
 
   not_found{ render_output('not_found') }
 
+  before '/*' do 
+    set_user
+  end
+
 end

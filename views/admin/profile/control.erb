@@ -21,14 +21,18 @@
       <label for="password">Password:</label>
       <input name="password" id="password"  class="form-control" type="password" value="<%= defined?(@person.password)? @person.password : ''  %>">
     </div>
-    <div class="form-group">
-     <label for="permissions">Roles:</label>
-     <select id="permissions" multiple name="roles[]" class="form-control">
-         <% Role.all.each do |role| %>
-          <option value="<%= role.id %>" <%= defined?(@person.id) && @person.roles.include?(role) ? 'selected' : '' %>><%= role.title %></option>
-        <% end %>
-     </select>
-    </div>
+
+    <% if can_do('roles') %>
+      <div class="form-group">
+       <label for="roles">Roles:</label>
+       <select id="roles" multiple name="roles[]" class="form-control">
+           <% Role.all.each do |role| %>
+            <option value="<%= role.id %>" <%= defined?(@person.id) && @person.roles.include?(role) ? 'selected' : '' %>><%= role.title %></option>
+          <% end %>
+       </select>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <label for="title">Job Title:</label>
       <input name="title" id="title"  class="form-control" type="text" value="<%= defined?(@person.title)? @person.title : ''  %>">
@@ -50,7 +54,7 @@
     <link rel="stylesheet" property="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <script>
-      $("#permissions").select2({
+      $("#roles").select2({
         tags: true, placeholder :'Roles', width: '100%'
       });
     </script>

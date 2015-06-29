@@ -1,6 +1,9 @@
 if Permission.count == 0
   Permission.create(:title => 'roles')
   Permission.create(:title => 'permissions')
+  Permission.create(:title => 'tags')
+  Permission.create(:title => 'authors')
+  Permission.create(:title => 'categories')
 end
 
 if Role.count == 0

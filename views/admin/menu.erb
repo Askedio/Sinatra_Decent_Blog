@@ -1,23 +1,31 @@
-<li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create Author</a></li>
-<li><a href="/authors"><em class="fa fa-list"></em> Authors</a></li>
-<li class="divider"></li>
+<% if can_do('authors') %>
+  <li><a href="/profile/create"><em class="fa fa-user-plus"></em> Create Author</a></li>
+  <li><a href="/authors"><em class="fa fa-list"></em> Authors</a></li>
+  <li class="divider"></li>
+<% end %>
 
-<li><a href="/admin/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
-<li><a href="/categories"><em class="fa fa-list"></em> Categories</a></li>
+<% if can_do('categories') %>
+  <li><a href="/admin/category/create"><em class="fa fa-plus"></em> Create Category</a></li>
+  <li><a href="/categories"><em class="fa fa-list"></em> Categories</a></li>
+<% end %>
 
-<li class="divider"></li>
-<li><a href="/admin/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
-<li><a href="/tags"><em class="fa fa-list"></em> Tags</a></li>
+<% if can_do('tags') %>
+  <li class="divider"></li>
+  <li><a href="/admin/tag/create"><em class="fa fa-plus"></em> Create Tag</a></li>
+  <li><a href="/tags"><em class="fa fa-list"></em> Tags</a></li>
+<% end %>
 
-<li class="divider"></li>
-<li><a href="/admin/roles/create"><em class="fa fa-plus"></em> Create Roles</a></li>
-<li><a href="/admin/roles"><em class="fa fa-list"></em> Roles</a></li>
+<% if can_do('roles') %>
+  <li class="divider"></li>
+  <li><a href="/admin/roles/create"><em class="fa fa-plus"></em> Create Roles</a></li>
+  <li><a href="/admin/roles"><em class="fa fa-list"></em> Roles</a></li>
+<% end %>
 
-<li class="divider"></li>
-<li><a href="/admin/permissions/create"><em class="fa fa-plus"></em> Create Permissions</a></li>
-<li><a href="/admin/permissions"><em class="fa fa-list"></em> Permissions</a></li>
-
-
+<% if can_do('permissions') %>
+  <li class="divider"></li>
+  <li><a href="/admin/permissions/create"><em class="fa fa-plus"></em> Create Permissions</a></li>
+  <li><a href="/admin/permissions"><em class="fa fa-list"></em> Permissions</a></li>
+<% end %>
 
 <li class="divider"></li>
 <li><a href="/logout"><em class="fa fa-sign-out"></em> Logout</a></li>

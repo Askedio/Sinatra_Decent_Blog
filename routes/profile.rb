@@ -1,14 +1,15 @@
 module Sinatra::SimpleRubyBlog::Routing::Profile
   def self.registered(app)
     get_create = lambda do 
+      can('authors')
       render_output('admin/profile/control','layouts/control')
     end
 
     post_create = lambda do 
-      roles ||= Role.all(:id => params[:roles]) || halt(404)
+      can('authors')
       person = Person.new(:name => params[:name],
                   :slug => params[:name].slugify,
-                  :roles => roles,
+                  :roles => Role.all(:id => params[:roles]),
                   :title => params[:title],
                   :email => params[:email],
                   :avatar => params[:avatar],
@@ -23,6 +24,16 @@ module Sinatra::SimpleRubyBlog::Routing::Profile
       end
     end
 
+
+
+    get_delete = lambda do 
+      can('authors')
+      person ||= Person.first(:name => params[:id]) || halt(404)
+      halt 500 unless person.destroy
+      redirect '/authors'
+    end
+
+    # Next 2 functions are for the actual user so no permission checks, just in post when we want to assign a role.
     get_profile = lambda do 
       @persons = Person.all
       @person ||= Person.first(:name => params[:id]) || halt(404)
@@ -31,10 +42,9 @@ module Sinatra::SimpleRubyBlog::Routing::Profile
 
     post_profile = lambda do 
       person ||= Person.first(:name => params[:id]) || halt(404)
-      roles ||= Role.all(:id => params[:roles]) || halt(404)
       if person.update(:name => params[:name],
-                  :roles => roles,
                   :slug => params[:slug].slugify,
+                  :roles => (can_do('roles') ? Role.all(:id => params[:roles]) : person.roles.all),
                   :title => params[:title],
                   :email => params[:email],
                   :avatar => params[:avatar],
@@ -45,12 +55,6 @@ module Sinatra::SimpleRubyBlog::Routing::Profile
         do_error person.errors
       end
         redirect "/profile/#{params[:id]}"
-    end
-
-    get_delete = lambda do 
-      person ||= Person.first(:name => params[:id]) || halt(404)
-      halt 500 unless person.destroy
-      redirect '/authors'
     end
 
     app.namespace '/profile' do

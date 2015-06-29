@@ -6,6 +6,9 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
       @page_description = t.permissions.description
       nil
     end
+    def perms_auth
+      can('permissions')
+    end
   end
 
   def self.registered(app)
@@ -46,6 +49,7 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
       before  { 
         auth? 
         perms_conf
+        perms_auth
         @page_slug = slug
       }
 

@@ -1,9 +1,17 @@
 module Sinatra::SimpleRubyBlog::Helpers::Auth
-  def can role
-    role_error unless session[:user].can(role)
+  def set_user
+    session[:user] = Person.first(session[:user]) unless !session[:user]
   end
 
-  def role_error
+  def can perm
+    permission_error unless session[:user].can(perm)
+  end
+
+  def can_do perm
+    session[:user].can(perm)
+  end
+
+  def permission_error
       flash[:error] = t.errors.invalid_permission
       redirect '/'
   end
