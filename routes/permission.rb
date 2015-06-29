@@ -6,15 +6,6 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
       @page_description = t.permissions.description
       nil
     end
-
-    def perms_data
-      {
-        :title => params[:title],
-        :description => params[:description],
-        :roles => Role.all(:id => add_missing(params[:roles], Role))
-      }
-    end
-
   end
 
   def self.registered(app)
@@ -23,7 +14,7 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
     # MODULE SETTINGS
     model   = Permission
     slug    = 'admin/permissions'
-    control = 'admin/profile/permissions/control'
+    control = 'admin/manage/control'
     list    = 'admin/manage/list'
     layout  = 'layouts/control'
 
@@ -44,11 +35,11 @@ module Sinatra::SimpleRubyBlog::Routing::PermissionAdmin
     end
 
     post_create = lambda do 
-      do_create(model, slug, perms_data)
+      do_create(model, slug, default_data)
     end
 
     post_edit = lambda do 
-      do_edit(model.first(default_item), slug, perms_data)
+      do_edit(model.first(default_item), slug, default_data)
     end
 
     app.namespace "/#{slug}"  do

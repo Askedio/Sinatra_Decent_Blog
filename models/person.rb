@@ -13,5 +13,4 @@ class Person
 
   has n, :posts
   has 1.0/0, :roles, :through => Resource
-  has 1.0/0, :permissions, :through => Resource
 end

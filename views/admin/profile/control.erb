@@ -22,10 +22,10 @@
       <input name="password" id="password"  class="form-control" type="password" value="<%= defined?(@person.password)? @person.password : ''  %>">
     </div>
     <div class="form-group">
-     <label for="permissions">Permissions:</label>
-     <select id="permissions" multiple name="permissions[]" class="form-control">
-         <% Permission.all.each do |perm| %>
-          <option value="<%= perm.id %>" <%= defined?(@person.id) && @person.permissions.include?(perm) ? 'selected' : '' %>><%= perm.title %></option>
+     <label for="permissions">Roles:</label>
+     <select id="permissions" multiple name="roles[]" class="form-control">
+         <% Role.all.each do |role| %>
+          <option value="<%= role.id %>" <%= defined?(@person.id) && @person.roles.include?(role) ? 'selected' : '' %>><%= role.title %></option>
         <% end %>
      </select>
     </div>
@@ -51,7 +51,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <script>
       $("#permissions").select2({
-        tags: true, placeholder :'Permissions', width: '100%'
+        tags: true, placeholder :'Roles', width: '100%'
       });
     </script>
 } %>

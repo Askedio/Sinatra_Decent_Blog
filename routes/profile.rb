@@ -5,10 +5,10 @@ module Sinatra::SimpleRubyBlog::Routing::Profile
     end
 
     post_create = lambda do 
-      perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+      roles ||= Role.all(:id => params[:roles]) || halt(404)
       person = Person.new(:name => params[:name],
                   :slug => params[:name].slugify,
-                  :permissions => perms,
+                  :roles => roles,
                   :title => params[:title],
                   :email => params[:email],
                   :avatar => params[:avatar],
@@ -31,9 +31,9 @@ module Sinatra::SimpleRubyBlog::Routing::Profile
 
     post_profile = lambda do 
       person ||= Person.first(:name => params[:id]) || halt(404)
-      perms ||= Permission.all(:id => params[:permissions]) || halt(404)
+      roles ||= Role.all(:id => params[:roles]) || halt(404)
       if person.update(:name => params[:name],
-                  :permissions => perms,
+                  :roles => roles,
                   :slug => params[:slug].slugify,
                   :title => params[:title],
                   :email => params[:email],
