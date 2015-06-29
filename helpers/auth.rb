@@ -1,29 +1,4 @@
-module Sinatra::SimpleRubyBlog::Helpers
-  def featured param, post
-    if (param.nil? && !post.featured.nil?)
-      post.featured.destroy
-      nil
-    elsif !param.nil?
-      Featured.new
-    end
-  end
-
-  def is_number?(object)
-    true if Float(object) rescue false
-  end
-
-  def add_missing array, model
-    if !array.nil?
-      array.each do |r|
-        if !is_number?(r)
-          array <<  model.create(:title => r).id
-          array.delete r
-        end
-      end
-    end
-    array
-  end
-
+module Sinatra::SimpleRubyBlog::Helpers::Auth
   def auth?
     if authorized? 
      return true

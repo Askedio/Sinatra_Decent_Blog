@@ -9,6 +9,8 @@ class SimpleRubyBlog < Sinatra::Base
   set :root, File.dirname(__FILE__)
 
   helpers Sinatra::SimpleRubyBlog::Helpers
+  helpers Sinatra::SimpleRubyBlog::Helpers::Routes
+  helpers Sinatra::SimpleRubyBlog::Helpers::Auth
   
   register Sinatra::Flash
 
