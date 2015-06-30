@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= erb :head %>
+    <%= erb :style %>
+  </head>
+  <body>
+    <%= erb :'flash/error' %>
+    <%= erb :'flash/success' %>
+    <%= yield %>
+
+    <%= erb :foot %>
+    <%= @footer ? @footer : '' %>
+  </body>
+</html>
